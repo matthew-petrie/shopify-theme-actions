@@ -1,0 +1,8 @@
+.env
+npm-debug.log*
+coverage
+.coverage
+*.lcov
+node_modules
+.DS_Store
+*.tsbuildinfo
