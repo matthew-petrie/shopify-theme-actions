@@ -13,7 +13,6 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
-    "tsdoc/syntax": "warn",
-    "@typescript-eslint/rule-name": "error",
+    "tsdoc/syntax": "warn"
   },
 };
