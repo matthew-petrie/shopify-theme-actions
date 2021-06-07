@@ -1,5 +1,5 @@
 name: pull-request
-on: [pull_request]
+on: [pull_request, push]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -52,6 +52,7 @@ jobs:
       with:
         default_author: github_actions
   build:
+    needs: [test, format, lint]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
