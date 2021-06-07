@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test_coverage": "jest --coverage",
+    "test_coverage_ci": "jest --coverage --json --outputFile jest.results.json",
     "lint": "eslint . --fix",
     "build": "tsc",
     "format": "prettier . --write --config ./.prettierrc",

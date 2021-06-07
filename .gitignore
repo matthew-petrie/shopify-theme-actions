@@ -8,6 +8,7 @@ node_modules
 *.tsbuildinfo
 docs
 test-reports
+jest.results.json
 
 # Shopify theme folders (may be created when tests run)
 assets
