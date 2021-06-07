@@ -8,6 +8,7 @@
     "test_coverage": "jest --coverage",
     "lint": "eslint . --fix",
     "build": "tsc",
+    "format": "prettier . --write --config ./.prettierrc",
     "docs": "typedoc --out docs src"
   },
   "repository": {
