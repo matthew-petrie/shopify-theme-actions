@@ -33,25 +33,21 @@
     "@types/jest": "^26.0.23",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
+    "del": "^6.0.0",
     "eslint": "^7.28.0",
     "eslint-plugin-tsdoc": "^0.2.14",
     "jest": "^27.0.4",
     "jest-junit": "^12.1.0",
     "prettier": "^2.3.1",
     "ts-jest": "^27.0.2",
-    "typedoc": "^0.20.36",
+    "typedoc": "^0.21.0-beta.2",
     "typescript": "^4.3.2"
   },
-  "jest": {
-    "coverageDirectory": "<rootDir>/coverage/",
-    "reporters": [
-      "default",
-      "jest-junit"
-    ]
-  },
-  "jest-junit": {
-    "suiteName": "Jest Tests",
-    "outputDirectory": "./tests/test-reports",
-    "ancestorSeparator": " > "
+  "dependencies": {
+    "@actions/core": "^1.3.0",
+    "@actions/github": "^5.0.0",
+    "@shopify/themekit": "^1.1.8",
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0"
   }
 }

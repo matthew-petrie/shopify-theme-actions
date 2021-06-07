@@ -6,3 +6,13 @@ coverage
 node_modules
 .DS_Store
 *.tsbuildinfo
+docs
+test-reports
+
+# Shopify theme folders (may be created when tests run)
+assets
+config
+layout
+locales
+templates
+config.yml
