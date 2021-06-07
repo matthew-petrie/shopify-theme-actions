@@ -58,7 +58,13 @@
       "jest-junit"
     ],
     "testTimeout": 100000,
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+    "collectCoverageFrom": [
+      "./src/**/*.{ts,js,jsx}",
+      "!**/node_modules/**"
+    ],
+    "coverageDirectory": "<rootDir>/coverage/"
   },
   "jest-junit": {
     "suiteName": "Jest Tests",
