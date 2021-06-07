@@ -50,5 +50,19 @@
     "@shopify/themekit": "^1.1.8",
     "axios": "^0.21.1",
     "dotenv": "^10.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
+    "testTimeout": 100000,
+    "preset": "ts-jest"
+  },
+  "jest-junit": {
+    "suiteName": "Jest Tests",
+    "outputDirectory": "./tests/test-reports",
+    "ancestorSeparator": " > "
   }
 }
