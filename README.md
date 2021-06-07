@@ -9,8 +9,10 @@ Creates a new Shopify theme for each PR. If a PR specific theme already exists i
 Deploys to the specified Shopify theme, useful for defined, testing / staging / production themes.
 
 ## Requirements
+
 Requires a Shopify Private App to be created with the permissions:
-* `Themes`: `Read and write`
+
+- `Themes`: `Read and write`
 
 ## Inputs
 
@@ -19,17 +21,20 @@ Requires a Shopify Private App to be created with the permissions:
 **Required** 'DEPLOYMENT_PREVIEW' (creates a PR specific Shopify theme), 'DEPLOY' (deploys to a specified theme, 'SHOPIFY_THEME_ID' must also be set)
 
 ### `SHOPIFY_STORE_URL`
-*Should be stored as a GitHub secret!*  
 
-**Required** The shopify development store i.e. my-store.myshopify.com  
+_Should be stored as a GitHub secret!_
+
+**Required** The shopify development store i.e. my-store.myshopify.com
 
 ### `SHOPIFY_PASSWORD`
-*Should be stored as a GitHub secret!*  
+
+_Should be stored as a GitHub secret!_
 
 **Required** The Shopify store's private app password used with themekit
 
 ### `SHOPIFY_API_KEY`
-*Should be stored as a GitHub secret!*  
+
+_Should be stored as a GitHub secret!_
 
 **Required** The Shopify store's private app API Key to allow theme creation and removal
 
