@@ -60,6 +60,8 @@ jobs:
       with:
         # Make sure the actual branch is checked out when running on pull requests
         ref: ${{ github.head_ref }}
+    - name: Install Dependencies
+      run: npm ci
     - name: Build Code
       run: npm run build
     - name: Commit any changes
