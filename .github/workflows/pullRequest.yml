@@ -23,6 +23,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./coverage/lcov.info
+
   format:
     runs-on: ubuntu-latest
     steps:
@@ -39,6 +40,7 @@ jobs:
       uses: EndBug/add-and-commit@v7
       with:
         default_author: github_actions
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -55,6 +57,7 @@ jobs:
       uses: EndBug/add-and-commit@v7
       with:
         default_author: github_actions
+        
   build:
     needs: [test, format, lint]
     runs-on: ubuntu-latest
