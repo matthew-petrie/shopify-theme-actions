@@ -1,0 +1,19 @@
+.env
+npm-debug.log*
+coverage
+.coverage
+*.lcov
+node_modules
+.DS_Store
+*.tsbuildinfo
+docs
+test-reports
+jest.results.json
+
+# Shopify theme folders (may be created when tests run)
+assets
+config
+layout
+locales
+templates
+config.yml

@@ -1,0 +1,74 @@
+{
+  "name": "shopify-theme-actions",
+  "version": "0.0.1",
+  "description": "A set of GitHub Actions to enable fast Shopify theme development workflows",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "test_coverage": "jest --coverage",
+    "lint": "eslint . --fix",
+    "build": "tsc",
+    "format": "prettier . --write --config ./.prettierrc",
+    "docs": "typedoc --out docs src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthew-petrie/shopify-actions.git"
+  },
+  "keywords": [
+    "shopify",
+    "github",
+    "action",
+    "theme",
+    "ecommerce"
+  ],
+  "author": "Matthew Petrie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matthew-petrie/shopify-actions/issues"
+  },
+  "homepage": "https://github.com/matthew-petrie/shopify-actions#readme",
+  "devDependencies": {
+    "@microsoft/tsdoc": "^0.13.2",
+    "@tsconfig/node14": "^1.0.0",
+    "@types/jest": "^26.0.23",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "del": "^6.0.0",
+    "eslint": "^7.28.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "jest": "^27.0.4",
+    "jest-junit": "^12.1.0",
+    "prettier": "^2.3.1",
+    "ts-jest": "^27.0.2",
+    "typedoc": "^0.21.0-beta.2",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "@actions/core": "^1.3.0",
+    "@actions/github": "^5.0.0",
+    "@shopify/themekit": "^1.1.8",
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
+    "testTimeout": 100000,
+    "preset": "ts-jest",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+    "collectCoverageFrom": [
+      "./src/**/*.{ts,js,jsx}",
+      "!**/node_modules/**"
+    ],
+    "coverageDirectory": "<rootDir>/coverage/"
+  },
+  "jest-junit": {
+    "suiteName": "Jest Tests",
+    "outputDirectory": "./tests/test-reports",
+    "ancestorSeparator": " > "
+  }
+}
