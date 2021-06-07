@@ -1,0 +1,33 @@
+name: "Shopify Theme Actions"
+description: 'A set of GitHub Actions to enable fast Shopify theme development workflows. Requires a Shopify private app with the permisions: "Themes": "Read and write"'
+author: "Matthew Petrie"
+branding:
+  icon: "shopping-cart"
+  color: "green"
+inputs:
+  ACTION:
+    description: "'DEPLOYMENT_PREVIEW', 'DEPLOY'"
+    required: true
+  SHOPIFY_STORE_URL:
+    description: "The shopify development store (as store.myshopify.com)"
+    required: true
+  SHOPIFY_PASSWORD:
+    description: "The Shopify store's private app password used with themekit"
+    required: true
+  SHOPIFY_API_KEY:
+    description: "The Shopify store's private app API Key to allow theme creation and removal (if this is opted for)"
+    required: true
+  SHOPIFY_THEME_ID:
+    description: "If provided the theme will be deployed to this Shopify theme id. If not provided the theme will be deployed to a PR specific newly created theme."
+    required: false
+  GITHUB_TOKEN:
+    description: "GitHub Authentication Token to allow comment creation on PRs"
+    required: true
+outputs:
+  SHOPIFY_THEME_ID:
+    description: "The newly created and deployed Shopify theme id"
+  SHOPIFY_THEME_PREVIEW_URL:
+    description: "The newly created and deployed theme preview url"
+runs:
+  using: "node12"
+  main: "dist/index.js"
