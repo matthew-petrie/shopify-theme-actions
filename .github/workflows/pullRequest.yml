@@ -1,7 +1,7 @@
 name: pull-request
 on:
   pull_request:
-    types: [synchronize]
+    types: [opened, synchronize, reopened, ready_for_review, edited] # https://frontside.com/blog/2020-05-26-github-actions-pull_request/
 jobs:
   test:
     runs-on: ubuntu-latest
