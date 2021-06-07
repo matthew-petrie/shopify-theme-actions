@@ -6,10 +6,10 @@ branding:
   color: "green"
 inputs:
   ACTION:
-    description: "'DEPLOYMENT_PREVIEW', 'DEPLOY'"
+    description: "'DEPLOYMENT_PREVIEW' (creates a PR specific Shopify theme), 'DEPLOY' (deploys to a specified theme, 'SHOPIFY_THEME_ID' must also be set)"
     required: true
   SHOPIFY_STORE_URL:
-    description: "The shopify development store (as store.myshopify.com)"
+    description: "The shopify development store i.e. my-store.myshopify.com"
     required: true
   SHOPIFY_PASSWORD:
     description: "The Shopify store's private app password used with themekit"
@@ -20,9 +20,6 @@ inputs:
   SHOPIFY_THEME_ID:
     description: "If provided the theme will be deployed to this Shopify theme id. If not provided the theme will be deployed to a PR specific newly created theme."
     required: false
-  GITHUB_TOKEN:
-    description: "GitHub Authentication Token to allow comment creation on PRs"
-    required: true
 outputs:
   SHOPIFY_THEME_ID:
     description: "The newly created and deployed Shopify theme id"
