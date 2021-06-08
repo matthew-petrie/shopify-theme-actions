@@ -1,5 +1,5 @@
 name: "Shopify Theme Actions"
-description: 'A set of GitHub Actions to enable fast Shopify theme development workflows. Requires a Shopify private app with the permisions: "Themes": "Read and write"'
+description: "A set of GitHub Actions to enable fast Shopify theme development workflows."
 author: "Matthew Petrie"
 branding:
   icon: "shopping-cart"
