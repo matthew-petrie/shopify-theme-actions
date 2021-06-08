@@ -10,6 +10,7 @@ docs
 package.json
 package-lock.json
 .*
+dist
 
 # Shopify theme folders (may be created when tests run)
 assets
