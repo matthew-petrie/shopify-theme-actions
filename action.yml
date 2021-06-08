@@ -1,5 +1,5 @@
 name: "Shopify Theme Actions"
-description: 'A set of GitHub Actions to enable fast Shopify theme development workflows.'
+description: "A set of GitHub Actions to enable fast Shopify theme development workflows."
 author: "Matthew Petrie"
 branding:
   icon: "shopping-cart"
