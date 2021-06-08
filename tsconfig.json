@@ -3,7 +3,7 @@
   "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts", "dist"],
   "compilerOptions": {
-    "resolveJsonModule": true,
+    "moduleResolution": "node",
     "outDir": "dist"
   }
 }

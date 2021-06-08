@@ -7,7 +7,7 @@
     "test": "jest",
     "test_coverage": "jest --coverage",
     "lint": "eslint . --fix",
-    "build": "tsc",
+    "build": "ncc build src/index.ts -o dist",
     "format": "prettier . --write --config ./.prettierrc",
     "docs": "rm -rf ./docs && typedoc --out ./docs src"
   },
@@ -35,6 +35,7 @@
     "@types/node": "^15.12.2",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
+    "@vercel/ncc": "^0.28.6",
     "del": "^6.0.0",
     "eslint": "^7.28.0",
     "eslint-plugin-tsdoc": "^0.2.14",
