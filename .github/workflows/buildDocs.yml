@@ -1,0 +1,21 @@
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        # Make sure the actual branch is checked out when running on pull requests
+        ref: ${{ github.head_ref }}
+    - name: Install Dependencies
+      run: npm ci
+    - name: Build Code
+      run: npm run docs
+    - name: Commit any changes
+      uses: EndBug/add-and-commit@v7
+      with:
+        default_author: github_actions
