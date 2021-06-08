@@ -9,7 +9,7 @@
     "lint": "eslint . --fix",
     "build": "tsc",
     "format": "prettier . --write --config ./.prettierrc",
-    "docs": "typedoc --out docs src"
+    "docs": "rm -rf ./docs && typedoc --out ./docs src"
   },
   "repository": {
     "type": "git",
