@@ -32,6 +32,7 @@
     "@microsoft/tsdoc": "^0.13.2",
     "@tsconfig/node14": "^1.0.0",
     "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.2",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
     "del": "^6.0.0",
@@ -59,7 +60,14 @@
     ],
     "testTimeout": 100000,
     "preset": "ts-jest",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
     "collectCoverageFrom": [
       "./src/**/*.{ts,js,jsx}",
       "!**/node_modules/**"
