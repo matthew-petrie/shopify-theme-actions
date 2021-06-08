@@ -6,7 +6,6 @@ coverage
 node_modules
 .DS_Store
 *.tsbuildinfo
-docs
 test-reports
 jest.results.json
 
