@@ -1,6 +1,6 @@
-import github from "@actions/github";
+import * as github from "@actions/github";
 import { shopifyAuth } from "./shopify";
-import core from "@actions/core";
+import * as core from "@actions/core";
 import { Context } from "@actions/github/lib/context";
 import { GitHub } from "@actions/github/lib/utils";
 import { RestEndpointMethodTypes } from "@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types";
@@ -159,6 +159,5 @@ export const createReplaceComment = async (
 };
 
 export const handleError = (err: Error): void => {
-  if (err instanceof Error) core.setFailed(err.message);
-  else core.setFailed(err);
+  core.setFailed(err || "Unknown Error");
 };
