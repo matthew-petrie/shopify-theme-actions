@@ -44,7 +44,7 @@ _Should be stored as a GitHub secret!_
 
 ### `SHOPIFY_THEME_KIT_FLAGS`
 
-**Optional** Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. `ignored-file` is `ignoredFile`) in the format: FLAG=VALUE,FLAG=VALUE i.e. `dir=./dist,allowLive=true`  
+**Optional** Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. `ignored-file` is `ignoredFile`) in the format: FLAG=VALUE,FLAG=VALUE i.e. `dir=./dist,allowLive=true`
 
 See available flags here:
 
