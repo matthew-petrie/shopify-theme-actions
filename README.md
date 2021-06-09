@@ -42,6 +42,17 @@ _Should be stored as a GitHub secret!_
 
 **Optional** The Shopify theme that will be deployed to (only used if 'ACTION' is 'DEPLOY')
 
+### `SHOPIFY_THEME_KIT_FLAGS`
+
+**Optional** Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. `ignored-file` is `ignoredFile`) in the format: FLAG=VALUE,FLAG=VALUE i.e. `dir=./dist,allowLive=true`  
+
+See available flags here:
+
+- [Global Flags](https://shopify.dev/tools/theme-kit/configuration-reference#command-line-flags)
+- [Deployment Specific Flags](https://shopify.dev/tools/theme-kit/command-reference#deploy)
+
+_Note: Use the `Long version` of the flatgs rather than short versions i.e. `nodelete` instead of `n`_
+
 ## Outputs
 
 ### `SHOPIFY_THEME_ID`
@@ -69,10 +80,11 @@ jobs:
       # ... steps to build theme ...
 
       - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@0.0.1
+        uses: matthew-petrie/shopify-theme-actions@0.0.3
         with:
           ACTION: "DEPLOYMENT_PREVIEW"
           SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
           SHOPIFY_PASSWORD: ${{secrets.SHOPIFY_PASSWORD}}
           SHOPIFY_API_KEY: ${{secrets.SHOPIFY_API_KEY}}
+          SHOPIFY_THEME_KIT_FLAGS: "dir=./dist"
 ```
