@@ -84,7 +84,7 @@ The URL the theme can be previewed at
 
 When a pull request is opened / updated deploy a PR specific Shopify theme:
 
-```
+```yaml
 name: Pull Request Created or Updated
 on: [pull_request]
 jobs:
@@ -111,7 +111,7 @@ jobs:
 
 When a pull request is closed remove the PR specific Shopify theme:
 
-```
+```yaml
 name: Pull Request Closed
 on:
   pull_request:
