@@ -117,16 +117,9 @@ on:
   pull_request:
     types: [ closed ]
 jobs:
-  deploy_theme:
+  remove_deployment_preview_theme:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-
-      # ... steps to build theme ...
-
       - name: Shopify Theme Actions
         uses: matthew-petrie/shopify-theme-actions@0.0.7-beta
         with:
