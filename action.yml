@@ -6,7 +6,7 @@ branding:
   color: "green"
 inputs:
   ACTION:
-    description: "'DEPLOYMENT_PREVIEW' (creates a PR specific Shopify theme), 'DEPLOY' (deploys to a specified theme, 'SHOPIFY_THEME_ID' must also be set)"
+    description: "'DEPLOYMENT_PREVIEW' (creates a PR specific Shopify theme), 'DEPLOY' (deploys to a specified theme, 'SHOPIFY_THEME_ID' must also be set), 'REMOVE_DEPLOYMENT_PREVIEW_THEME' (removes a previously created PR specific Shopify theme)"
     required: true
   GITHUB_TOKEN:
     description: "Github authentication token that allows comments to be created on PRs (optional)"

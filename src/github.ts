@@ -5,13 +5,17 @@ import { Context } from "@actions/github/lib/context";
 import { GitHub } from "@actions/github/lib/utils";
 import { RestEndpointMethodTypes } from "@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types";
 
-type action = "DEPLOYMENT_PREVIEW" | "DEPLOY";
-const VALID_ACTIONS: Set<action> = new Set(["DEPLOYMENT_PREVIEW", "DEPLOY"]);
+export type action = "DEPLOYMENT_PREVIEW" | "DEPLOY" | "REMOVE_DEPLOYMENT_PREVIEW_THEME";
+export const VALID_ACTIONS: Set<action> = new Set([
+  "DEPLOYMENT_PREVIEW",
+  "DEPLOY",
+  "REMOVE_DEPLOYMENT_PREVIEW_THEME",
+]);
 
-interface flagsObject {
+export interface flagsObject {
   [key: string]: string;
 }
-interface githubAuth {
+export interface githubAuth {
   token?: string;
 }
 type githubComment = RestEndpointMethodTypes["issues"]["listComments"]["response"]["data"][0];
@@ -81,7 +85,7 @@ export const outputVariables = (variables: { [key: string]: string }): void => {
   for (const key in variables) core.setOutput(key, variables[key]);
 };
 
-const findIssueComment = async (
+export const findIssueComment = async (
   uniqueCommentString: string,
   githubContext: Context,
   octokit: InstanceType<typeof GitHub>
@@ -134,6 +138,7 @@ const createIssueComment = async (
 export const createReplaceComment = async (
   message: string,
   uniqueHiddenCommentString: string,
+  shopifyThemeId: number,
   GITHUB_AUTH: githubAuth
 ): Promise<void> => {
   if (!GITHUB_AUTH.token) {
@@ -154,8 +159,23 @@ export const createReplaceComment = async (
   const oldComment = await findIssueComment(uniqueHiddenCommentString, githubContext, octokit);
   await deleteIssueComment(oldComment, githubContext, octokit);
 
-  const combinedMessage = `<!-- ${uniqueHiddenCommentString} -->${message}`;
+  const combinedMessage = `<!-- ${uniqueHiddenCommentString} --><!-- Shopify Theme ID ${shopifyThemeId} -->${message}`;
   await createIssueComment(combinedMessage, githubContext, octokit);
+};
+
+/**
+ * The Shopify theme id is hidden within a Github PR comment in the format `<!-- Shopify Theme ID THEME_ID -->`.
+ * Extract the theme id and return it as an integer.
+ * */
+export const retrieveShopifyThemeIdFromIssueComment = (commentBody: string): number | undefined => {
+  const regexMatch = /<!-- Shopify Theme ID ([0-9]+) -->/.exec(commentBody);
+  if (!regexMatch) {
+    core.error(`Cannot find Shopify Theme ID in the last deployment preview comment.`);
+    return;
+  }
+
+  const shopifyThemeId = parseInt(regexMatch[1]);
+  return shopifyThemeId;
 };
 
 export const handleError = (err: Error): void => {

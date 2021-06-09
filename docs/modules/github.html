@@ -70,17 +70,64 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/github.flagsobject.html" class="tsd-kind-icon">flags<wbr>Object</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/github.githubauth.html" class="tsd-kind-icon">github<wbr>Auth</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="github.html#action" class="tsd-kind-icon">action</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="github.html#valid_actions" class="tsd-kind-icon">VALID_<wbr>ACTIONS</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#createreplacecomment" class="tsd-kind-icon">create<wbr>Replace<wbr>Comment</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#findissuecomment" class="tsd-kind-icon">find<wbr>Issue<wbr>Comment</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#getactioninputs" class="tsd-kind-icon">get<wbr>Action<wbr>Inputs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#getpullrequestid" class="tsd-kind-icon">get<wbr>Pull<wbr>Request<wbr>Id</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#handleerror" class="tsd-kind-icon">handle<wbr>Error</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#inputstringtoflagsobject" class="tsd-kind-icon">input<wbr>String<wbr>ToFlags<wbr>Object</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#outputvariables" class="tsd-kind-icon">output<wbr>Variables</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#retrieveshopifythemeidfromissuecomment" class="tsd-kind-icon">retrieve<wbr>Shopify<wbr>Theme<wbr>IdFrom<wbr>Issue<wbr>Comment</a></li>
 							</ul>
 						</section>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="action" class="tsd-anchor"></a>
+					<h3>action</h3>
+					<div class="tsd-signature tsd-kind-icon">action<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;DEPLOYMENT_PREVIEW&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;DEPLOY&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;REMOVE_DEPLOYMENT_PREVIEW_THEME&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L8">src/github.ts:8</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="valid_actions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> VALID_<wbr>ACTIONS</h3>
+					<div class="tsd-signature tsd-kind-icon">VALID_<wbr>ACTIONS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><a href="github.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">action</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L9">src/github.ts:9</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -89,13 +136,13 @@
 					<a name="createreplacecomment" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> create<wbr>Replace<wbr>Comment</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Replace<wbr>Comment<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, uniqueHiddenCommentString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, GITHUB_AUTH<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">githubAuth</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Replace<wbr>Comment<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, uniqueHiddenCommentString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, shopifyThemeId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, GITHUB_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/github.githubauth.html" class="tsd-signature-type" data-tsd-kind="Interface">githubAuth</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/f560c2d/src/github.ts#L134">github.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L138">src/github.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -112,7 +159,10 @@
 									<h5>uniqueHiddenCommentString: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>GITHUB_AUTH: <span class="tsd-signature-type">githubAuth</span></h5>
+									<h5>shopifyThemeId: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>GITHUB_AUTH: <a href="../interfaces/github.githubauth.html" class="tsd-signature-type" data-tsd-kind="Interface">githubAuth</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -120,16 +170,45 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="getactioninputs" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Action<wbr>Inputs</h3>
+					<a name="findissuecomment" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> find<wbr>Issue<wbr>Comment</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Action<wbr>Inputs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>GITHUB_AUTH<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">githubAuth</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">find<wbr>Issue<wbr>Comment<span class="tsd-signature-symbol">(</span>uniqueCommentString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, githubContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Context</span>, octokit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Octokit</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Api</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>paginate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PaginateInterface</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>author_association<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;COLLABORATOR&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;CONTRIBUTOR&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;FIRST_TIMER&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;FIRST_TIME_CONTRIBUTOR&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;MANNEQUIN&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;MEMBER&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;NONE&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;OWNER&quot;</span><span class="tsd-signature-symbol">; </span>body<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>body_html<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>body_text<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>created_at<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>html_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>issue_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>node_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>performed_via_github_app<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">{ </span>client_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>client_secret<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>created_at<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>events<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>external_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>html_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>installations_count<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>node_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>owner<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>avatar_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>events_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>followers_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>following_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>gists_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>gravatar_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>html_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>login<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>node_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>organizations_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>received_events_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>repos_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>site_admin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>starred_at<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>starred_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>subscriptions_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>pem<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>checks<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>contents<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>deployments<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>issues<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>metadata<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">; </span>slug<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>updated_at<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>webhook_secret<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">; </span>reactions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>+1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>-1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>confused<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>eyes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>heart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>hooray<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>laugh<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>rocket<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>total_count<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>updated_at<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>user<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>avatar_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>events_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>followers_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>following_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>gists_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>gravatar_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>html_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>login<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>node_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>organizations_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>received_events_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>repos_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>site_admin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>starred_at<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>starred_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>subscriptions_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/f560c2d/src/github.ts#L41">github.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L88">src/github.ts:88</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>uniqueCommentString: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>githubContext: <span class="tsd-signature-type">Context</span></h5>
+								</li>
+								<li>
+									<h5>octokit: <span class="tsd-signature-type">Octokit</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Api</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>paginate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PaginateInterface</span><span class="tsd-signature-symbol"> }</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>author_association<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;COLLABORATOR&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;CONTRIBUTOR&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;FIRST_TIMER&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;FIRST_TIME_CONTRIBUTOR&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;MANNEQUIN&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;MEMBER&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;NONE&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;OWNER&quot;</span><span class="tsd-signature-symbol">; </span>body<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>body_html<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>body_text<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>created_at<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>html_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>issue_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>node_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>performed_via_github_app<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">{ </span>client_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>client_secret<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>created_at<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>events<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>external_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>html_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>installations_count<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>node_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>owner<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>avatar_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>events_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>followers_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>following_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>gists_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>gravatar_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>html_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>login<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>node_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>organizations_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>received_events_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>repos_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>site_admin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>starred_at<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>starred_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>subscriptions_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>pem<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>checks<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>contents<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>deployments<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>issues<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>metadata<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">; </span>slug<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>updated_at<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>webhook_secret<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">; </span>reactions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>+1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>-1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>confused<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>eyes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>heart<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>hooray<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>laugh<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>rocket<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>total_count<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>updated_at<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>user<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>avatar_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>events_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>followers_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>following_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>gists_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>gravatar_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>html_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>login<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>node_id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>organizations_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>received_events_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>repos_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>site_admin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>starred_at<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>starred_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>subscriptions_url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getactioninputs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Action<wbr>Inputs</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Action<wbr>Inputs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><a href="github.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">action</a><span class="tsd-signature-symbol">; </span>GITHUB_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/github.githubauth.html" class="tsd-signature-type" data-tsd-kind="Interface">githubAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><a href="../interfaces/github.flagsobject.html" class="tsd-signature-type" data-tsd-kind="Interface">flagsObject</a><span class="tsd-signature-symbol"> }</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L45">src/github.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -137,13 +216,13 @@
 									<p>Retrieve and validate Github Action inputs</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>GITHUB_AUTH<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">githubAuth</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span><span class="tsd-signature-symbol"> }</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><a href="github.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">action</a><span class="tsd-signature-symbol">; </span>GITHUB_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/github.githubauth.html" class="tsd-signature-type" data-tsd-kind="Interface">githubAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><a href="../interfaces/github.flagsobject.html" class="tsd-signature-type" data-tsd-kind="Interface">flagsObject</a><span class="tsd-signature-symbol"> }</span></h4>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter">
-									<h5>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span></h5>
+									<h5>ACTION<span class="tsd-signature-symbol">: </span><a href="github.html#action" class="tsd-signature-type" data-tsd-kind="Type alias">action</a></h5>
 								</li>
 								<li class="tsd-parameter">
-									<h5>GITHUB_<wbr>AUTH<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">githubAuth</span></h5>
+									<h5>GITHUB_<wbr>AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/github.githubauth.html" class="tsd-signature-type" data-tsd-kind="Interface">githubAuth</a></h5>
 								</li>
 								<li class="tsd-parameter">
 									<h5>SHOPIFY_<wbr>AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a></h5>
@@ -152,7 +231,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> SHOPIFY_<wbr>THEME_<wbr>ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li class="tsd-parameter">
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> SHOPIFY_<wbr>THEME_<wbr>KIT_<wbr>FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> SHOPIFY_<wbr>THEME_<wbr>KIT_<wbr>FLAGS<span class="tsd-signature-symbol">?: </span><a href="../interfaces/github.flagsobject.html" class="tsd-signature-type" data-tsd-kind="Interface">flagsObject</a></h5>
 								</li>
 							</ul>
 						</li>
@@ -168,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/f560c2d/src/github.ts#L19">github.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L23">src/github.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -185,7 +264,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/f560c2d/src/github.ts#L161">github.ts:161</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L181">src/github.ts:181</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -202,13 +281,13 @@
 					<a name="inputstringtoflagsobject" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> input<wbr>String<wbr>ToFlags<wbr>Object</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">input<wbr>String<wbr>ToFlags<wbr>Object<span class="tsd-signature-symbol">(</span>flagsString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">flagsObject</span></li>
+						<li class="tsd-signature tsd-kind-icon">input<wbr>String<wbr>ToFlags<wbr>Object<span class="tsd-signature-symbol">(</span>flagsString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/github.flagsobject.html" class="tsd-signature-type" data-tsd-kind="Interface">flagsObject</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/f560c2d/src/github.ts#L27">github.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L31">src/github.ts:31</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -224,7 +303,7 @@
 									<h5>flagsString: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">flagsObject</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/github.flagsobject.html" class="tsd-signature-type" data-tsd-kind="Interface">flagsObject</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -238,7 +317,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/f560c2d/src/github.ts#L80">github.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L84">src/github.ts:84</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -261,6 +340,35 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="retrieveshopifythemeidfromissuecomment" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> retrieve<wbr>Shopify<wbr>Theme<wbr>IdFrom<wbr>Issue<wbr>Comment</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">retrieve<wbr>Shopify<wbr>Theme<wbr>IdFrom<wbr>Issue<wbr>Comment<span class="tsd-signature-symbol">(</span>commentBody<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/8227705/src/github.ts#L170">src/github.ts:170</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The Shopify theme id is hidden within a Github PR comment in the format <code>&lt;!-- Shopify Theme ID THEME_ID --&gt;</code>.
+									Extract the theme id and return it as an integer.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>commentBody: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -279,14 +387,32 @@
 						<a href="index.html">index</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="index_help.html">index.help</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="shopify.html">shopify</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/github.flagsobject.html" class="tsd-kind-icon">flags<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/github.githubauth.html" class="tsd-kind-icon">github<wbr>Auth</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="github.html#action" class="tsd-kind-icon">action</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="github.html#valid_actions" class="tsd-kind-icon">VALID_<wbr>ACTIONS</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="github.html#createreplacecomment" class="tsd-kind-icon">create<wbr>Replace<wbr>Comment</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="github.html#findissuecomment" class="tsd-kind-icon">find<wbr>Issue<wbr>Comment</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="github.html#getactioninputs" class="tsd-kind-icon">get<wbr>Action<wbr>Inputs</a>
@@ -303,6 +429,9 @@
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="github.html#outputvariables" class="tsd-kind-icon">output<wbr>Variables</a>
 					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="github.html#retrieveshopifythemeidfromissuecomment" class="tsd-kind-icon">retrieve<wbr>Shopify<wbr>Theme<wbr>IdFrom<wbr>Issue<wbr>Comment</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -313,6 +442,7 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
