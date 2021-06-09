@@ -84,7 +84,7 @@ The URL the theme can be previewed at
 
 When a pull request is opened / updated deploy a PR specific Shopify theme:
 
-```
+```yaml
 name: Pull Request Created or Updated
 on: [pull_request]
 jobs:
@@ -99,7 +99,7 @@ jobs:
       # ... steps to build theme ...
 
       - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@0.0.7-beta
+        uses: matthew-petrie/shopify-theme-actions@1.0.0
         with:
           ACTION: "DEPLOYMENT_PREVIEW"
           SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
@@ -111,24 +111,17 @@ jobs:
 
 When a pull request is closed remove the PR specific Shopify theme:
 
-```
+```yaml
 name: Pull Request Closed
 on:
   pull_request:
-    types: [ closed ]
+    types: [closed]
 jobs:
-  deploy_theme:
+  remove_deployment_preview_theme:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-
-      # ... steps to build theme ...
-
       - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@0.0.7-beta
+        uses: matthew-petrie/shopify-theme-actions@1.0.0
         with:
           ACTION: "REMOVE_DEPLOYMENT_PREVIEW_THEME"
           SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
