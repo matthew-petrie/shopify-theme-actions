@@ -1,6 +1,6 @@
 {
   "name": "shopify-theme-actions",
-  "version": "0.0.7-beta",
+  "version": "1.0.0",
   "description": "A set of GitHub Actions to enable fast Shopify theme development workflows",
   "main": "dist/index.js",
   "scripts": {
