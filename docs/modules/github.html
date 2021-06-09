@@ -72,6 +72,7 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#createreplacecomment" class="tsd-kind-icon">create<wbr>Replace<wbr>Comment</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#getactioninputs" class="tsd-kind-icon">get<wbr>Action<wbr>Inputs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#getpullrequestid" class="tsd-kind-icon">get<wbr>Pull<wbr>Request<wbr>Id</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#handleerror" class="tsd-kind-icon">handle<wbr>Error</a></li>
@@ -85,16 +86,50 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="getactioninputs" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Action<wbr>Inputs</h3>
+					<a name="createreplacecomment" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> create<wbr>Replace<wbr>Comment</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Action<wbr>Inputs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Replace<wbr>Comment<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, uniqueHiddenCommentString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, GITHUB_AUTH<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">githubAuth</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/0e39635/src/github.ts#L34">github.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e75c4dc/src/github.ts#L134">github.ts:134</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Find pre-exiting comment (if there is one) with the <code>uniqueCommentString</code> and delete it. Then create a new comment using the <code>uniqueCommentString</code></p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>message: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>uniqueHiddenCommentString: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>GITHUB_AUTH: <span class="tsd-signature-type">githubAuth</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getactioninputs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Action<wbr>Inputs</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Action<wbr>Inputs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>GITHUB_AUTH<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">githubAuth</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span><span class="tsd-signature-symbol"> }</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e75c4dc/src/github.ts#L41">github.ts:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -102,10 +137,13 @@
 									<p>Retrieve and validate Github Action inputs</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span><span class="tsd-signature-symbol"> }</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>GITHUB_AUTH<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">githubAuth</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span><span class="tsd-signature-symbol"> }</span></h4>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter">
 									<h5>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>GITHUB_<wbr>AUTH<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">githubAuth</span></h5>
 								</li>
 								<li class="tsd-parameter">
 									<h5>SHOPIFY_<wbr>AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a></h5>
@@ -130,7 +168,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/0e39635/src/github.ts#L12">github.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e75c4dc/src/github.ts#L19">github.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -147,7 +185,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/0e39635/src/github.ts#L70">github.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e75c4dc/src/github.ts#L161">github.ts:161</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -170,7 +208,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/0e39635/src/github.ts#L20">github.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e75c4dc/src/github.ts#L27">github.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -200,7 +238,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/0e39635/src/github.ts#L66">github.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e75c4dc/src/github.ts#L80">github.ts:80</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,6 +285,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="github.html#createreplacecomment" class="tsd-kind-icon">create<wbr>Replace<wbr>Comment</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="github.html#getactioninputs" class="tsd-kind-icon">get<wbr>Action<wbr>Inputs</a>
 					</li>

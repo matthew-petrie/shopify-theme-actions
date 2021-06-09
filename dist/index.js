@@ -10215,13 +10215,15 @@ __nccwpck_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(5438);
+var github_default = /*#__PURE__*/__nccwpck_require__.n(github);
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(2186);
+var core_default = /*#__PURE__*/__nccwpck_require__.n(core);
 ;// CONCATENATED MODULE: ./src/github.ts
 
 
 const VALID_ACTIONS = new Set(["DEPLOYMENT_PREVIEW", "DEPLOY"]);
-const getPullRequestId = () => github.context.issue.number;
+const getPullRequestId = () => (github_default()).context.issue.number;
 /**
  * Convert a string with the format `FLAG=VALUE,FLAG=VALUE` to an obejct with the format:
  * ```
@@ -10240,21 +10242,26 @@ const inputStringToFlagsObject = (flagsString) => {
 };
 /** Retrieve and validate Github Action inputs */
 const getActionInputs = () => {
-    const ACTION = core.getInput("ACTION", { required: true });
+    const ACTION = core_default().getInput("ACTION", { required: true });
     if (!VALID_ACTIONS.has(ACTION))
         throw new Error();
-    const SHOPIFY_AUTH = {
-        storeUrl: core.getInput("SHOPIFY_STORE_URL", { required: true }),
-        apiKey: core.getInput("SHOPIFY_API_KEY", { required: true }),
-        password: core.getInput("SHOPIFY_PASSWORD", { required: true }),
+    const githubToken = core_default().getInput("GITHUB_TOKEN", { required: false });
+    const GITHUB_AUTH = {
+        token: (githubToken.length > 0 && githubToken) || undefined,
     };
-    const shopifyThemeIdString = core.getInput("SHOPIFY_THEME_ID", { required: false });
+    const SHOPIFY_AUTH = {
+        storeUrl: core_default().getInput("SHOPIFY_STORE_URL", { required: true }),
+        apiKey: core_default().getInput("SHOPIFY_API_KEY", { required: true }),
+        password: core_default().getInput("SHOPIFY_PASSWORD", { required: true }),
+    };
+    const shopifyThemeIdString = core_default().getInput("SHOPIFY_THEME_ID", { required: false });
     const SHOPIFY_THEME_ID = (shopifyThemeIdString && shopifyThemeIdString.length > 0 && parseInt(shopifyThemeIdString)) ||
         undefined;
-    const themeKitFlagsString = core.getInput("SHOPIFY_THEME_KIT_FLAGS", { required: false });
+    const themeKitFlagsString = core_default().getInput("SHOPIFY_THEME_KIT_FLAGS", { required: false });
     const SHOPIFY_THEME_KIT_FLAGS = inputStringToFlagsObject(themeKitFlagsString);
     return {
         SHOPIFY_AUTH,
+        GITHUB_AUTH,
         SHOPIFY_THEME_ID,
         ACTION: ACTION,
         SHOPIFY_THEME_KIT_FLAGS,
@@ -10263,13 +10270,64 @@ const getActionInputs = () => {
 /** Output variables can be accessed by any following GitHub Actions which can be useful for things like visual regression, performance, etc. testing */
 const outputVariables = (variables) => {
     for (const key in variables)
-        core.setOutput(key, variables[key]);
+        core_default().setOutput(key, variables[key]);
+};
+const findIssueComment = async (uniqueCommentString, githubContext, octokit) => {
+    if (!githubContext.payload.pull_request) {
+        // Could be running outside of a PR, if so do not add a comment
+        core_default().info(`GitHub Action is not running from within a PR.`);
+        return;
+    }
+    const { data: comments } = await octokit.rest.issues.listComments({
+        ...githubContext.repo,
+        issue_number: githubContext.payload.pull_request.number,
+    });
+    return comments.find((comment) => comment.body?.includes(uniqueCommentString));
+};
+const deleteIssueComment = async (comment, githubContext, octokit) => {
+    if (!comment)
+        return;
+    await octokit.rest.issues.deleteComment({
+        ...githubContext.repo,
+        comment_id: comment.id,
+    });
+};
+const createIssueComment = async (message, githubContext, octokit) => {
+    if (!githubContext.payload.pull_request) {
+        // Could be running outside of a PR, if so do not add a comment
+        core_default().info(`GitHub Action is not running from within a PR.`);
+        return;
+    }
+    await octokit.rest.issues.createComment({
+        ...githubContext.repo,
+        issue_number: githubContext.payload.pull_request.number,
+        body: message,
+    });
+};
+/** Find pre-exiting comment (if there is one) with the `uniqueCommentString` and delete it. Then create a new comment using the `uniqueCommentString` */
+const createReplaceComment = async (message, uniqueHiddenCommentString, GITHUB_AUTH) => {
+    if (!GITHUB_AUTH.token) {
+        // comments are optional
+        core_default().info(`GitHub Action will not leave a comment as the 'GITHUB_TOKEN' has not be provied.`);
+        return;
+    }
+    const githubContext = (github_default()).context;
+    if (!githubContext.payload.pull_request) {
+        // Could be running outside of a PR, if so do not add a comment
+        core_default().info(`GitHub Action is not running from within a PR.`);
+        return;
+    }
+    const octokit = github_default().getOctokit(GITHUB_AUTH.token);
+    const oldComment = await findIssueComment(uniqueHiddenCommentString, githubContext, octokit);
+    await deleteIssueComment(oldComment, githubContext, octokit);
+    const combinedMessage = `<!-- ${uniqueHiddenCommentString} -->${message}`;
+    await createIssueComment(combinedMessage, githubContext, octokit);
 };
 const handleError = (err) => {
     if (err instanceof Error)
-        core.setFailed(err.message);
+        core_default().setFailed(err.message);
     else
-        core.setFailed(err);
+        core_default().setFailed(err);
 };
 
 // EXTERNAL MODULE: ./node_modules/@shopify/themekit/index.js
@@ -10330,7 +10388,7 @@ const generateThemePreviewUrl = (shopifyThemeId, SHOPIFY_AUTH) => `https://${SHO
 
 const DEPLOYMENT_ACTIONS = new Set([`DEPLOY`, `DEPLOYMENT_PREVIEW`]);
 async function run() {
-    const { SHOPIFY_AUTH, SHOPIFY_THEME_ID, ACTION, SHOPIFY_THEME_KIT_FLAGS } = getActionInputs();
+    const { SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_ID, ACTION, SHOPIFY_THEME_KIT_FLAGS } = getActionInputs();
     let shopifyThemeId;
     if (ACTION === "DEPLOYMENT_PREVIEW") {
         const pullRequestNumber = getPullRequestId();
@@ -10350,6 +10408,9 @@ async function run() {
             SHOPIFY_THEME_ID: shopifyThemeId.toString(),
             SHOPIFY_THEME_PREVIEW_URL: themePreviewUrl,
         });
+        const message = `:tada: Shopify theme has been deployed to theme id ${shopifyThemeId} at ${SHOPIFY_AUTH.storeUrl} . The theme can be previewed at: [${themePreviewUrl}](${themePreviewUrl})`;
+        const uniqueHiddenCommentString = "Comment created by GitHub Action `Shopify Theme Actions`";
+        await createReplaceComment(message, uniqueHiddenCommentString, GITHUB_AUTH);
         return;
     }
 }
