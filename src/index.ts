@@ -4,7 +4,7 @@ import { createOrFindThemeWithName, generateThemePreviewUrl, deployTheme } from 
 const DEPLOYMENT_ACTIONS = new Set([`DEPLOY`, `DEPLOYMENT_PREVIEW`]);
 
 async function run(): Promise<void> {
-  const { SHOPIFY_AUTH, SHOPIFY_THEME_ID, ACTION } = getActionInputs();
+  const { SHOPIFY_AUTH, SHOPIFY_THEME_ID, ACTION, SHOPIFY_THEME_KIT_FLAGS } = getActionInputs();
 
   let shopifyThemeId: number | undefined;
   if (ACTION === "DEPLOYMENT_PREVIEW") {
@@ -21,7 +21,7 @@ async function run(): Promise<void> {
         `'shopifyThemeId' is not set but is required in order to deploy the theme to Shopify (if using the 'DEPLOY' action make sure to set 'SHOPIFY_THEME_ID').`
       );
     }
-    await deployTheme(shopifyThemeId, SHOPIFY_AUTH);
+    await deployTheme(shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS);
 
     const themePreviewUrl = generateThemePreviewUrl(shopifyThemeId, SHOPIFY_AUTH);
 

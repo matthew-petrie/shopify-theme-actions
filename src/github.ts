@@ -5,13 +5,37 @@ import * as core from "@actions/core";
 type action = "DEPLOYMENT_PREVIEW" | "DEPLOY";
 const VALID_ACTIONS: Set<action> = new Set(["DEPLOYMENT_PREVIEW", "DEPLOY"]);
 
+interface flagsObject {
+  [key: string]: string;
+}
+
 export const getPullRequestId = (): number => github.context.issue.number;
+
+/**
+ * Convert a string with the format `FLAG=VALUE,FLAG=VALUE` to an obejct with the format:
+ * ```
+ * { FLAG: VALUE, FLAG: VALUE }
+ * ```
+ */
+export const inputStringToFlagsObject = (
+  flagsString: string | undefined
+): flagsObject | undefined => {
+  if (!flagsString || flagsString === "") return undefined;
+
+  const flagsArray = flagsString.split(",");
+  return flagsArray.reduce((acc: flagsObject, flag): flagsObject => {
+    const [key, value] = flag.split("=");
+    acc[key] = value;
+    return acc;
+  }, {});
+};
 
 /** Retrieve and validate Github Action inputs */
 export const getActionInputs = (): {
   SHOPIFY_AUTH: shopifyAuth;
   ACTION: action;
-  SHOPIFY_THEME_ID: number | undefined;
+  SHOPIFY_THEME_ID?: number;
+  SHOPIFY_THEME_KIT_FLAGS?: flagsObject;
 } => {
   const ACTION = core.getInput("ACTION", { required: true });
   if (!VALID_ACTIONS.has(ACTION as action)) throw new Error();
@@ -27,10 +51,14 @@ export const getActionInputs = (): {
     (shopifyThemeIdString && shopifyThemeIdString.length > 0 && parseInt(shopifyThemeIdString)) ||
     undefined;
 
+  const themeKitFlagsString = core.getInput("SHOPIFY_THEME_KIT_FLAGS", { required: false });
+  const SHOPIFY_THEME_KIT_FLAGS = inputStringToFlagsObject(themeKitFlagsString);
+
   return {
     SHOPIFY_AUTH,
     SHOPIFY_THEME_ID,
     ACTION: ACTION as action,
+    SHOPIFY_THEME_KIT_FLAGS,
   };
 };
 

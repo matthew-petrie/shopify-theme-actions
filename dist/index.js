@@ -10222,6 +10222,22 @@ var core = __nccwpck_require__(2186);
 
 const VALID_ACTIONS = new Set(["DEPLOYMENT_PREVIEW", "DEPLOY"]);
 const getPullRequestId = () => github.context.issue.number;
+/**
+ * Convert a string with the format `FLAG=VALUE,FLAG=VALUE` to an obejct with the format:
+ * ```
+ * { FLAG: VALUE, FLAG: VALUE }
+ * ```
+ */
+const inputStringToFlagsObject = (flagsString) => {
+    if (!flagsString || flagsString === "")
+        return undefined;
+    const flagsArray = flagsString.split(",");
+    return flagsArray.reduce((acc, flag) => {
+        const [key, value] = flag.split("=");
+        acc[key] = value;
+        return acc;
+    }, {});
+};
 /** Retrieve and validate Github Action inputs */
 const getActionInputs = () => {
     const ACTION = core.getInput("ACTION", { required: true });
@@ -10235,10 +10251,13 @@ const getActionInputs = () => {
     const shopifyThemeIdString = core.getInput("SHOPIFY_THEME_ID", { required: false });
     const SHOPIFY_THEME_ID = (shopifyThemeIdString && shopifyThemeIdString.length > 0 && parseInt(shopifyThemeIdString)) ||
         undefined;
+    const themeKitFlagsString = core.getInput("SHOPIFY_THEME_KIT_FLAGS", { required: false });
+    const SHOPIFY_THEME_KIT_FLAGS = inputStringToFlagsObject(themeKitFlagsString);
     return {
         SHOPIFY_AUTH,
         SHOPIFY_THEME_ID,
         ACTION: ACTION,
+        SHOPIFY_THEME_KIT_FLAGS,
     };
 };
 /** Output variables can be accessed by any following GitHub Actions which can be useful for things like visual regression, performance, etc. testing */
@@ -10279,8 +10298,9 @@ const getThemeByName = async (themeName, SHOPIFY_AUTH) => {
     const themes = await getAllThemes(SHOPIFY_AUTH);
     return themes.find((theme) => theme.name === themeName);
 };
-const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH) => {
+const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
     await themekit_default().command("deploy", {
+        ...(SHOPIFY_THEME_KIT_FLAGS || {}),
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         themeId: shopifyThemeId,
@@ -10310,7 +10330,7 @@ const generateThemePreviewUrl = (shopifyThemeId, SHOPIFY_AUTH) => `https://${SHO
 
 const DEPLOYMENT_ACTIONS = new Set([`DEPLOY`, `DEPLOYMENT_PREVIEW`]);
 async function run() {
-    const { SHOPIFY_AUTH, SHOPIFY_THEME_ID, ACTION } = getActionInputs();
+    const { SHOPIFY_AUTH, SHOPIFY_THEME_ID, ACTION, SHOPIFY_THEME_KIT_FLAGS } = getActionInputs();
     let shopifyThemeId;
     if (ACTION === "DEPLOYMENT_PREVIEW") {
         const pullRequestNumber = getPullRequestId();
@@ -10324,7 +10344,7 @@ async function run() {
         if (!shopifyThemeId) {
             throw new Error(`'shopifyThemeId' is not set but is required in order to deploy the theme to Shopify (if using the 'DEPLOY' action make sure to set 'SHOPIFY_THEME_ID').`);
         }
-        await deployTheme(shopifyThemeId, SHOPIFY_AUTH);
+        await deployTheme(shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS);
         const themePreviewUrl = generateThemePreviewUrl(shopifyThemeId, SHOPIFY_AUTH);
         outputVariables({
             SHOPIFY_THEME_ID: shopifyThemeId.toString(),

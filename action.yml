@@ -20,6 +20,9 @@ inputs:
   SHOPIFY_THEME_ID:
     description: "If provided the theme will be deployed to this Shopify theme id. If not provided the theme will be deployed to a PR specific newly created theme."
     required: false
+  SHOPIFY_THEME_KIT_FLAGS:
+    description: "Shopify Theme Kit flags in camelCase rather than hyphenated (i.e. 'ignored-file' is 'ignoredFile') in the format: FLAG=VALUE,FLAG=VALUE i.e. 'dir=./dist'"
+    required: false
 outputs:
   SHOPIFY_THEME_ID:
     description: "The newly created and deployed Shopify theme id"
