@@ -103,3 +103,9 @@ export const generateThemePreviewUrl = (
   shopifyThemeId: number,
   SHOPIFY_AUTH: shopifyAuth
 ): string => `https://${SHOPIFY_AUTH.storeUrl}/?preview_theme_id=${shopifyThemeId}`;
+
+export const removeTheme = async (themeId: number, SHOPIFY_AUTH: shopifyAuth): Promise<void> => {
+  await axios.delete(
+    `https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${themeId}.json`
+  );
+};

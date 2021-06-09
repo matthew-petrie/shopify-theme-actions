@@ -1,6 +1,6 @@
 {
   "name": "shopify-theme-actions",
-  "version": "0.0.5",
+  "version": "0.0.7-beta",
   "description": "A set of GitHub Actions to enable fast Shopify theme development workflows",
   "main": "dist/index.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
     "@vercel/ncc": "^0.28.6",
+    "axios-rate-limit": "^1.3.0",
     "del": "^6.0.0",
     "eslint": "^7.28.0",
     "eslint-plugin-tsdoc": "^0.2.14",
