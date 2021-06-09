@@ -1,10 +1,17 @@
-import { getActionInputs, getPullRequestId, handleError, outputVariables } from "./github";
+import {
+  createReplaceComment,
+  getActionInputs,
+  getPullRequestId,
+  handleError,
+  outputVariables,
+} from "./github";
 import { createOrFindThemeWithName, generateThemePreviewUrl, deployTheme } from "./shopify";
 
 const DEPLOYMENT_ACTIONS = new Set([`DEPLOY`, `DEPLOYMENT_PREVIEW`]);
 
 async function run(): Promise<void> {
-  const { SHOPIFY_AUTH, SHOPIFY_THEME_ID, ACTION, SHOPIFY_THEME_KIT_FLAGS } = getActionInputs();
+  const { SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_ID, ACTION, SHOPIFY_THEME_KIT_FLAGS } =
+    getActionInputs();
 
   let shopifyThemeId: number | undefined;
   if (ACTION === "DEPLOYMENT_PREVIEW") {
@@ -29,6 +36,10 @@ async function run(): Promise<void> {
       SHOPIFY_THEME_ID: shopifyThemeId.toString(),
       SHOPIFY_THEME_PREVIEW_URL: themePreviewUrl,
     });
+
+    const message = `:tada: Shopify theme has been deployed to theme id ${shopifyThemeId} at ${SHOPIFY_AUTH.storeUrl} . The theme can be previewed at: [${themePreviewUrl}](${themePreviewUrl})`;
+    const uniqueHiddenCommentString = "Comment created by GitHub Action `Shopify Theme Actions`";
+    await createReplaceComment(message, uniqueHiddenCommentString, GITHUB_AUTH);
 
     return;
   }

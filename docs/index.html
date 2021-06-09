@@ -64,6 +64,10 @@
 				<p>A set of GitHub Actions to enable fast Shopify theme development workflows:</p>
 				<p><strong>DEPLOYMENT_PREVIEW</strong><br>Creates a new Shopify theme for each PR. If a PR specific theme already exists it will be updated (i.e. on a <code>git push</code> after the PR was created).</p>
 				<p><strong>DEPLOY</strong><br>Deploys to the specified Shopify theme, useful for defined, testing / staging / production themes.</p>
+				<a href="#pr-comments" id="pr-comments" style="color: inherit; text-decoration: none;">
+					<h2>PR Comments</h2>
+				</a>
+				<p>After any deployment, if <code>GITHUB_TOKEN</code> is set, a comment will be added to the PR with a link to view the Shopify theme preview.</p>
 				<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
 					<h2>Requirements</h2>
 				</a>
@@ -78,6 +82,10 @@
 					<h3><code>ACTION</code></h3>
 				</a>
 				<p><strong>Required</strong> &#39;DEPLOYMENT_PREVIEW&#39; (creates a PR specific Shopify theme), &#39;DEPLOY&#39; (deploys to a specified theme, &#39;SHOPIFY_THEME_ID&#39; must also be set)</p>
+				<a href="#github_token" id="github_token" style="color: inherit; text-decoration: none;">
+					<h3><code>GITHUB_TOKEN</code></h3>
+				</a>
+				<p><strong>Required</strong> Github authentication token that allows comments to be created on PRs</p>
 				<a href="#shopify_store_url" id="shopify_store_url" style="color: inherit; text-decoration: none;">
 					<h3><code>SHOPIFY_STORE_URL</code></h3>
 				</a>
@@ -124,7 +132,7 @@
 				<pre><code><span style="color: #000000">name: </span><span style="color: #001080">pull</span><span style="color: #000000">-</span><span style="color: #001080">request</span>
 <span style="color: #000000">on: [</span><span style="color: #001080">pull_request</span><span style="color: #000000">]</span>
 <span style="color: #000000">jobs:</span>
-<span style="color: #000000">  test:</span>
+<span style="color: #000000">  deploy_theme:</span>
 <span style="color: #000000">    </span><span style="color: #001080">runs</span><span style="color: #000000">-on: </span><span style="color: #001080">ubuntu</span><span style="color: #000000">-</span><span style="color: #001080">latest</span>
 <span style="color: #000000">    steps:</span>
 <span style="color: #000000">      - uses: </span><span style="color: #001080">actions</span><span style="color: #000000">/</span><span style="color: #001080">checkout</span><span style="color: #000000">@</span><span style="color: #001080">v2</span>
@@ -135,13 +143,14 @@
 <span style="color: #000000">      # ... </span><span style="color: #001080">steps</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> </span><span style="color: #001080">build</span><span style="color: #000000"> </span><span style="color: #001080">theme</span><span style="color: #000000"> ...</span>
 
 <span style="color: #000000">      - name: </span><span style="color: #001080">Shopify</span><span style="color: #000000"> </span><span style="color: #001080">Theme</span><span style="color: #000000"> </span><span style="color: #001080">Actions</span>
-<span style="color: #000000">        uses: </span><span style="color: #001080">matthew</span><span style="color: #000000">-</span><span style="color: #001080">petrie</span><span style="color: #000000">/</span><span style="color: #001080">shopify</span><span style="color: #000000">-</span><span style="color: #001080">theme</span><span style="color: #000000">-</span><span style="color: #001080">actions</span><span style="color: #000000">@</span><span style="color: #098658">0.0</span><span style="color: #000000">.</span><span style="color: #098658">3</span>
+<span style="color: #000000">        uses: </span><span style="color: #001080">matthew</span><span style="color: #000000">-</span><span style="color: #001080">petrie</span><span style="color: #000000">/</span><span style="color: #001080">shopify</span><span style="color: #000000">-</span><span style="color: #001080">theme</span><span style="color: #000000">-</span><span style="color: #001080">actions</span><span style="color: #000000">@</span><span style="color: #098658">0.0</span><span style="color: #000000">.</span><span style="color: #098658">4</span>
 <span style="color: #000000">        </span><span style="color: #AF00DB">with</span><span style="color: #000000">:</span>
 <span style="color: #000000">          ACTION: </span><span style="color: #A31515">&quot;DEPLOYMENT_PREVIEW&quot;</span>
 <span style="color: #000000">          SHOPIFY_STORE_URL: </span><span style="color: #001080">$</span><span style="color: #000000">{{</span><span style="color: #001080">secrets</span><span style="color: #000000">.</span><span style="color: #0070C1">SHOPIFY_STORE_URL</span><span style="color: #000000">}}</span>
 <span style="color: #000000">          SHOPIFY_PASSWORD: </span><span style="color: #001080">$</span><span style="color: #000000">{{</span><span style="color: #001080">secrets</span><span style="color: #000000">.</span><span style="color: #0070C1">SHOPIFY_PASSWORD</span><span style="color: #000000">}}</span>
 <span style="color: #000000">          SHOPIFY_API_KEY: </span><span style="color: #001080">$</span><span style="color: #000000">{{</span><span style="color: #001080">secrets</span><span style="color: #000000">.</span><span style="color: #0070C1">SHOPIFY_API_KEY</span><span style="color: #000000">}}</span>
 <span style="color: #000000">          SHOPIFY_THEME_KIT_FLAGS: </span><span style="color: #A31515">&quot;dir=./dist&quot;</span>
+<span style="color: #000000">          GITHUB_TOKEN: </span><span style="color: #001080">$</span><span style="color: #000000">{{</span><span style="color: #001080">secrets</span><span style="color: #000000">.</span><span style="color: #0070C1">GITHUB_TOKEN</span><span style="color: #000000">}}</span>
 </code></pre>
 			</div>
 		</div>

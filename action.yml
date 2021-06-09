@@ -8,6 +8,9 @@ inputs:
   ACTION:
     description: "'DEPLOYMENT_PREVIEW' (creates a PR specific Shopify theme), 'DEPLOY' (deploys to a specified theme, 'SHOPIFY_THEME_ID' must also be set)"
     required: true
+  GITHUB_TOKEN:
+    description: "Github authentication token that allows comments to be created on PRs (optional)"
+    required: false
   SHOPIFY_STORE_URL:
     description: "The shopify development store i.e. my-store.myshopify.com"
     required: true
