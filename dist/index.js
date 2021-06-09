@@ -10403,7 +10403,7 @@ async function run() {
             SHOPIFY_THEME_ID: shopifyThemeId.toString(),
             SHOPIFY_THEME_PREVIEW_URL: themePreviewUrl,
         });
-        const message = `:tada: Shopify theme has been deployed to theme id ${shopifyThemeId} at ${SHOPIFY_AUTH.storeUrl} . The theme can be previewed at: [${themePreviewUrl}](${themePreviewUrl})`;
+        const message = `:tada: Shopify theme has been deployed to theme id '${shopifyThemeId}' at '${SHOPIFY_AUTH.storeUrl}'. The theme can be previewed at: ${themePreviewUrl}`;
         const uniqueHiddenCommentString = "Comment created by GitHub Action `Shopify Theme Actions`";
         await createReplaceComment(message, uniqueHiddenCommentString, GITHUB_AUTH);
         return;
