@@ -97,6 +97,16 @@
 					<h3><code>SHOPIFY_THEME_ID</code></h3>
 				</a>
 				<p><strong>Optional</strong> The Shopify theme that will be deployed to (only used if &#39;ACTION&#39; is &#39;DEPLOY&#39;)</p>
+				<a href="#shopify_theme_kit_flags" id="shopify_theme_kit_flags" style="color: inherit; text-decoration: none;">
+					<h3><code>SHOPIFY_THEME_KIT_FLAGS</code></h3>
+				</a>
+				<p><strong>Optional</strong> Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. <code>ignored-file</code> is <code>ignoredFile</code>) in the format: FLAG=VALUE,FLAG=VALUE i.e. <code>dir=./dist,allowLive=true</code>  </p>
+				<p>See available flags here:</p>
+				<ul>
+					<li><a href="https://shopify.dev/tools/theme-kit/configuration-reference#command-line-flags">Global Flags</a></li>
+					<li><a href="https://shopify.dev/tools/theme-kit/command-reference#deploy">Deployment Specific Flags</a></li>
+				</ul>
+				<p><em>Note: Use the <code>Long version</code> of the flatgs rather than short versions i.e. <code>nodelete</code> instead of <code>n</code></em></p>
 				<a href="#outputs" id="outputs" style="color: inherit; text-decoration: none;">
 					<h2>Outputs</h2>
 				</a>
@@ -125,12 +135,13 @@
 <span style="color: #000000">      # ... </span><span style="color: #001080">steps</span><span style="color: #000000"> </span><span style="color: #001080">to</span><span style="color: #000000"> </span><span style="color: #001080">build</span><span style="color: #000000"> </span><span style="color: #001080">theme</span><span style="color: #000000"> ...</span>
 
 <span style="color: #000000">      - name: </span><span style="color: #001080">Shopify</span><span style="color: #000000"> </span><span style="color: #001080">Theme</span><span style="color: #000000"> </span><span style="color: #001080">Actions</span>
-<span style="color: #000000">        uses: </span><span style="color: #001080">matthew</span><span style="color: #000000">-</span><span style="color: #001080">petrie</span><span style="color: #000000">/</span><span style="color: #001080">shopify</span><span style="color: #000000">-</span><span style="color: #001080">theme</span><span style="color: #000000">-</span><span style="color: #001080">actions</span><span style="color: #000000">@</span><span style="color: #098658">0.0</span><span style="color: #000000">.</span><span style="color: #098658">1</span>
+<span style="color: #000000">        uses: </span><span style="color: #001080">matthew</span><span style="color: #000000">-</span><span style="color: #001080">petrie</span><span style="color: #000000">/</span><span style="color: #001080">shopify</span><span style="color: #000000">-</span><span style="color: #001080">theme</span><span style="color: #000000">-</span><span style="color: #001080">actions</span><span style="color: #000000">@</span><span style="color: #098658">0.0</span><span style="color: #000000">.</span><span style="color: #098658">3</span>
 <span style="color: #000000">        </span><span style="color: #AF00DB">with</span><span style="color: #000000">:</span>
 <span style="color: #000000">          ACTION: </span><span style="color: #A31515">&quot;DEPLOYMENT_PREVIEW&quot;</span>
 <span style="color: #000000">          SHOPIFY_STORE_URL: </span><span style="color: #001080">$</span><span style="color: #000000">{{</span><span style="color: #001080">secrets</span><span style="color: #000000">.</span><span style="color: #0070C1">SHOPIFY_STORE_URL</span><span style="color: #000000">}}</span>
 <span style="color: #000000">          SHOPIFY_PASSWORD: </span><span style="color: #001080">$</span><span style="color: #000000">{{</span><span style="color: #001080">secrets</span><span style="color: #000000">.</span><span style="color: #0070C1">SHOPIFY_PASSWORD</span><span style="color: #000000">}}</span>
 <span style="color: #000000">          SHOPIFY_API_KEY: </span><span style="color: #001080">$</span><span style="color: #000000">{{</span><span style="color: #001080">secrets</span><span style="color: #000000">.</span><span style="color: #0070C1">SHOPIFY_API_KEY</span><span style="color: #000000">}}</span>
+<span style="color: #000000">          SHOPIFY_THEME_KIT_FLAGS: </span><span style="color: #A31515">&quot;dir=./dist&quot;</span>
 </code></pre>
 			</div>
 		</div>
