@@ -58,9 +58,11 @@ export const getThemeByName = async (
 
 export const deployTheme = async (
   shopifyThemeId: number,
-  SHOPIFY_AUTH: shopifyAuth
+  SHOPIFY_AUTH: shopifyAuth,
+  SHOPIFY_THEME_KIT_FLAGS?: { [key: string]: string }
 ): Promise<void> => {
   await themeKit.command("deploy", {
+    ...(SHOPIFY_THEME_KIT_FLAGS || {}),
     password: SHOPIFY_AUTH.password,
     store: SHOPIFY_AUTH.storeUrl,
     themeId: shopifyThemeId,
@@ -70,7 +72,12 @@ export const deployTheme = async (
 export const createOrFindThemeWithName = async (
   shopifyThemeName: themeName,
   SHOPIFY_AUTH: shopifyAuth
-): Promise<{ prexisting: boolean; shopifyTheme: shopifyTheme }> => {
+): Promise<{
+  /** Theme already existed? */
+  prexisting: boolean;
+  /** Full details about the matching / created theme */
+  shopifyTheme: shopifyTheme;
+}> => {
   // Theme may already exist - update the pre-existing if this is the case
   let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
   const prexisting = shopifyTheme ? true : false;

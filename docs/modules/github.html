@@ -75,6 +75,7 @@
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#getactioninputs" class="tsd-kind-icon">get<wbr>Action<wbr>Inputs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#getpullrequestid" class="tsd-kind-icon">get<wbr>Pull<wbr>Request<wbr>Id</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#handleerror" class="tsd-kind-icon">handle<wbr>Error</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#inputstringtoflagsobject" class="tsd-kind-icon">input<wbr>String<wbr>ToFlags<wbr>Object</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="github.html#outputvariables" class="tsd-kind-icon">output<wbr>Variables</a></li>
 							</ul>
 						</section>
@@ -87,13 +88,13 @@
 					<a name="getactioninputs" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Action<wbr>Inputs</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Action<wbr>Inputs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Action<wbr>Inputs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span><span class="tsd-signature-symbol"> }</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e98e9a8/src/github.ts#L11">github.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/87ce92c/src/github.ts#L34">github.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -101,7 +102,7 @@
 									<p>Retrieve and validate Github Action inputs</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span><span class="tsd-signature-symbol">; </span>SHOPIFY_AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>SHOPIFY_THEME_KIT_FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span><span class="tsd-signature-symbol"> }</span></h4>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter">
 									<h5>ACTION<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">action</span></h5>
@@ -110,7 +111,10 @@
 									<h5>SHOPIFY_<wbr>AUTH<span class="tsd-signature-symbol">: </span><a href="../interfaces/shopify.shopifyauth.html" class="tsd-signature-type" data-tsd-kind="Interface">shopifyAuth</a></h5>
 								</li>
 								<li class="tsd-parameter">
-									<h5>SHOPIFY_<wbr>THEME_<wbr>ID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> SHOPIFY_<wbr>THEME_<wbr>ID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> SHOPIFY_<wbr>THEME_<wbr>KIT_<wbr>FLAGS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">flagsObject</span></h5>
 								</li>
 							</ul>
 						</li>
@@ -126,7 +130,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e98e9a8/src/github.ts#L8">github.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/87ce92c/src/github.ts#L12">github.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -143,7 +147,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e98e9a8/src/github.ts#L42">github.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/87ce92c/src/github.ts#L70">github.ts:70</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -157,6 +161,36 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="inputstringtoflagsobject" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> input<wbr>String<wbr>ToFlags<wbr>Object</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">input<wbr>String<wbr>ToFlags<wbr>Object<span class="tsd-signature-symbol">(</span>flagsString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">flagsObject</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/87ce92c/src/github.ts#L20">github.ts:20</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Convert a string with the format <code>FLAG=VALUE,FLAG=VALUE</code> to an obejct with the format:</p>
+									<pre><code><span style="color: #000000">{ FLAG: </span><span style="color: #0070C1">VALUE</span><span style="color: #000000">, FLAG: </span><span style="color: #0070C1">VALUE</span><span style="color: #000000"> }</span>
+</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>flagsString: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">flagsObject</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="outputvariables" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> output<wbr>Variables</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -166,7 +200,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/e98e9a8/src/github.ts#L38">github.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/matthew-petrie/shopify-theme-actions/blob/87ce92c/src/github.ts#L66">github.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -221,6 +255,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="github.html#handleerror" class="tsd-kind-icon">handle<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="github.html#inputstringtoflagsobject" class="tsd-kind-icon">input<wbr>String<wbr>ToFlags<wbr>Object</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="github.html#outputvariables" class="tsd-kind-icon">output<wbr>Variables</a>
