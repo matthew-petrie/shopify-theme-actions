@@ -7,9 +7,13 @@ import {
   shopifyTheme,
   createOrFindThemeWithName,
   generateThemePreviewUrl,
+  removeTheme,
 } from "../src/shopify";
-import axios from "axios";
 import del from "del";
+import axios from "axios";
+import rateLimit from "axios-rate-limit";
+
+const http = rateLimit(axios.create(), { maxRPS: 2 });
 
 if (!process.env.SHOPIFY_STORE_URL)
   throw new Error("Environment variable 'SHOPIFY_STORE_URL' is not set.");
@@ -47,7 +51,7 @@ afterEach(async () => {
 
   // ... by id
   for (let i = 0; i < themeIdsToRemove.length; i++) {
-    await axios.delete(
+    await http.delete(
       `https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${themeIdsToRemove[i]}.json`
     );
   }
@@ -56,7 +60,7 @@ afterEach(async () => {
 afterAll(async () => {
   // remove main testing theme
   if (testingTheme) {
-    await axios.delete(
+    await http.delete(
       `https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${testingTheme.id}.json`
     );
   }
@@ -126,5 +130,19 @@ describe(`Generate Theme Preview URL`, () => {
     expect(generateThemePreviewUrl((testingTheme as shopifyTheme).id, SHOPIFY_AUTH)).toEqual(
       `https://${SHOPIFY_AUTH.storeUrl}/?preview_theme_id=${(testingTheme as shopifyTheme).id}`
     );
+  });
+});
+
+describe(`Remove Theme`, () => {
+  test(`Success`, async () => {
+    const themeName = `Shopify Theme Actions Test Theme 2 ${new Date().getTime()}`;
+    await createTheme(themeName, SHOPIFY_AUTH);
+    const theme = await getThemeByName(themeName, SHOPIFY_AUTH);
+    if (!theme) throw new Error("test setup failed to create theme");
+
+    expect(await removeTheme(theme.id, SHOPIFY_AUTH)).toEqual(undefined);
+
+    // check theme has been removed
+    expect(await getThemeByName(themeName, SHOPIFY_AUTH)).toEqual(undefined);
   });
 });
