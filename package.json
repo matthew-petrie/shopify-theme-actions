@@ -1,6 +1,6 @@
 {
   "name": "shopify-theme-actions",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A set of GitHub Actions to enable fast Shopify theme development workflows",
   "main": "dist/index.js",
   "scripts": {
@@ -27,10 +27,13 @@
   "bugs": {
     "url": "https://github.com/matthew-petrie/shopify-actions/issues"
   },
+  "engines": {
+    "node": "^12"
+  },
   "homepage": "https://github.com/matthew-petrie/shopify-actions#readme",
   "devDependencies": {
     "@microsoft/tsdoc": "^0.13.2",
-    "@tsconfig/node14": "^1.0.0",
+    "@tsconfig/node12": "^1.0.8",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.2",
     "@typescript-eslint/eslint-plugin": "^4.26.0",

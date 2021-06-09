@@ -88,7 +88,7 @@ jobs:
       # ... steps to build theme ...
 
       - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@0.0.4
+        uses: matthew-petrie/shopify-theme-actions@0.0.5
         with:
           ACTION: "DEPLOYMENT_PREVIEW"
           SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
