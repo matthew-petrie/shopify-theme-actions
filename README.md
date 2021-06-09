@@ -115,7 +115,7 @@ When a pull request is closed remove the PR specific Shopify theme:
 name: Pull Request Closed
 on:
   pull_request:
-    types: [ closed ]
+    types: [closed]
 jobs:
   deploy_theme:
     runs-on: ubuntu-latest
