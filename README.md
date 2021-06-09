@@ -8,6 +8,10 @@ Creates a new Shopify theme for each PR. If a PR specific theme already exists i
 **DEPLOY**  
 Deploys to the specified Shopify theme, useful for defined, testing / staging / production themes.
 
+## PR Comments
+
+After any deployment, if `GITHUB_TOKEN` is set, a comment will be added to the PR with a link to view the Shopify theme preview.
+
 ## Requirements
 
 Requires a Shopify Private App to be created with the permissions:
@@ -19,6 +23,10 @@ Requires a Shopify Private App to be created with the permissions:
 ### `ACTION`
 
 **Required** 'DEPLOYMENT_PREVIEW' (creates a PR specific Shopify theme), 'DEPLOY' (deploys to a specified theme, 'SHOPIFY_THEME_ID' must also be set)
+
+### `GITHUB_TOKEN`
+
+**Required** Github authentication token that allows comments to be created on PRs
 
 ### `SHOPIFY_STORE_URL`
 
@@ -69,7 +77,7 @@ The URL the theme can be previewed at
 name: pull-request
 on: [pull_request]
 jobs:
-  test:
+  deploy_theme:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -80,11 +88,12 @@ jobs:
       # ... steps to build theme ...
 
       - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@0.0.3
+        uses: matthew-petrie/shopify-theme-actions@0.0.4
         with:
           ACTION: "DEPLOYMENT_PREVIEW"
           SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
           SHOPIFY_PASSWORD: ${{secrets.SHOPIFY_PASSWORD}}
           SHOPIFY_API_KEY: ${{secrets.SHOPIFY_API_KEY}}
           SHOPIFY_THEME_KIT_FLAGS: "dir=./dist"
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 ```
