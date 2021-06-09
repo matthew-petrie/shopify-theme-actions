@@ -74,6 +74,6 @@ export const deployment = async (
     SHOPIFY_THEME_PREVIEW_URL: themePreviewUrl,
   });
 
-  const message = `:tada: Shopify theme has been deployed to theme id ${shopifyThemeId} at ${SHOPIFY_AUTH.storeUrl} . The theme can be previewed at: [${themePreviewUrl}](${themePreviewUrl})`;
+  const message = `:tada: Shopify theme has been deployed to theme id '${shopifyThemeId}' at '${SHOPIFY_AUTH.storeUrl}'. The theme can be previewed at: ${themePreviewUrl}`;
   await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING, shopifyThemeId, GITHUB_AUTH);
 };
