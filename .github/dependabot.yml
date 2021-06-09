@@ -8,6 +8,6 @@ updates:
     labels:
       - "dependencies"
       - "dependabot"
-    commit_message:
+    commit-message:
       prefix: "chore"
       include: "scope"
