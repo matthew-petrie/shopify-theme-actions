@@ -96,7 +96,7 @@ const findIssueComment = async (
     ...githubContext.repo,
     issue_number: githubContext.payload.pull_request.number,
   });
-  return comments.find((comment) => comment.body?.includes(uniqueCommentString));
+  return comments.find((comment) => comment.body && comment.body.includes(uniqueCommentString));
 };
 
 const deleteIssueComment = async (
