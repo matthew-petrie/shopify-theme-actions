@@ -24,7 +24,9 @@ export const getPullRequestId = (): number => github.context.issue.number;
  * { FLAG: VALUE, FLAG: VALUE }
  * ```
  */
-const inputStringToFlagsObject = (flagsString: string | undefined): flagsObject | undefined => {
+export const inputStringToFlagsObject = (
+  flagsString: string | undefined
+): flagsObject | undefined => {
   if (!flagsString || flagsString === "") return undefined;
 
   const flagsArray = flagsString.split(",");
