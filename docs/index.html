@@ -61,127 +61,77 @@
 				<a href="#shopify-theme-actions" id="shopify-theme-actions" style="color: inherit; text-decoration: none;">
 					<h1>Shopify Theme Actions</h1>
 				</a>
-				<p>A set of GitHub Actions to enable fast Shopify theme development / review workflows, options:</p>
+				<p><img src="https://img.shields.io/github/license/matthew-petrie/shopify-theme-actions?style=plastic" alt="GitHub"></p>
+				<p>A set of GitHub Actions to enable fast Shopify theme development/review workflows, options:</p>
 				<ol>
-					<li>Create &amp; deploy a PR specific preview theme</li>
+					<li>Create &amp; deploy a PR specific preview theme when a PR is opened/updated</li>
 					<li>Remove the PR specific preview theme once the PR is closed</li>
-					<li>Deploy to a specified Shopify theme</li>
+					<li>Deploy a specified theme when a PR is opened/updated</li>
+					<li>Deploy to a specified Shopify theme once commits are pushed into a branch i.e. deploy to production</li>
 				</ol>
+				<p><img src="shopify-theme-actions-screenshot.jpg" alt="Shopify Theme Actions Deployment PR Comment"></p>
 				<a href="#pr-comments" id="pr-comments" style="color: inherit; text-decoration: none;">
-					<h2>PR Comments</h2>
+					<h4>PR Comments</h4>
 				</a>
-				<p>After any deployment, if <code>GITHUB_TOKEN</code> is set &amp; the deployment was triggered by a pull request, a comment will be added to the PR with a link to view the Shopify theme preview.</p>
+				<p>After any deployment, if <code>GITHUB_TOKEN</code> is set &amp; the deployment was triggered by a PR, a comment will be added to the PR with a link to view the Shopify theme preview (as above).</p>
+				<a href="#get-started" id="get-started" style="color: inherit; text-decoration: none;">
+					<h2>Get Started</h2>
+				</a>
+				<ul>
+					<li>Create a <a href="https://help.shopify.com/en/manual/apps/private-apps#generate-credentials-from-the-shopify-admin">Shopify Private App</a> with the permissions <code>Themes: Read and write</code>.</li>
+					<li>Add the Shopify Private App credentials as the Github secrets; <code>SHOPIFY_PASSWORD</code>, <code>SHOPIFY_API_KEY</code> and <code>SHOPIFY_STORE_URL</code> (i.e. <code>mystore.myshopify.com</code>)</li>
+					<li>If you do not have the folders already create a <code>.github</code> folder with a <code>workflows</code> folder inside</li>
+					<li>within this <code>./github/workflows/</code> folder add any of the below theme development/review workflows; When a:</li>
+				</ul>
+				<ol>
+					<li><p><a href="./exampleWorkflows/createPullRequestSpecificPreview.yml">PR is opened/updated create and deploy a PR specific Shopify theme</a></p>
+					</li>
+					<li><p><a href="./exampleWorkflows/removePullRequestSpecificPreview.yml">PR is closed remove the previously created PR specific Shopify theme</a></p>
+					</li>
+					<li><p><a href="./exampleWorkflows/deployPullRequstToSpecificTheme.yml">PR is opened/updated deploy to a specified theme i.e. testing/staging theme</a></p>
+					</li>
+					<li><p><a href="./exampleWorkflows/deployToProduction.yml">commmit is pushed to the <code>main</code> branch deploy to production</a></p>
+					</li>
+				</ol>
 				<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
 					<h2>Requirements</h2>
 				</a>
-				<p>Requires a Shopify Private App to be created with the permissions:</p>
-				<ul>
-					<li><code>Themes</code>: <code>Read and write</code></li>
-				</ul>
+				<p>Requires a Shopify Private App to be created with the permissions: <code>Themes: Read and write</code></p>
 				<a href="#inputs" id="inputs" style="color: inherit; text-decoration: none;">
 					<h2>Inputs</h2>
 				</a>
-				<a href="#action" id="action" style="color: inherit; text-decoration: none;">
-					<h3><code>ACTION</code></h3>
-				</a>
-				<p><strong>Required</strong><br>Options:</p>
+				<p>Github action inputs:</p>
+				<p><strong><code>ACTION</code></strong> <em>required</em></p>
 				<ol>
 					<li><p><code>DEPLOYMENT_PREVIEW</code><br>Creates a new Shopify theme for each PR raised. If a PR specific theme already exists it will be updated (i.e. on a <code>git push</code> after the PR was created).</p>
 					</li>
 					<li><p><code>REMOVE_DEPLOYMENT_PREVIEW_THEME</code><br>Removes a previously created PR specific Shopify theme that was created when <code>ACTION</code> was set to <code>DEPLOYMENT_PREVIEW</code></p>
 					</li>
-					<li><p><code>DEPLOY</code><br>Deploys to the specified Shopify theme, useful for defined <code>testing</code> / <code>staging</code> / <code>production</code> themes. <code>SHOPIFY_THEME_ID</code> must be set.<br><em>If deploying to the live Shopify stores theme include the flag <code>allowLive=true</code> in <code>SHOPIFY_THEME_KIT_FLAGS</code>.</em></p>
+					<li><p><code>DEPLOY</code><br>Deploys to the specified Shopify theme, useful for defined <code>testing</code>/<code>staging</code>/<code>production</code> themes. <code>SHOPIFY_THEME_ID</code> must be set.<br><em>If deploying to the live Shopify stores theme include the flag <code>allowLive=true</code> in <code>SHOPIFY_THEME_KIT_FLAGS</code>.</em></p>
 					</li>
 				</ol>
-				<a href="#github_token" id="github_token" style="color: inherit; text-decoration: none;">
-					<h3><code>GITHUB_TOKEN</code></h3>
-				</a>
-				<p><strong>Required</strong> Github authentication token that allows comments to be created on PRs</p>
-				<a href="#shopify_store_url" id="shopify_store_url" style="color: inherit; text-decoration: none;">
-					<h3><code>SHOPIFY_STORE_URL</code></h3>
-				</a>
-				<p><em>Should be stored as a GitHub secret!</em></p>
-				<p><strong>Required</strong> The shopify development store i.e. my-store.myshopify.com</p>
-				<a href="#shopify_password" id="shopify_password" style="color: inherit; text-decoration: none;">
-					<h3><code>SHOPIFY_PASSWORD</code></h3>
-				</a>
-				<p><em>Should be stored as a GitHub secret!</em></p>
-				<p><strong>Required</strong> The Shopify store&#39;s private app password used with themekit</p>
-				<a href="#shopify_api_key" id="shopify_api_key" style="color: inherit; text-decoration: none;">
-					<h3><code>SHOPIFY_API_KEY</code></h3>
-				</a>
-				<p><em>Should be stored as a GitHub secret!</em></p>
-				<p><strong>Required</strong> The Shopify store&#39;s private app API Key to allow theme creation and removal</p>
-				<a href="#shopify_theme_id" id="shopify_theme_id" style="color: inherit; text-decoration: none;">
-					<h3><code>SHOPIFY_THEME_ID</code></h3>
-				</a>
-				<p><strong>Optional</strong> The Shopify theme that will be deployed to (only used if &#39;ACTION&#39; is &#39;DEPLOY&#39;)</p>
-				<a href="#shopify_theme_kit_flags" id="shopify_theme_kit_flags" style="color: inherit; text-decoration: none;">
-					<h3><code>SHOPIFY_THEME_KIT_FLAGS</code></h3>
-				</a>
-				<p><strong>Optional</strong> Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. <code>ignored-file</code> is <code>ignoredFile</code>) in the format: FLAG=VALUE,FLAG=VALUE i.e. <code>dir=./dist,allowLive=true</code></p>
-				<p>See available flags here:</p>
+				<p><strong><code>SHOPIFY_STORE_URL</code></strong> <em>required</em><br>The shopify development store i.e. my-store.myshopify.com<br><em>Should be stored as a GitHub secret!</em></p>
+				<p><strong><code>SHOPIFY_PASSWORD</code></strong> <em>required</em><br>The Shopify store&#39;s private app password used with themekit<br><em>Should be stored as a GitHub secret!</em></p>
+				<p><strong><code>SHOPIFY_API_KEY</code></strong> <em>required</em><br>The Shopify store&#39;s private app API Key to allow theme creation and removal<br><em>Should be stored as a GitHub secret!</em></p>
+				<p><strong><code>SHOPIFY_THEME_ID</code></strong> <em>optional</em><br>The Shopify theme that will be deployed to (only used if &#39;ACTION&#39; is &#39;DEPLOY&#39;)</p>
+				<p><strong><code>SHOPIFY_THEME_KIT_FLAGS</code></strong> <em>optional</em><br>Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. <code>ignored-file</code> is <code>ignoredFile</code>) in the format: FLAG=VALUE,FLAG=VALUE i.e. <code>dir=./dist,allowLive=true</code>.
+				See available flags here:</p>
 				<ul>
 					<li><a href="https://shopify.dev/tools/theme-kit/configuration-reference#command-line-flags">Global Flags</a></li>
 					<li><a href="https://shopify.dev/tools/theme-kit/command-reference#deploy">Deployment Specific Flags</a></li>
 				</ul>
 				<p><em>Note: Use the <code>Long version</code> of the flags rather than short versions i.e. <code>nodelete</code> instead of <code>n</code></em></p>
+				<p><strong><code>GITHUB_TOKEN</code></strong> <em>optional</em><br>Github authentication token that allows comments to be created on PRs.<br><em>If not set comments cannot be created on PRs and previously created PR specific Shopify themes cannot be removed.</em></p>
 				<a href="#outputs" id="outputs" style="color: inherit; text-decoration: none;">
 					<h2>Outputs</h2>
 				</a>
-				<a href="#shopify_theme_id-1" id="shopify_theme_id-1" style="color: inherit; text-decoration: none;">
-					<h3><code>SHOPIFY_THEME_ID</code></h3>
+				<p>Github action outputs (can be used in following steps):</p>
+				<p><strong><code>SHOPIFY_THEME_ID</code></strong><br>The newly created/found/supplied Shopify theme id</p>
+				<p><strong><code>SHOPIFY_THEME_PREVIEW_URL</code></strong><br>The URL the theme can be previewed at</p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
 				</a>
-				<p>The newly created / found / supplied Shopify theme id</p>
-				<a href="#shopify_theme_preview_url" id="shopify_theme_preview_url" style="color: inherit; text-decoration: none;">
-					<h3><code>SHOPIFY_THEME_PREVIEW_URL</code></h3>
-				</a>
-				<p>The URL the theme can be previewed at</p>
-				<a href="#example-usage" id="example-usage" style="color: inherit; text-decoration: none;">
-					<h2>Example usage</h2>
-				</a>
-				<p>When a pull request is opened / updated deploy a PR specific Shopify theme:</p>
-				<pre><code class="language-yaml"><span style="color: #800000">name</span><span style="color: #000000">: </span><span style="color: #0000FF">Pull Request Created or Updated</span>
-<span style="color: #0000FF">on</span><span style="color: #000000">: [</span><span style="color: #0000FF">pull_request</span><span style="color: #000000">]</span>
-<span style="color: #800000">jobs</span><span style="color: #000000">:</span>
-<span style="color: #000000">  </span><span style="color: #800000">deploy_theme</span><span style="color: #000000">:</span>
-<span style="color: #000000">    </span><span style="color: #800000">runs-on</span><span style="color: #000000">: </span><span style="color: #0000FF">ubuntu-latest</span>
-<span style="color: #000000">    </span><span style="color: #800000">steps</span><span style="color: #000000">:</span>
-<span style="color: #000000">      - </span><span style="color: #800000">uses</span><span style="color: #000000">: </span><span style="color: #0000FF">actions/checkout@v2</span>
-<span style="color: #000000">        </span><span style="color: #800000">with</span><span style="color: #000000">:</span>
-<span style="color: #000000">          </span><span style="color: #008000"># Make sure the actual branch is checked out when running on pull requests</span>
-<span style="color: #000000">          </span><span style="color: #800000">ref</span><span style="color: #000000">: </span><span style="color: #0000FF">${{ github.head_ref }}</span>
-
-<span style="color: #000000">      </span><span style="color: #008000"># ... steps to build theme ...</span>
-
-<span style="color: #000000">      - </span><span style="color: #800000">name</span><span style="color: #000000">: </span><span style="color: #0000FF">Shopify Theme Actions</span>
-<span style="color: #000000">        </span><span style="color: #800000">uses</span><span style="color: #000000">: </span><span style="color: #0000FF">matthew-petrie/shopify-theme-actions@1.0.0</span>
-<span style="color: #000000">        </span><span style="color: #800000">with</span><span style="color: #000000">:</span>
-<span style="color: #000000">          </span><span style="color: #800000">ACTION</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;DEPLOYMENT_PREVIEW&quot;</span>
-<span style="color: #000000">          </span><span style="color: #800000">SHOPIFY_STORE_URL</span><span style="color: #000000">: </span><span style="color: #0000FF">${{secrets.SHOPIFY_STORE_URL}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">SHOPIFY_PASSWORD</span><span style="color: #000000">: </span><span style="color: #0000FF">${{secrets.SHOPIFY_PASSWORD}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">SHOPIFY_API_KEY</span><span style="color: #000000">: </span><span style="color: #0000FF">${{secrets.SHOPIFY_API_KEY}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">SHOPIFY_THEME_KIT_FLAGS</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;dir=./dist&quot;</span>
-<span style="color: #000000">          </span><span style="color: #800000">GITHUB_TOKEN</span><span style="color: #000000">: </span><span style="color: #0000FF">${{secrets.GITHUB_TOKEN}}</span>
-</code></pre>
-				<p>When a pull request is closed remove the PR specific Shopify theme:</p>
-				<pre><code class="language-yaml"><span style="color: #800000">name</span><span style="color: #000000">: </span><span style="color: #0000FF">Pull Request Closed</span>
-<span style="color: #0000FF">on</span><span style="color: #000000">:</span>
-<span style="color: #000000">  </span><span style="color: #800000">pull_request</span><span style="color: #000000">:</span>
-<span style="color: #000000">    </span><span style="color: #800000">types</span><span style="color: #000000">: [</span><span style="color: #0000FF">closed</span><span style="color: #000000">]</span>
-<span style="color: #800000">jobs</span><span style="color: #000000">:</span>
-<span style="color: #000000">  </span><span style="color: #800000">remove_deployment_preview_theme</span><span style="color: #000000">:</span>
-<span style="color: #000000">    </span><span style="color: #800000">runs-on</span><span style="color: #000000">: </span><span style="color: #0000FF">ubuntu-latest</span>
-<span style="color: #000000">    </span><span style="color: #800000">steps</span><span style="color: #000000">:</span>
-<span style="color: #000000">      - </span><span style="color: #800000">name</span><span style="color: #000000">: </span><span style="color: #0000FF">Shopify Theme Actions</span>
-<span style="color: #000000">        </span><span style="color: #800000">uses</span><span style="color: #000000">: </span><span style="color: #0000FF">matthew-petrie/shopify-theme-actions@1.0.0</span>
-<span style="color: #000000">        </span><span style="color: #800000">with</span><span style="color: #000000">:</span>
-<span style="color: #000000">          </span><span style="color: #800000">ACTION</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;REMOVE_DEPLOYMENT_PREVIEW_THEME&quot;</span>
-<span style="color: #000000">          </span><span style="color: #800000">SHOPIFY_STORE_URL</span><span style="color: #000000">: </span><span style="color: #0000FF">${{secrets.SHOPIFY_STORE_URL}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">SHOPIFY_PASSWORD</span><span style="color: #000000">: </span><span style="color: #0000FF">${{secrets.SHOPIFY_PASSWORD}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">SHOPIFY_API_KEY</span><span style="color: #000000">: </span><span style="color: #0000FF">${{secrets.SHOPIFY_API_KEY}}</span>
-<span style="color: #000000">          </span><span style="color: #800000">GITHUB_TOKEN</span><span style="color: #000000">: </span><span style="color: #0000FF">${{secrets.GITHUB_TOKEN}}</span>
-</code></pre>
+				<p>Shopify Theme Actions is <a href="./LICENSE">MIT licensed</a>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

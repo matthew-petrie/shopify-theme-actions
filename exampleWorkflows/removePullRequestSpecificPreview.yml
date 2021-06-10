@@ -1,0 +1,17 @@
+# When a PR is closed remove the previously created PR specific Shopify theme
+name: Pull Request Closed
+on:
+  pull_request:
+    types: [closed]
+jobs:
+  remove_deployment_preview_theme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Shopify Theme Actions
+        uses: matthew-petrie/shopify-theme-actions@1.0.0
+        with:
+          ACTION: "REMOVE_DEPLOYMENT_PREVIEW_THEME"
+          SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
+          SHOPIFY_PASSWORD: ${{secrets.SHOPIFY_PASSWORD}}
+          SHOPIFY_API_KEY: ${{secrets.SHOPIFY_API_KEY}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

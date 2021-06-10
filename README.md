@@ -1,27 +1,43 @@
 # Shopify Theme Actions
 
-A set of GitHub Actions to enable fast Shopify theme development / review workflows, options:
+![GitHub](https://img.shields.io/github/license/matthew-petrie/shopify-theme-actions?style=plastic)
 
-1. Create & deploy a PR specific preview theme
+A set of GitHub Actions to enable fast Shopify theme development/review workflows, options:
+
+1. Create & deploy a PR specific preview theme when a PR is opened/updated
 2. Remove the PR specific preview theme once the PR is closed
-3. Deploy to a specified Shopify theme
+3. Deploy a specified theme when a PR is opened/updated
+4. Deploy to a specified Shopify theme once commits are pushed into a branch i.e. deploy to production
 
-## PR Comments
+![Shopify Theme Actions Deployment PR Comment](shopify-theme-actions-screenshot.jpg)
 
-After any deployment, if `GITHUB_TOKEN` is set & the deployment was triggered by a pull request, a comment will be added to the PR with a link to view the Shopify theme preview.
+#### PR Comments
+
+After any deployment, if `GITHUB_TOKEN` is set & the deployment was triggered by a PR, a comment will be added to the PR with a link to view the Shopify theme preview (as above).
+
+## Get Started
+
+- Create a [Shopify Private App](https://help.shopify.com/en/manual/apps/private-apps#generate-credentials-from-the-shopify-admin) with the permissions `Themes: Read and write`.
+- Add the Shopify Private App credentials as the Github secrets; `SHOPIFY_PASSWORD`, `SHOPIFY_API_KEY` and `SHOPIFY_STORE_URL` (i.e. `mystore.myshopify.com`)
+- If you do not have the folders already create a `.github` folder with a `workflows` folder inside
+- within this `./github/workflows/` folder add any of the below theme development/review workflows; When a:
+
+1. [PR is opened/updated create and deploy a PR specific Shopify theme](./exampleWorkflows/createPullRequestSpecificPreview.yml)
+
+2. [PR is closed remove the previously created PR specific Shopify theme](./exampleWorkflows/removePullRequestSpecificPreview.yml)
+
+3. [PR is opened/updated deploy to a specified theme i.e. testing/staging theme](./exampleWorkflows/deployPullRequstToSpecificTheme.yml)
+4. [commmit is pushed to the `main` branch deploy to production](./exampleWorkflows/deployToProduction.yml)
 
 ## Requirements
 
-Requires a Shopify Private App to be created with the permissions:
-
-- `Themes`: `Read and write`
+Requires a Shopify Private App to be created with the permissions: `Themes: Read and write`
 
 ## Inputs
 
-### `ACTION`
+Github action inputs:
 
-**Required**  
-Options:
+**`ACTION`** _required_
 
 1. `DEPLOYMENT_PREVIEW`  
    Creates a new Shopify theme for each PR raised. If a PR specific theme already exists it will be updated (i.e. on a `git push` after the PR was created).
@@ -30,39 +46,26 @@ Options:
    Removes a previously created PR specific Shopify theme that was created when `ACTION` was set to `DEPLOYMENT_PREVIEW`
 
 3. `DEPLOY`  
-   Deploys to the specified Shopify theme, useful for defined `testing` / `staging` / `production` themes. `SHOPIFY_THEME_ID` must be set.  
+   Deploys to the specified Shopify theme, useful for defined `testing`/`staging`/`production` themes. `SHOPIFY_THEME_ID` must be set.  
    _If deploying to the live Shopify stores theme include the flag `allowLive=true` in `SHOPIFY_THEME_KIT_FLAGS`._
 
-### `GITHUB_TOKEN`
-
-**Required** Github authentication token that allows comments to be created on PRs
-
-### `SHOPIFY_STORE_URL`
-
+**`SHOPIFY_STORE_URL`** _required_  
+The shopify development store i.e. my-store.myshopify.com  
 _Should be stored as a GitHub secret!_
 
-**Required** The shopify development store i.e. my-store.myshopify.com
-
-### `SHOPIFY_PASSWORD`
-
+**`SHOPIFY_PASSWORD`** _required_  
+The Shopify store's private app password used with themekit  
 _Should be stored as a GitHub secret!_
 
-**Required** The Shopify store's private app password used with themekit
-
-### `SHOPIFY_API_KEY`
-
+**`SHOPIFY_API_KEY`** _required_  
+The Shopify store's private app API Key to allow theme creation and removal  
 _Should be stored as a GitHub secret!_
 
-**Required** The Shopify store's private app API Key to allow theme creation and removal
+**`SHOPIFY_THEME_ID`** _optional_  
+The Shopify theme that will be deployed to (only used if 'ACTION' is 'DEPLOY')
 
-### `SHOPIFY_THEME_ID`
-
-**Optional** The Shopify theme that will be deployed to (only used if 'ACTION' is 'DEPLOY')
-
-### `SHOPIFY_THEME_KIT_FLAGS`
-
-**Optional** Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. `ignored-file` is `ignoredFile`) in the format: FLAG=VALUE,FLAG=VALUE i.e. `dir=./dist,allowLive=true`
-
+**`SHOPIFY_THEME_KIT_FLAGS`** _optional_  
+Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. `ignored-file` is `ignoredFile`) in the format: FLAG=VALUE,FLAG=VALUE i.e. `dir=./dist,allowLive=true`.
 See available flags here:
 
 - [Global Flags](https://shopify.dev/tools/theme-kit/configuration-reference#command-line-flags)
@@ -70,62 +73,20 @@ See available flags here:
 
 _Note: Use the `Long version` of the flags rather than short versions i.e. `nodelete` instead of `n`_
 
+**`GITHUB_TOKEN`** _optional_  
+Github authentication token that allows comments to be created on PRs.  
+_If not set comments cannot be created on PRs and previously created PR specific Shopify themes cannot be removed._
+
 ## Outputs
 
-### `SHOPIFY_THEME_ID`
+Github action outputs (can be used in following steps):
 
-The newly created / found / supplied Shopify theme id
+**`SHOPIFY_THEME_ID`**  
+The newly created/found/supplied Shopify theme id
 
-### `SHOPIFY_THEME_PREVIEW_URL`
-
+**`SHOPIFY_THEME_PREVIEW_URL`**  
 The URL the theme can be previewed at
 
-## Example usage
+## License
 
-When a pull request is opened / updated deploy a PR specific Shopify theme:
-
-```yaml
-name: Pull Request Created or Updated
-on: [pull_request]
-jobs:
-  deploy_theme:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-
-      # ... steps to build theme ...
-
-      - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@1.0.0
-        with:
-          ACTION: "DEPLOYMENT_PREVIEW"
-          SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
-          SHOPIFY_PASSWORD: ${{secrets.SHOPIFY_PASSWORD}}
-          SHOPIFY_API_KEY: ${{secrets.SHOPIFY_API_KEY}}
-          SHOPIFY_THEME_KIT_FLAGS: "dir=./dist"
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-```
-
-When a pull request is closed remove the PR specific Shopify theme:
-
-```yaml
-name: Pull Request Closed
-on:
-  pull_request:
-    types: [closed]
-jobs:
-  remove_deployment_preview_theme:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@1.0.0
-        with:
-          ACTION: "REMOVE_DEPLOYMENT_PREVIEW_THEME"
-          SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
-          SHOPIFY_PASSWORD: ${{secrets.SHOPIFY_PASSWORD}}
-          SHOPIFY_API_KEY: ${{secrets.SHOPIFY_API_KEY}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-```
+Shopify Theme Actions is [MIT licensed](./LICENSE).
