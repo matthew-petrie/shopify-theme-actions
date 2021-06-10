@@ -1,0 +1,23 @@
+# When a PR is opened/updated create and deploy a PR specific Shopify theme
+name: Pull Request Created or Updated
+on: [pull_request]
+jobs:
+  deploy_pull_request_preview_theme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+
+      # ... steps to build Shopify theme ...
+
+      - name: Shopify Theme Actions
+        uses: matthew-petrie/shopify-theme-actions@1.0.0
+        with:
+          ACTION: "DEPLOYMENT_PREVIEW"
+          SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
+          SHOPIFY_PASSWORD: ${{secrets.SHOPIFY_PASSWORD}}
+          SHOPIFY_API_KEY: ${{secrets.SHOPIFY_API_KEY}}
+          SHOPIFY_THEME_KIT_FLAGS: "dir=./dist" # TODO - this may need updating
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
