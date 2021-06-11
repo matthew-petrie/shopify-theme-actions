@@ -56,7 +56,7 @@ export const getActionInputs = (): {
   };
 
   // validate theme kit flags
-  if (!SHOPIFY_THEME_KIT_FLAGS.dir || SHOPIFY_THEME_KIT_FLAGS.dir.length > 0)
+  if (!SHOPIFY_THEME_KIT_FLAGS.dir || SHOPIFY_THEME_KIT_FLAGS.dir.length === 0)
     throw new Error("'SHOPIFY_THEME_DIRECTORY' must be set.");
 
   return {
