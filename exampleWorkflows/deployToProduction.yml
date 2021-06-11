@@ -16,13 +16,13 @@ jobs:
       # ... steps to build Shopify theme ...
 
       - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@1.1.0
+        uses: matthew-petrie/shopify-theme-actions@1.1.1
         with:
           ACTION: "DEPLOY"
           SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
           SHOPIFY_PASSWORD: ${{secrets.SHOPIFY_PASSWORD}}
           SHOPIFY_API_KEY: ${{secrets.SHOPIFY_API_KEY}}
           SHOPIFY_THEME_DIRECTORY: "./dist" # TODO - this may need updating
-          SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT: "true"
+          SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT: true
           SHOPIFY_THEME_ID: 12156 # TODO - THIS MUST BE UPDATED
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

@@ -10245,7 +10245,7 @@ const getActionInputs = () => {
         undefined;
     const SHOPIFY_THEME_KIT_FLAGS = {
         dir: core.getInput("SHOPIFY_THEME_DIRECTORY", { required: true }),
-        allowLive: core.getBooleanInput("SHOPIFY_THEME_DIRECTORY", { required: false }),
+        allowLive: core.getBooleanInput("SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT", { required: false }),
     };
     // validate theme kit flags
     if (!SHOPIFY_THEME_KIT_FLAGS.dir || SHOPIFY_THEME_KIT_FLAGS.dir.length > 0)
