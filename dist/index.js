@@ -10226,22 +10226,6 @@ const VALID_ACTIONS = new Set([
     "REMOVE_DEPLOYMENT_PREVIEW_THEME",
 ]);
 const getPullRequestId = () => github.context.issue.number;
-/**
- * Convert a string with the format `FLAG=VALUE,FLAG=VALUE` to an obejct with the format:
- * ```
- * { FLAG: VALUE, FLAG: VALUE }
- * ```
- */
-const inputStringToFlagsObject = (flagsString) => {
-    if (!flagsString || flagsString === "")
-        return undefined;
-    const flagsArray = flagsString.split(",");
-    return flagsArray.reduce((acc, flag) => {
-        const [key, value] = flag.split("=");
-        acc[key] = value;
-        return acc;
-    }, {});
-};
 /** Retrieve and validate Github Action inputs */
 const getActionInputs = () => {
     const ACTION = core.getInput("ACTION", { required: true });
@@ -10259,8 +10243,13 @@ const getActionInputs = () => {
     const shopifyThemeIdString = core.getInput("SHOPIFY_THEME_ID", { required: false });
     const SHOPIFY_THEME_ID = (shopifyThemeIdString && shopifyThemeIdString.length > 0 && parseInt(shopifyThemeIdString)) ||
         undefined;
-    const themeKitFlagsString = core.getInput("SHOPIFY_THEME_KIT_FLAGS", { required: false });
-    const SHOPIFY_THEME_KIT_FLAGS = inputStringToFlagsObject(themeKitFlagsString);
+    const SHOPIFY_THEME_KIT_FLAGS = {
+        dir: core.getInput("SHOPIFY_THEME_DIRECTORY", { required: true }),
+        allowLive: core.getBooleanInput("SHOPIFY_THEME_DIRECTORY", { required: false }),
+    };
+    // validate theme kit flags
+    if (!SHOPIFY_THEME_KIT_FLAGS.dir || SHOPIFY_THEME_KIT_FLAGS.dir.length > 0)
+        throw new Error("'SHOPIFY_THEME_DIRECTORY' must be set.");
     return {
         SHOPIFY_AUTH,
         GITHUB_AUTH,

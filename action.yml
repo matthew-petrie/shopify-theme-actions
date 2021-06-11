@@ -23,9 +23,13 @@ inputs:
   SHOPIFY_THEME_ID:
     description: "If provided the theme will be deployed to this Shopify theme id. If not provided the theme will be deployed to a PR specific newly created theme."
     required: false
-  SHOPIFY_THEME_KIT_FLAGS:
-    description: "Shopify Theme Kit flags in camelCase rather than hyphenated (i.e. 'ignored-file' is 'ignoredFile') in the format: FLAG=VALUE,FLAG=VALUE i.e. 'dir=./dist'"
+  SHOPIFY_THEME_DIRECTORY:
+    description: "The directory containing the Shopify theme to deploy i.e. './dist'"
+    required: true
+  SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT:
+    description: "If deploying to a 'live' Shopify theme this must be set to 'true'"
     required: false
+    default: "false"
 outputs:
   SHOPIFY_THEME_ID:
     description: "The newly created and deployed Shopify theme id"

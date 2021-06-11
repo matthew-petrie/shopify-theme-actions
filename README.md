@@ -47,7 +47,7 @@ Github action inputs:
 
 3. `DEPLOY`  
    Deploys to the specified Shopify theme, useful for defined `testing`/`staging`/`production` themes. `SHOPIFY_THEME_ID` must be set.  
-   _If deploying to the live Shopify stores theme include the flag `allowLive=true` in `SHOPIFY_THEME_KIT_FLAGS`._
+   _If deploying to the live Shopify stores theme make sure to set `SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT` to `true`_
 
 **`SHOPIFY_STORE_URL`** _required_  
 The shopify development store i.e. my-store.myshopify.com  
@@ -61,17 +61,14 @@ _Should be stored as a GitHub secret!_
 The Shopify store's private app API Key to allow theme creation and removal  
 _Should be stored as a GitHub secret!_
 
+**`SHOPIFY_THEME_DIRECTORY`** _required_  
+The directory containing the Shopify theme to deploy i.e. `./dist`
+
 **`SHOPIFY_THEME_ID`** _optional_  
 The Shopify theme that will be deployed to (only used if 'ACTION' is 'DEPLOY')
 
-**`SHOPIFY_THEME_KIT_FLAGS`** _optional_  
-Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. `ignored-file` is `ignoredFile`) in the format: FLAG=VALUE,FLAG=VALUE i.e. `dir=./dist,allowLive=true`.
-See available flags here:
-
-- [Global Flags](https://shopify.dev/tools/theme-kit/configuration-reference#command-line-flags)
-- [Deployment Specific Flags](https://shopify.dev/tools/theme-kit/command-reference#deploy)
-
-_Note: Use the `Long version` of the flags rather than short versions i.e. `nodelete` instead of `n`_
+**`SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT`** _optional_  
+If deploying to a 'live' (published) Shopify theme this must be set to `true`
 
 **`GITHUB_TOKEN`** _optional_  
 Github authentication token that allows comments to be created on PRs.  

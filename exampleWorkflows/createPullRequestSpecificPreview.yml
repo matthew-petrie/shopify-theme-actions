@@ -13,11 +13,11 @@ jobs:
       # ... steps to build Shopify theme ...
 
       - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@1.0.0
+        uses: matthew-petrie/shopify-theme-actions@1.1.0
         with:
           ACTION: "DEPLOYMENT_PREVIEW"
           SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
           SHOPIFY_PASSWORD: ${{secrets.SHOPIFY_PASSWORD}}
           SHOPIFY_API_KEY: ${{secrets.SHOPIFY_API_KEY}}
-          SHOPIFY_THEME_KIT_FLAGS: "dir=./dist" # TODO - this may need updating
+          SHOPIFY_THEME_DIRECTORY: "./dist" # TODO - this may need updating
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

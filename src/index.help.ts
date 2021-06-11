@@ -7,7 +7,7 @@ import {
   findIssueComment,
   retrieveShopifyThemeIdFromIssueComment,
   githubAuth,
-  flagsObject,
+  shopifyThemeKitFlags,
   action,
 } from "./github";
 import {
@@ -46,7 +46,7 @@ export const deploymentPreview = async (
   ACTION: action,
   SHOPIFY_AUTH: shopifyAuth,
   GITHUB_AUTH: githubAuth,
-  SHOPIFY_THEME_KIT_FLAGS: flagsObject | undefined
+  SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags
 ): Promise<void> => {
   const pullRequestNumber = getPullRequestId();
   const shopifyThemeName = `PR ${pullRequestNumber} - deployment preview`;
@@ -57,7 +57,7 @@ export const deploymentPreview = async (
 export const deployment = async (
   SHOPIFY_AUTH: shopifyAuth,
   GITHUB_AUTH: githubAuth,
-  SHOPIFY_THEME_KIT_FLAGS: flagsObject | undefined,
+  SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags,
   shopifyThemeId?: number
 ): Promise<void> => {
   if (!shopifyThemeId) {

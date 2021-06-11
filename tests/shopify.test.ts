@@ -28,13 +28,31 @@ const SHOPIFY_AUTH: shopifyAuth = {
   password: process.env.SHOPIFY_PASSWORD,
 };
 
-let testingTheme: shopifyTheme | undefined;
+let testingTheme: shopifyTheme | undefined,
+  liveTestingTheme: shopifyTheme | undefined,
+  originallyLiveTheme: shopifyTheme | undefined;
 beforeAll(async () => {
+  const allOriginalShopifyThemes = await getAllThemes(SHOPIFY_AUTH);
+  originallyLiveTheme = allOriginalShopifyThemes.find(
+    (shopifyTheme) => shopifyTheme.role === `main` // 'main' means 'live'
+  );
+  if (!originallyLiveTheme)
+    throw new Error(`Could not find the theme that was 'live' prior to the tests starting.`);
+
   const testingThemeName = `Shopify Theme Actions Test Theme ${new Date().getTime()}`;
   await createTheme(testingThemeName, SHOPIFY_AUTH);
   testingTheme = await getThemeByName(testingThemeName, SHOPIFY_AUTH);
-
   if (!testingTheme) throw new Error(`'testingTheme' failed to be created.`);
+
+  const liveTestingThemeName = `Shopify Theme Actions Test Theme 2 ${new Date().getTime()}`;
+  await createTheme(liveTestingThemeName, SHOPIFY_AUTH);
+  liveTestingTheme = await getThemeByName(liveTestingThemeName, SHOPIFY_AUTH);
+  if (!liveTestingTheme) throw new Error(`'liveTestingTheme' failed to be created.`);
+  // make theme the live theme
+  await http.put(
+    `https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${liveTestingTheme.id}.json`,
+    { theme: { id: liveTestingTheme.id, role: "main" } }
+  );
 });
 
 let themeIdsToRemove: number[] = [];
@@ -57,11 +75,25 @@ afterEach(async () => {
   }
   themeIdsToRemove = [];
 });
+
 afterAll(async () => {
-  // remove main testing theme
+  // make the originally live theme 'live' again
+  if (originallyLiveTheme) {
+    await http.put(
+      `https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${originallyLiveTheme.id}.json`,
+      { theme: { id: originallyLiveTheme.id, role: "main" } }
+    );
+  }
+
+  // remove main testing themes
   if (testingTheme) {
     await http.delete(
       `https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${testingTheme.id}.json`
+    );
+  }
+  if (liveTestingTheme) {
+    await http.delete(
+      `https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${liveTestingTheme.id}.json`
     );
   }
 
@@ -97,8 +129,43 @@ describe(`Get Shopify Theme by Name`, () => {
 });
 
 describe(`Deploy Shopify theme`, () => {
-  test(`Successful`, async () => {
+  test(`No flags`, async () => {
     expect(await deployTheme((testingTheme as shopifyTheme).id, SHOPIFY_AUTH)).toEqual(undefined);
+  });
+
+  test(`Has flags, cannot deploy to live theme as 'allowLive' flag is false`, async () => {
+    const SHOPIFY_THEME_KIT_FLAGS = {
+      allowLive: false,
+      dir: "./",
+    };
+
+    let error: Error | undefined;
+    try {
+      await deployTheme(
+        (liveTestingTheme as shopifyTheme).id,
+        SHOPIFY_AUTH,
+        SHOPIFY_THEME_KIT_FLAGS
+      );
+    } catch (err) {
+      error = err as Error;
+    }
+    expect(error).toEqual(
+      expect.stringContaining(`cannot make changes to a live theme without an override`)
+    );
+  });
+
+  test(`Has flags, deploy to live theme, 'allowLive' flag is true`, async () => {
+    const SHOPIFY_THEME_KIT_FLAGS = {
+      allowLive: true,
+      dir: "./",
+    };
+    expect(
+      await deployTheme(
+        (liveTestingTheme as shopifyTheme).id,
+        SHOPIFY_AUTH,
+        SHOPIFY_THEME_KIT_FLAGS
+      )
+    ).toEqual(undefined);
   });
 });
 
