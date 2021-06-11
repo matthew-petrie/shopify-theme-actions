@@ -1,5 +1,6 @@
 import themeKit from "@shopify/themekit";
 import axios from "axios";
+import { shopifyThemeKitFlags } from "./github";
 
 /** Max 150 characters */
 type themeName = string;
@@ -59,7 +60,7 @@ export const getThemeByName = async (
 export const deployTheme = async (
   shopifyThemeId: number,
   SHOPIFY_AUTH: shopifyAuth,
-  SHOPIFY_THEME_KIT_FLAGS?: { [key: string]: string }
+  SHOPIFY_THEME_KIT_FLAGS?: shopifyThemeKitFlags
 ): Promise<void> => {
   await themeKit.command("deploy", {
     ...(SHOPIFY_THEME_KIT_FLAGS || {}),

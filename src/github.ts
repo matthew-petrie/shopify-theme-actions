@@ -12,8 +12,9 @@ export const VALID_ACTIONS: Set<action> = new Set([
   "REMOVE_DEPLOYMENT_PREVIEW_THEME",
 ]);
 
-export interface flagsObject {
-  [key: string]: string;
+export interface shopifyThemeKitFlags {
+  dir: string;
+  allowLive: boolean;
 }
 export interface githubAuth {
   token?: string;
@@ -22,32 +23,13 @@ type githubComment = RestEndpointMethodTypes["issues"]["listComments"]["response
 
 export const getPullRequestId = (): number => github.context.issue.number;
 
-/**
- * Convert a string with the format `FLAG=VALUE,FLAG=VALUE` to an obejct with the format:
- * ```
- * { FLAG: VALUE, FLAG: VALUE }
- * ```
- */
-export const inputStringToFlagsObject = (
-  flagsString: string | undefined
-): flagsObject | undefined => {
-  if (!flagsString || flagsString === "") return undefined;
-
-  const flagsArray = flagsString.split(",");
-  return flagsArray.reduce((acc: flagsObject, flag): flagsObject => {
-    const [key, value] = flag.split("=");
-    acc[key] = value;
-    return acc;
-  }, {});
-};
-
 /** Retrieve and validate Github Action inputs */
 export const getActionInputs = (): {
   SHOPIFY_AUTH: shopifyAuth;
   GITHUB_AUTH: githubAuth;
   ACTION: action;
   SHOPIFY_THEME_ID?: number;
-  SHOPIFY_THEME_KIT_FLAGS?: flagsObject;
+  SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags;
 } => {
   const ACTION = core.getInput("ACTION", { required: true });
   if (!VALID_ACTIONS.has(ACTION as action)) throw new Error();
@@ -68,8 +50,14 @@ export const getActionInputs = (): {
     (shopifyThemeIdString && shopifyThemeIdString.length > 0 && parseInt(shopifyThemeIdString)) ||
     undefined;
 
-  const themeKitFlagsString = core.getInput("SHOPIFY_THEME_KIT_FLAGS", { required: false });
-  const SHOPIFY_THEME_KIT_FLAGS = inputStringToFlagsObject(themeKitFlagsString);
+  const SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags = {
+    dir: core.getInput("SHOPIFY_THEME_DIRECTORY", { required: true }),
+    allowLive: core.getBooleanInput("SHOPIFY_THEME_DIRECTORY", { required: false }),
+  };
+
+  // validate theme kit flags
+  if (!SHOPIFY_THEME_KIT_FLAGS.dir || SHOPIFY_THEME_KIT_FLAGS.dir.length > 0)
+    throw new Error("'SHOPIFY_THEME_DIRECTORY' must be set.");
 
   return {
     SHOPIFY_AUTH,
