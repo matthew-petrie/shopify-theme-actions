@@ -107,20 +107,15 @@
 					</li>
 					<li><p><code>REMOVE_DEPLOYMENT_PREVIEW_THEME</code><br>Removes a previously created PR specific Shopify theme that was created when <code>ACTION</code> was set to <code>DEPLOYMENT_PREVIEW</code></p>
 					</li>
-					<li><p><code>DEPLOY</code><br>Deploys to the specified Shopify theme, useful for defined <code>testing</code>/<code>staging</code>/<code>production</code> themes. <code>SHOPIFY_THEME_ID</code> must be set.<br><em>If deploying to the live Shopify stores theme include the flag <code>allowLive=true</code> in <code>SHOPIFY_THEME_KIT_FLAGS</code>.</em></p>
+					<li><p><code>DEPLOY</code><br>Deploys to the specified Shopify theme, useful for defined <code>testing</code>/<code>staging</code>/<code>production</code> themes. <code>SHOPIFY_THEME_ID</code> must be set.<br><em>If deploying to the live Shopify stores theme make sure to set <code>SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT</code> to <code>true</code></em></p>
 					</li>
 				</ol>
 				<p><strong><code>SHOPIFY_STORE_URL</code></strong> <em>required</em><br>The shopify development store i.e. my-store.myshopify.com<br><em>Should be stored as a GitHub secret!</em></p>
 				<p><strong><code>SHOPIFY_PASSWORD</code></strong> <em>required</em><br>The Shopify store&#39;s private app password used with themekit<br><em>Should be stored as a GitHub secret!</em></p>
 				<p><strong><code>SHOPIFY_API_KEY</code></strong> <em>required</em><br>The Shopify store&#39;s private app API Key to allow theme creation and removal<br><em>Should be stored as a GitHub secret!</em></p>
+				<p><strong><code>SHOPIFY_THEME_DIRECTORY</code></strong> <em>required</em><br>The directory containing the Shopify theme to deploy i.e. <code>./dist</code></p>
 				<p><strong><code>SHOPIFY_THEME_ID</code></strong> <em>optional</em><br>The Shopify theme that will be deployed to (only used if &#39;ACTION&#39; is &#39;DEPLOY&#39;)</p>
-				<p><strong><code>SHOPIFY_THEME_KIT_FLAGS</code></strong> <em>optional</em><br>Shopify Theme Kit flags for theme deployment in camelCase rather than hyphenated (i.e. <code>ignored-file</code> is <code>ignoredFile</code>) in the format: FLAG=VALUE,FLAG=VALUE i.e. <code>dir=./dist,allowLive=true</code>.
-				See available flags here:</p>
-				<ul>
-					<li><a href="https://shopify.dev/tools/theme-kit/configuration-reference#command-line-flags">Global Flags</a></li>
-					<li><a href="https://shopify.dev/tools/theme-kit/command-reference#deploy">Deployment Specific Flags</a></li>
-				</ul>
-				<p><em>Note: Use the <code>Long version</code> of the flags rather than short versions i.e. <code>nodelete</code> instead of <code>n</code></em></p>
+				<p><strong><code>SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT</code></strong> <em>optional</em><br>If deploying to a &#39;live&#39; (published) Shopify theme this must be set to <code>true</code></p>
 				<p><strong><code>GITHUB_TOKEN</code></strong> <em>optional</em><br>Github authentication token that allows comments to be created on PRs.<br><em>If not set comments cannot be created on PRs and previously created PR specific Shopify themes cannot be removed.</em></p>
 				<a href="#outputs" id="outputs" style="color: inherit; text-decoration: none;">
 					<h2>Outputs</h2>
