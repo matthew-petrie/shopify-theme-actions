@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@1.1.1
+        uses: matthew-petrie/shopify-theme-actions@1.1.2
         with:
           ACTION: "REMOVE_DEPLOYMENT_PREVIEW_THEME"
           SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
