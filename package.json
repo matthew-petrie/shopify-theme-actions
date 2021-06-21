@@ -33,7 +33,7 @@
   "homepage": "https://github.com/matthew-petrie/shopify-actions#readme",
   "devDependencies": {
     "@microsoft/tsdoc": "^0.13.2",
-    "@tsconfig/node12": "^1.0.8",
+    "@tsconfig/node12": "^1.0.9",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.2",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
