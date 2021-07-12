@@ -219,5 +219,5 @@ describe(`Remove Theme`, () => {
     // check theme has been removed
     await sleepMs(1000);
     expect(await getThemeByName(themeName, SHOPIFY_AUTH)).toEqual(undefined);
-  }, 10000);
+  }, 20000);
 });
