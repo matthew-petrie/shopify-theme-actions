@@ -78,7 +78,7 @@ afterEach(async () => {
 
   // add delay after each test to avoid "429 Too Many Requests" being returned from Shopify
   await sleepMs(1000);
-}, 5000);
+}, 10000);
 
 afterAll(async () => {
   // make the originally live theme 'live' again
@@ -208,12 +208,16 @@ describe(`Remove Theme`, () => {
   test(`Success`, async () => {
     const themeName = `Shopify Theme Actions Test Theme 2 ${new Date().getTime()}`;
     await createTheme(themeName, SHOPIFY_AUTH);
+
+    await sleepMs(1000);
     const theme = await getThemeByName(themeName, SHOPIFY_AUTH);
     if (!theme) throw new Error("test setup failed to create theme");
 
+    await sleepMs(1000);
     expect(await removeTheme(theme.id, SHOPIFY_AUTH)).toEqual(undefined);
 
     // check theme has been removed
+    await sleepMs(1000);
     expect(await getThemeByName(themeName, SHOPIFY_AUTH)).toEqual(undefined);
-  });
+  }, 10000);
 });
