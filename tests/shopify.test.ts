@@ -12,6 +12,7 @@ import {
 import del from "del";
 import axios from "axios";
 import rateLimit from "axios-rate-limit";
+import { sleepMs } from "./helper";
 
 const http = rateLimit(axios.create(), { maxRPS: 2 });
 
@@ -74,7 +75,10 @@ afterEach(async () => {
     );
   }
   themeIdsToRemove = [];
-});
+
+  // add delay after each test to avoid "429 Too Many Requests" being returned from Shopify
+  await sleepMs(1000);
+}, 5000);
 
 afterAll(async () => {
   // make the originally live theme 'live' again
