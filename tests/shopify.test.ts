@@ -14,10 +14,7 @@ import axios from "axios";
 import rateLimit from "axios-rate-limit";
 
 const http = rateLimit(axios.create(), { maxRPS: 2 });
-console.log(
-  "process.env.SHOPIFY_STORE_URL length",
-  process.env.SHOPIFY_STORE_URL && process.env.SHOPIFY_STORE_URL.length
-);
+
 if (!process.env.SHOPIFY_STORE_URL)
   throw new Error("Environment variable 'SHOPIFY_STORE_URL' is not set.");
 if (!process.env.SHOPIFY_API_KEY)
