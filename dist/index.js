@@ -3710,7 +3710,7 @@ const path = __nccwpck_require__(5622);
 
 module.exports = {
   baseURL: 'https://shopify-themekit.s3.amazonaws.com',
-  version: '1.2.0',
+  version: '1.3.0',
   destination: __nccwpck_require__.ab + "bin",
   binName: process.platform === 'win32' ? 'theme.exe' : 'theme'
 };
