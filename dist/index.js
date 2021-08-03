@@ -10247,8 +10247,11 @@ const getActionInputs = () => {
         dir: core.getInput("SHOPIFY_THEME_DIRECTORY", { required: true }),
         allowLive: core.getBooleanInput("SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT", { required: false }),
     };
-    // validate theme kit flags
+    const ignoredFiles = core.getInput("IGNORED_FILES", { required: true });
+    if (ignoredFiles && ignoredFiles.length > 0)
+        SHOPIFY_THEME_KIT_FLAGS.ignoredFiles = ignoredFiles.split(",");
     if (!SHOPIFY_THEME_KIT_FLAGS.dir || SHOPIFY_THEME_KIT_FLAGS.dir.length === 0)
+        // validate theme kit flags
         throw new Error("'SHOPIFY_THEME_DIRECTORY' must be set.");
     return {
         SHOPIFY_AUTH,

@@ -70,6 +70,9 @@ The Shopify theme that will be deployed to (only used if 'ACTION' is 'DEPLOY')
 **`SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT`** _optional_  
 If deploying to a 'live' (published) Shopify theme this must be set to `true`
 
+**`IGNORED_FILES`** _optional_  
+[Ignore files pattern](https://shopify.dev/themes/tools/theme-kit/configuration-reference#ignore-patterns). Comma seperated string of patterns / file paths.
+
 **`GITHUB_TOKEN`** _optional_  
 Github authentication token that allows comments to be created on PRs.  
 _If not set comments cannot be created on PRs and previously created PR specific Shopify themes cannot be removed._

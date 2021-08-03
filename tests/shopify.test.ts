@@ -158,10 +158,11 @@ describe(`Deploy Shopify theme`, () => {
     );
   });
 
-  test(`Has flags, deploy to live theme, 'allowLive' flag is true`, async () => {
+  test(`Has flags, deploy to live theme, 'allowLive' flag is true, 'ignoreFiles' ignores file`, async () => {
     const SHOPIFY_THEME_KIT_FLAGS = {
       allowLive: true,
       dir: "./",
+      ignoredFiles: ["config/"],
     };
     expect(
       await deployTheme(
