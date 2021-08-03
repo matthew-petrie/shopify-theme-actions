@@ -13,7 +13,7 @@ jobs:
       # ... steps to build Shopify theme ...
 
       - name: Shopify Theme Actions
-        uses: matthew-petrie/shopify-theme-actions@1.2.1
+        uses: matthew-petrie/shopify-theme-actions@1.2.2
         with:
           ACTION: "DEPLOY"
           SHOPIFY_STORE_URL: ${{secrets.SHOPIFY_STORE_URL}}
