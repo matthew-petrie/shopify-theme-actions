@@ -29,6 +29,9 @@ inputs:
   SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT:
     description: "If deploying to a 'live' Shopify theme this must be set to 'true'"
     required: false
+  IGNORED_FILES:
+    description: "Ignore files pattern. Comma seperated string of patterns / file paths."
+    required: false
 outputs:
   SHOPIFY_THEME_ID:
     description: "The newly created and deployed Shopify theme id"
