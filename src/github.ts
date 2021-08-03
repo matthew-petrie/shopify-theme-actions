@@ -56,7 +56,7 @@ export const getActionInputs = (): {
     allowLive: core.getBooleanInput("SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT", { required: false }),
   };
 
-  const ignoredFiles = core.getInput("IGNORED_FILES", { required: true });
+  const ignoredFiles = core.getInput("IGNORED_FILES", { required: false });
   if (ignoredFiles && ignoredFiles.length > 0)
     SHOPIFY_THEME_KIT_FLAGS.ignoredFiles = ignoredFiles.split(",");
 
