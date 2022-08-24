@@ -77,11 +77,10 @@ export const deployTheme = async (
 
 export const duplicateLive = async (SHOPIFY_AUTH: shopifyAuth, id: number): Promise<void> => {
     !fs.existsSync(`./.shopify-tmp/`) && fs.mkdirSync(`./.shopify-tmp/`, {recursive: true});
-    await themeKit.command("get", {
+    await themeKit.command("download", {
             password: SHOPIFY_AUTH.password,
             store: SHOPIFY_AUTH.storeUrl,
             live: true,
-            env: 'tmp',
             noIgnore: true,
             dir: './.shopify-tmp/'
         },
@@ -91,8 +90,7 @@ export const duplicateLive = async (SHOPIFY_AUTH: shopifyAuth, id: number): Prom
         store: SHOPIFY_AUTH.storeUrl,
         themeId: id,
         noIgnore: true,
-        dir: './.shopify-tmp/',
-        env: 'tmp2'
+        dir: './.shopify-tmp/'
     },
         {logLevel: 'all'});
     fs.rmSync('./.shopify-tmp/', { recursive: true, force: true });

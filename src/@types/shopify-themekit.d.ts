@@ -1,6 +1,6 @@
 declare module "@shopify/themekit" {
     /** Theme Kit command to run. */
-    export declare type command = "deploy" | "new" | "remove" | "get";
+    export declare type command = "deploy" | "new" | "remove" | "download";
 
     /**
      * Flags to pass into the command.

@@ -10374,11 +10374,10 @@ const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS
 };
 const duplicateLive = async (SHOPIFY_AUTH, id) => {
     !external_fs_.existsSync(`./.shopify-tmp/`) && external_fs_.mkdirSync(`./.shopify-tmp/`, { recursive: true });
-    await themekit_default().command("get", {
+    await themekit_default().command("download", {
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         live: true,
-        env: 'tmp',
         noIgnore: true,
         dir: './.shopify-tmp/'
     }, { logLevel: 'all' });
@@ -10387,8 +10386,7 @@ const duplicateLive = async (SHOPIFY_AUTH, id) => {
         store: SHOPIFY_AUTH.storeUrl,
         themeId: id,
         noIgnore: true,
-        dir: './.shopify-tmp/',
-        env: 'tmp2'
+        dir: './.shopify-tmp/'
     }, { logLevel: 'all' });
     external_fs_.rmSync('./.shopify-tmp/', { recursive: true, force: true });
 };
