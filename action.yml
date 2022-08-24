@@ -17,9 +17,6 @@ inputs:
   SHOPIFY_PASSWORD:
     description: "The Shopify store's private app password used with themekit"
     required: true
-  SHOPIFY_API_KEY:
-    description: "The Shopify store's private app API Key to allow theme creation and removal (if this is opted for)"
-    required: true
   SHOPIFY_THEME_ID:
     description: "If provided the theme will be deployed to this Shopify theme id. If not provided the theme will be deployed to a PR specific newly created theme."
     required: false

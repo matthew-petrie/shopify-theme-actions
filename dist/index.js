@@ -10006,7 +10006,7 @@ module.exports = eval("require")("encoding");
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"axios","version":"0.21.1","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test && bundlesize","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://github.com/axios/axios","devDependencies":{"bundlesize":"^0.17.0","coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.0.2","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^20.1.0","grunt-karma":"^2.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^1.0.18","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^1.3.0","karma-chrome-launcher":"^2.2.0","karma-coverage":"^1.1.1","karma-firefox-launcher":"^1.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-opera-launcher":"^1.0.0","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^1.2.0","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.7","karma-webpack":"^1.7.0","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^5.2.0","sinon":"^4.5.0","typescript":"^2.8.1","url-search-params":"^0.10.0","webpack":"^1.13.1","webpack-dev-server":"^1.14.1"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.10.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.1.tgz","_integrity":"sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==","_from":"axios@0.21.1"}');
+module.exports = JSON.parse('{"name":"axios","version":"0.21.1","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test && bundlesize","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://github.com/axios/axios","devDependencies":{"bundlesize":"^0.17.0","coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.0.2","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^20.1.0","grunt-karma":"^2.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^1.0.18","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^1.3.0","karma-chrome-launcher":"^2.2.0","karma-coverage":"^1.1.1","karma-firefox-launcher":"^1.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-opera-launcher":"^1.0.0","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^1.2.0","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.7","karma-webpack":"^1.7.0","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^5.2.0","sinon":"^4.5.0","typescript":"^2.8.1","url-search-params":"^0.10.0","webpack":"^1.13.1","webpack-dev-server":"^1.14.1"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.10.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]}');
 
 /***/ }),
 
@@ -10237,7 +10237,6 @@ const getActionInputs = () => {
     };
     const SHOPIFY_AUTH = {
         storeUrl: core.getInput("SHOPIFY_STORE_URL", { required: true }),
-        apiKey: core.getInput("SHOPIFY_API_KEY", { required: true }),
         password: core.getInput("SHOPIFY_PASSWORD", { required: true }),
     };
     const shopifyThemeIdString = core.getInput("SHOPIFY_THEME_ID", { required: false });
@@ -10340,7 +10339,10 @@ var themekit_default = /*#__PURE__*/__nccwpck_require__.n(themekit);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __nccwpck_require__(6545);
 var axios_default = /*#__PURE__*/__nccwpck_require__.n(axios);
+// EXTERNAL MODULE: external "fs"
+var external_fs_ = __nccwpck_require__(5747);
 ;// CONCATENATED MODULE: ./src/shopify.ts
+
 
 
 const createTheme = async (themeName, SHOPIFY_AUTH) => {
@@ -10352,7 +10354,9 @@ const createTheme = async (themeName, SHOPIFY_AUTH) => {
 };
 /** Returns all Shopify themes for a store in a JSON format (does not use the "\@shopify/themekit" module as this does not return JSON) */
 const getAllThemes = async (SHOPIFY_AUTH) => {
-    const { data: { themes }, } = await axios_default().get(`https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes.json`);
+    const { data: { themes }, } = await axios_default().get(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes.json`, {
+        headers: { 'X-Shopify-Access-Token': SHOPIFY_AUTH.password }
+    });
     return themes;
 };
 const getThemeByName = async (themeName, SHOPIFY_AUTH) => {
@@ -10368,6 +10372,26 @@ const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS
         themeId: shopifyThemeId,
     });
 };
+const duplicateLive = async (SHOPIFY_AUTH, id) => {
+    !external_fs_.existsSync(`./.shopify-tmp/`) && external_fs_.mkdirSync(`./.shopify-tmp/`, { recursive: true });
+    await themekit_default().command("get", {
+        password: SHOPIFY_AUTH.password,
+        store: SHOPIFY_AUTH.storeUrl,
+        live: true,
+        env: 'tmp',
+        noIgnore: true,
+        dir: './.shopify-tmp/'
+    }, { logLevel: 'all' });
+    await themekit_default().command("deploy", {
+        password: SHOPIFY_AUTH.password,
+        store: SHOPIFY_AUTH.storeUrl,
+        themeId: id,
+        noIgnore: true,
+        dir: './.shopify-tmp/',
+        env: 'tmp2'
+    }, { logLevel: 'all' });
+    external_fs_.rmSync('./.shopify-tmp/', { recursive: true, force: true });
+};
 const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
     // Theme may already exist - update the pre-existing if this is the case
     let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
@@ -10379,6 +10403,7 @@ const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
         if (!shopifyTheme) {
             throw new Error(`Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`);
         }
+        await duplicateLive(SHOPIFY_AUTH, shopifyTheme.id);
     }
     return {
         prexisting,
@@ -10387,7 +10412,9 @@ const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
 };
 const generateThemePreviewUrl = (shopifyThemeId, SHOPIFY_AUTH) => `https://${SHOPIFY_AUTH.storeUrl}/?preview_theme_id=${shopifyThemeId}`;
 const removeTheme = async (themeId, SHOPIFY_AUTH) => {
-    await axios_default().delete(`https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${themeId}.json`);
+    await axios_default().delete(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes/${themeId}.json`, {
+        headers: { 'X-Shopify-Access-Token': SHOPIFY_AUTH.password }
+    });
 };
 
 ;// CONCATENATED MODULE: ./src/index.help.ts

@@ -42,7 +42,6 @@ export const getActionInputs = (): {
 
   const SHOPIFY_AUTH: shopifyAuth = <const>{
     storeUrl: core.getInput("SHOPIFY_STORE_URL", { required: true }),
-    apiKey: core.getInput("SHOPIFY_API_KEY", { required: true }),
     password: core.getInput("SHOPIFY_PASSWORD", { required: true }),
   };
 
