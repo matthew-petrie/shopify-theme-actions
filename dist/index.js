@@ -10355,7 +10355,7 @@ const createTheme = async (themeName, SHOPIFY_AUTH) => {
 /** Returns all Shopify themes for a store in a JSON format (does not use the "\@shopify/themekit" module as this does not return JSON) */
 const getAllThemes = async (SHOPIFY_AUTH) => {
     const { data: { themes }, } = await axios_default().get(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes.json`, {
-        headers: { 'X-Shopify-Access-Token': SHOPIFY_AUTH.password }
+        headers: { "X-Shopify-Access-Token": SHOPIFY_AUTH.password },
     });
     return themes;
 };
@@ -10379,16 +10379,16 @@ const duplicateLive = async (SHOPIFY_AUTH, id) => {
         store: SHOPIFY_AUTH.storeUrl,
         live: true,
         noIgnore: true,
-        dir: './.shopify-tmp/'
-    }, { logLevel: 'all' });
+        dir: "./.shopify-tmp/",
+    }, { logLevel: "all" });
     await themekit_default().command("deploy", {
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         themeId: id,
         noIgnore: true,
-        dir: './.shopify-tmp/'
-    }, { logLevel: 'all' });
-    external_fs_.rmSync('./.shopify-tmp/', { recursive: true, force: true });
+        dir: "./.shopify-tmp/",
+    }, { logLevel: "all" });
+    external_fs_.rmSync("./.shopify-tmp/", { recursive: true, force: true });
 };
 const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
     // Theme may already exist - update the pre-existing if this is the case
@@ -10411,7 +10411,7 @@ const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
 const generateThemePreviewUrl = (shopifyThemeId, SHOPIFY_AUTH) => `https://${SHOPIFY_AUTH.storeUrl}/?preview_theme_id=${shopifyThemeId}`;
 const removeTheme = async (themeId, SHOPIFY_AUTH) => {
     await axios_default().delete(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes/${themeId}.json`, {
-        headers: { 'X-Shopify-Access-Token': SHOPIFY_AUTH.password }
+        headers: { "X-Shopify-Access-Token": SHOPIFY_AUTH.password },
     });
 };
 
