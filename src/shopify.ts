@@ -99,7 +99,7 @@ export const duplicateLive = async (SHOPIFY_AUTH: shopifyAuth, id: number): Prom
     },
     { logLevel: "all" }
   );
-  fs.rmSync("./.shopify-tmp/", { recursive: true, force: true });
+  fs.rmdirSync("./.shopify-tmp/", { recursive: true });
 };
 
 export const createOrFindThemeWithName = async (

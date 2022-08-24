@@ -10388,7 +10388,7 @@ const duplicateLive = async (SHOPIFY_AUTH, id) => {
         noIgnore: true,
         dir: "./.shopify-tmp/",
     }, { logLevel: "all" });
-    external_fs_.rmSync("./.shopify-tmp/", { recursive: true, force: true });
+    external_fs_.rmdirSync("./.shopify-tmp/", { recursive: true });
 };
 const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
     // Theme may already exist - update the pre-existing if this is the case
