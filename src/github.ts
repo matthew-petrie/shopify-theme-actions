@@ -22,8 +22,6 @@ export interface githubAuth {
 }
 type githubComment = RestEndpointMethodTypes["issues"]["listComments"]["response"]["data"][0];
 
-
-
 /** Retrieve and validate Github Action inputs */
 export const getActionInputs = (): {
   SHOPIFY_AUTH: shopifyAuth;
