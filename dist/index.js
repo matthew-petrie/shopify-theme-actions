@@ -3698,7 +3698,7 @@ exports.request = request;
 /***/ 6390:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-/* unused reexport */ __nccwpck_require__(652);
+module.exports = __nccwpck_require__(652);
 
 
 /***/ }),
@@ -3914,7 +3914,7 @@ module.exports = {cleanFile, getFlagArrayFromObject};
 /***/ 6545:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-/* unused reexport */ __nccwpck_require__(2618);
+module.exports = __nccwpck_require__(2618);
 
 /***/ }),
 
@@ -10163,6 +10163,35 @@ module.exports = require("zlib");;
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -10185,9 +10214,9 @@ var __webpack_exports__ = {};
 __nccwpck_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
-var lib_github = __nccwpck_require__(5438);
+var github = __nccwpck_require__(5438);
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var lib_core = __nccwpck_require__(2186);
+var core = __nccwpck_require__(2186);
 ;// CONCATENATED MODULE: ./src/github.ts
 
 
@@ -10196,9 +10225,8 @@ const VALID_ACTIONS = new Set([
     "DEPLOY",
     "REMOVE_DEPLOYMENT_PREVIEW_THEME",
 ]);
-const github_getPullRequestId = () => github.context.issue.number;
 /** Retrieve and validate Github Action inputs */
-const github_getActionInputs = () => {
+const getActionInputs = () => {
     const ACTION = core.getInput("ACTION", { required: true });
     if (!VALID_ACTIONS.has(ACTION))
         throw new Error();
@@ -10232,11 +10260,11 @@ const github_getActionInputs = () => {
     };
 };
 /** Output variables can be accessed by any following GitHub Actions which can be useful for things like visual regression, performance, etc. testing */
-const github_outputVariables = (variables) => {
+const outputVariables = (variables) => {
     for (const key in variables)
         core.setOutput(key, variables[key]);
 };
-const github_findIssueComment = async (uniqueCommentString, githubContext, octokit) => {
+const findIssueComment = async (uniqueCommentString, githubContext, octokit) => {
     if (!githubContext.payload.pull_request) {
         // Could be running outside of a PR, if so do not add a comment
         core.info(`GitHub Action is not running from within a PR.`);
@@ -10269,7 +10297,7 @@ const createIssueComment = async (message, githubContext, octokit) => {
     });
 };
 /** Find pre-exiting comment (if there is one) with the `uniqueCommentString` and delete it. Then create a new comment using the `uniqueCommentString` */
-const github_createReplaceComment = async (message, uniqueHiddenCommentString, shopifyThemeId, GITHUB_AUTH) => {
+const createReplaceComment = async (message, uniqueHiddenCommentString, shopifyThemeId, GITHUB_AUTH) => {
     if (!GITHUB_AUTH.token) {
         // comments are optional
         core.info(`GitHub Action will not leave a comment as the 'GITHUB_TOKEN' has not be provied.`);
@@ -10282,7 +10310,7 @@ const github_createReplaceComment = async (message, uniqueHiddenCommentString, s
         return;
     }
     const octokit = github.getOctokit(GITHUB_AUTH.token);
-    const oldComment = await github_findIssueComment(uniqueHiddenCommentString, githubContext, octokit);
+    const oldComment = await findIssueComment(uniqueHiddenCommentString, githubContext, octokit);
     await deleteIssueComment(oldComment, githubContext, octokit);
     const combinedMessage = `<!-- ${uniqueHiddenCommentString} --><!-- Shopify Theme ID ${shopifyThemeId} -->${message}`;
     await createIssueComment(combinedMessage, githubContext, octokit);
@@ -10291,7 +10319,7 @@ const github_createReplaceComment = async (message, uniqueHiddenCommentString, s
  * The Shopify theme id is hidden within a Github PR comment in the format `<!-- Shopify Theme ID THEME_ID -->`.
  * Extract the theme id and return it as an integer.
  * */
-const github_retrieveShopifyThemeIdFromIssueComment = (commentBody) => {
+const retrieveShopifyThemeIdFromIssueComment = (commentBody) => {
     const regexMatch = /<!-- Shopify Theme ID ([0-9]+) -->/.exec(commentBody);
     if (!regexMatch) {
         core.error(`Cannot find Shopify Theme ID in the last deployment preview comment.`);
@@ -10306,8 +10334,10 @@ const handleError = (err) => {
 
 // EXTERNAL MODULE: ./node_modules/@shopify/themekit/index.js
 var themekit = __nccwpck_require__(6390);
+var themekit_default = /*#__PURE__*/__nccwpck_require__.n(themekit);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
-var node_modules_axios = __nccwpck_require__(6545);
+var axios = __nccwpck_require__(6545);
+var axios_default = /*#__PURE__*/__nccwpck_require__.n(axios);
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(5747);
 ;// CONCATENATED MODULE: ./src/shopify.ts
@@ -10315,7 +10345,7 @@ var external_fs_ = __nccwpck_require__(5747);
 
 
 const createTheme = async (themeName, SHOPIFY_AUTH) => {
-    await themeKit.command("new", {
+    await themekit_default().command("new", {
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         name: themeName,
@@ -10323,7 +10353,7 @@ const createTheme = async (themeName, SHOPIFY_AUTH) => {
 };
 /** Returns all Shopify themes for a store in a JSON format (does not use the "\@shopify/themekit" module as this does not return JSON) */
 const getAllThemes = async (SHOPIFY_AUTH) => {
-    const { data: { themes }, } = await axios.get(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes.json`, {
+    const { data: { themes }, } = await axios_default().get(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes.json`, {
         headers: { "X-Shopify-Access-Token": SHOPIFY_AUTH.password },
     });
     return themes;
@@ -10333,8 +10363,8 @@ const getThemeByName = async (themeName, SHOPIFY_AUTH) => {
     const themes = await getAllThemes(SHOPIFY_AUTH);
     return themes.find((theme) => theme.name === themeName);
 };
-const shopify_deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
-    await themeKit.command("deploy", {
+const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
+    await themekit_default().command("deploy", {
         ...(SHOPIFY_THEME_KIT_FLAGS || {}),
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
@@ -10342,24 +10372,24 @@ const shopify_deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_K
     });
 };
 const duplicateLive = async (SHOPIFY_AUTH, id) => {
-    !fs.existsSync(`./.shopify-tmp/`) && fs.mkdirSync(`./.shopify-tmp/`, { recursive: true });
-    await themeKit.command("download", {
+    !external_fs_.existsSync(`./.shopify-tmp/`) && external_fs_.mkdirSync(`./.shopify-tmp/`, { recursive: true });
+    await themekit_default().command("download", {
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         live: true,
         noIgnore: true,
         dir: "./.shopify-tmp/",
     }, { logLevel: "all" });
-    await themeKit.command("deploy", {
+    await themekit_default().command("deploy", {
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         themeId: id,
         noIgnore: true,
         dir: "./.shopify-tmp/",
     }, { logLevel: "all" });
-    fs.rmdirSync("./.shopify-tmp/", { recursive: true });
+    external_fs_.rmdirSync("./.shopify-tmp/", { recursive: true });
 };
-const shopify_createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
+const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
     // Theme may already exist - update the pre-existing if this is the case
     let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
     const prexisting = shopifyTheme ? true : false;
@@ -10377,9 +10407,9 @@ const shopify_createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH)
         shopifyTheme: shopifyTheme,
     };
 };
-const shopify_generateThemePreviewUrl = (shopifyThemeId, SHOPIFY_AUTH) => `https://${SHOPIFY_AUTH.storeUrl}/?preview_theme_id=${shopifyThemeId}`;
-const shopify_removeTheme = async (themeId, SHOPIFY_AUTH) => {
-    await axios.delete(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes/${themeId}.json`, {
+const generateThemePreviewUrl = (shopifyThemeId, SHOPIFY_AUTH) => `https://${SHOPIFY_AUTH.storeUrl}/?preview_theme_id=${shopifyThemeId}`;
+const removeTheme = async (themeId, SHOPIFY_AUTH) => {
+    await axios_default().delete(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes/${themeId}.json`, {
         headers: { "X-Shopify-Access-Token": SHOPIFY_AUTH.password },
     });
 };
@@ -10390,7 +10420,19 @@ const shopify_removeTheme = async (themeId, SHOPIFY_AUTH) => {
 
 
 const UNIQUE_HIDDEN_COMMENT_STRING = "Comment created by GitHub Action `Shopify Theme Actions`";
-const index_help_removeDeploymentPreviewTheme = async (GITHUB_AUTH, SHOPIFY_AUTH) => {
+const getThemeName = () => {
+    let branch;
+    if (process.env.GITHUB_EVENT_NAME === 'pull_request') {
+        branch = process.env.GITHUB_HEAD_REF;
+    }
+    else {
+        branch = process.env.GITHUB_REF_NAME;
+    }
+    const branchParts = branch.split('/');
+    branch = branchParts.pop();
+    return branch;
+};
+const removeDeploymentPreviewTheme = async (GITHUB_AUTH, SHOPIFY_AUTH) => {
     if (!GITHUB_AUTH.token)
         throw new Error(`Cannot remove deployment preview theme as 'GITHUB_TOKEN' is not set.`);
     const githubContext = github.context;
@@ -10407,13 +10449,13 @@ const index_help_removeDeploymentPreviewTheme = async (GITHUB_AUTH, SHOPIFY_AUTH
     else
         core.error(`Cannot find the last deployment preview comment so no theme can be removed.`);
 };
-const index_help_deploymentPreview = async (ACTION, SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
-    const pullRequestNumber = getPullRequestId();
-    const shopifyThemeName = `PR ${pullRequestNumber} - deployment preview`;
+const deploymentPreview = async (ACTION, SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
+    const pullRequestNumber = getThemeName();
+    const shopifyThemeName = `${pullRequestNumber}`;
     const { shopifyTheme } = await createOrFindThemeWithName(shopifyThemeName, SHOPIFY_AUTH);
-    await index_help_deployment(SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyTheme.id);
+    await deployment(SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyTheme.id);
 };
-const index_help_deployment = async (SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyThemeId) => {
+const deployment = async (SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyThemeId) => {
     if (!shopifyThemeId) {
         throw new Error(`'shopifyThemeId' is not set but is required in order to deploy the theme to Shopify (if using the 'DEPLOY' action make sure to set 'SHOPIFY_THEME_ID').`);
     }
@@ -10423,7 +10465,7 @@ const index_help_deployment = async (SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KI
         SHOPIFY_THEME_ID: shopifyThemeId.toString(),
         SHOPIFY_THEME_PREVIEW_URL: themePreviewUrl,
     });
-    const message = `:tada: Shopify theme has been deployed to theme id '${shopifyThemeId}' at '${SHOPIFY_AUTH.storeUrl}'. The theme can be previewed at: \n <${themePreviewUrl}>`;
+    const message = `:tada: '${SHOPIFY_AUTH.storeUrl}' preview at: \n <${themePreviewUrl}>`;
     await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING, shopifyThemeId, GITHUB_AUTH);
 };
 
@@ -10440,8 +10482,7 @@ async function run() {
         await deployment(SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, SHOPIFY_THEME_ID);
     }
 }
-// run().catch((err) => handleError(err));
-console.log(process.env);
+run().catch((err) => handleError(err));
 
 })();
 

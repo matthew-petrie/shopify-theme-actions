@@ -22,7 +22,7 @@ export interface githubAuth {
 }
 type githubComment = RestEndpointMethodTypes["issues"]["listComments"]["response"]["data"][0];
 
-export const getPullRequestId = (): number => github.context.issue.number;
+
 
 /** Retrieve and validate Github Action inputs */
 export const getActionInputs = (): {
