@@ -10454,7 +10454,7 @@ const deployment = async (SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, sh
         SHOPIFY_THEME_ID: shopifyThemeId.toString(),
         SHOPIFY_THEME_PREVIEW_URL: themePreviewUrl,
     });
-    const message = `:tada: Shopify theme has been deployed to theme id '${shopifyThemeId}' at '${SHOPIFY_AUTH.storeUrl}'. The theme can be previewed at: ${themePreviewUrl}`;
+    const message = `:tada: Shopify theme has been deployed to theme id '${shopifyThemeId}' at '${SHOPIFY_AUTH.storeUrl}'. The theme can be previewed at: \n <${themePreviewUrl}>`;
     await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING, shopifyThemeId, GITHUB_AUTH);
 };
 
