@@ -22,10 +22,12 @@ inputs:
     required: false
   SHOPIFY_THEME_DIRECTORY:
     description: "The directory containing the Shopify theme to deploy i.e. './dist'"
-    required: true
+    required: false
+    default: "."
   SHOPIFY_ALLOW_LIVE_THEME_DEPLOYMENT:
     description: "If deploying to a 'live' Shopify theme this must be set to 'true'"
     required: false
+    default: "false"
   IGNORED_FILES:
     description: "Ignore files pattern. Comma seperated string of patterns / file paths."
     required: false
