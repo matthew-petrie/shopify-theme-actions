@@ -17,7 +17,8 @@ import {
   shopifyAuth,
 } from "./shopify";
 
-export const UNIQUE_HIDDEN_COMMENT_STRING = (SHOPIFY_AUTH: shopifyAuth): string => `Shopify Theme Actions for :${SHOPIFY_AUTH.storeUrl}`;
+export const UNIQUE_HIDDEN_COMMENT_STRING = (SHOPIFY_AUTH: shopifyAuth): string =>
+  `Shopify Theme Actions for :${SHOPIFY_AUTH.storeUrl}`;
 
 export const getThemeName = (): string => {
   let branch: string;
@@ -46,7 +47,11 @@ export const removeDeploymentPreviewTheme = async (
   }
 
   const octokit = github.getOctokit(GITHUB_AUTH.token);
-  const comment = await findIssueComment(UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH), githubContext, octokit);
+  const comment = await findIssueComment(
+    UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH),
+    githubContext,
+    octokit
+  );
 
   if (comment && comment.body) {
     const shopifyThemeId = retrieveShopifyThemeIdFromIssueComment(comment.body);
@@ -86,5 +91,10 @@ export const deployment = async (
   });
 
   const message = `:tada: '${SHOPIFY_AUTH.storeUrl}' preview at: \n <${themePreviewUrl}>`;
-  await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH), shopifyThemeId, GITHUB_AUTH);
+  await createReplaceComment(
+    message,
+    UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH),
+    shopifyThemeId,
+    GITHUB_AUTH
+  );
 };
