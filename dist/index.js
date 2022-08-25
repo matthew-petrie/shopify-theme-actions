@@ -10419,16 +10419,16 @@ const removeTheme = async (themeId, SHOPIFY_AUTH) => {
 
 
 
-const UNIQUE_HIDDEN_COMMENT_STRING = "Comment created by GitHub Action `Shopify Theme Actions`";
+const UNIQUE_HIDDEN_COMMENT_STRING = (SHOPIFY_AUTH) => `Shopify Theme Actions for :${SHOPIFY_AUTH.storeUrl}`;
 const getThemeName = () => {
     let branch;
-    if (process.env.GITHUB_EVENT_NAME === 'pull_request') {
+    if (process.env.GITHUB_EVENT_NAME === "pull_request") {
         branch = process.env.GITHUB_HEAD_REF;
     }
     else {
         branch = process.env.GITHUB_REF_NAME;
     }
-    const branchParts = branch.split('/');
+    const branchParts = branch.split("/");
     branch = branchParts.pop();
     return branch;
 };
@@ -10440,7 +10440,7 @@ const removeDeploymentPreviewTheme = async (GITHUB_AUTH, SHOPIFY_AUTH) => {
         throw new Error(`Cannot remove deployment preview theme as job is not running from within a pull request.`);
     }
     const octokit = github.getOctokit(GITHUB_AUTH.token);
-    const comment = await findIssueComment(UNIQUE_HIDDEN_COMMENT_STRING, githubContext, octokit);
+    const comment = await findIssueComment(UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH), githubContext, octokit);
     if (comment && comment.body) {
         const shopifyThemeId = retrieveShopifyThemeIdFromIssueComment(comment.body);
         if (shopifyThemeId)
@@ -10450,8 +10450,7 @@ const removeDeploymentPreviewTheme = async (GITHUB_AUTH, SHOPIFY_AUTH) => {
         core.error(`Cannot find the last deployment preview comment so no theme can be removed.`);
 };
 const deploymentPreview = async (ACTION, SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
-    const pullRequestNumber = getThemeName();
-    const shopifyThemeName = `${pullRequestNumber}`;
+    const shopifyThemeName = getThemeName();
     const { shopifyTheme } = await createOrFindThemeWithName(shopifyThemeName, SHOPIFY_AUTH);
     await deployment(SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyTheme.id);
 };
@@ -10466,7 +10465,7 @@ const deployment = async (SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, sh
         SHOPIFY_THEME_PREVIEW_URL: themePreviewUrl,
     });
     const message = `:tada: '${SHOPIFY_AUTH.storeUrl}' preview at: \n <${themePreviewUrl}>`;
-    await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING, shopifyThemeId, GITHUB_AUTH);
+    await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH), shopifyThemeId, GITHUB_AUTH);
 };
 
 ;// CONCATENATED MODULE: ./src/index.ts

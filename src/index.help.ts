@@ -17,7 +17,7 @@ import {
   shopifyAuth,
 } from "./shopify";
 
-const UNIQUE_HIDDEN_COMMENT_STRING = "Comment created by GitHub Action `Shopify Theme Actions`";
+export const UNIQUE_HIDDEN_COMMENT_STRING = (SHOPIFY_AUTH: shopifyAuth): string => `Shopify Theme Actions for :${SHOPIFY_AUTH.storeUrl}`;
 
 export const getThemeName = (): string => {
   let branch: string;
@@ -46,7 +46,7 @@ export const removeDeploymentPreviewTheme = async (
   }
 
   const octokit = github.getOctokit(GITHUB_AUTH.token);
-  const comment = await findIssueComment(UNIQUE_HIDDEN_COMMENT_STRING, githubContext, octokit);
+  const comment = await findIssueComment(UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH), githubContext, octokit);
 
   if (comment && comment.body) {
     const shopifyThemeId = retrieveShopifyThemeIdFromIssueComment(comment.body);
@@ -60,8 +60,7 @@ export const deploymentPreview = async (
   GITHUB_AUTH: githubAuth,
   SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags
 ): Promise<void> => {
-  const pullRequestNumber = getThemeName();
-  const shopifyThemeName = `${pullRequestNumber}`;
+  const shopifyThemeName = getThemeName();
   const { shopifyTheme } = await createOrFindThemeWithName(shopifyThemeName, SHOPIFY_AUTH);
   await deployment(SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyTheme.id);
 };
@@ -87,5 +86,5 @@ export const deployment = async (
   });
 
   const message = `:tada: '${SHOPIFY_AUTH.storeUrl}' preview at: \n <${themePreviewUrl}>`;
-  await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING, shopifyThemeId, GITHUB_AUTH);
+  await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH), shopifyThemeId, GITHUB_AUTH);
 };
