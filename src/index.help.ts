@@ -21,7 +21,10 @@ export const UNIQUE_HIDDEN_COMMENT_STRING = (SHOPIFY_AUTH: shopifyAuth): string 
   `Shopify Theme Actions for :${SHOPIFY_AUTH.storeUrl}`;
 
 export const getThemeName = (): string => {
-  const branch = (process.env.GITHUB_EVENT_NAME === "pull_request") ? process.env.GITHUB_HEAD_REF! : process.env.GITHUB_REF_NAME!
+  const branch =
+    process.env.GITHUB_EVENT_NAME === "pull_request"
+      ? process.env.GITHUB_HEAD_REF!
+      : process.env.GITHUB_REF_NAME!;
   const branchParts = branch.split("/");
   branch = branchParts.pop()!;
   return branch;
