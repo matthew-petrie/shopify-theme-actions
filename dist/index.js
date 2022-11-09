@@ -10325,8 +10325,7 @@ const retrieveShopifyThemeIdFromIssueComment = (commentBody) => {
         core.error(`Cannot find Shopify Theme ID in the last deployment preview comment.`);
         return;
     }
-    const shopifyThemeId = parseInt(regexMatch[1]);
-    return shopifyThemeId;
+    return parseInt(regexMatch[1]);
 };
 const handleError = (err) => {
     core.setFailed(err || "Unknown Error");
@@ -10371,7 +10370,7 @@ const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS
         themeId: shopifyThemeId,
     });
 };
-const duplicateLive = async (SHOPIFY_AUTH, id) => {
+const duplicateLiveTheme = async (SHOPIFY_AUTH, id) => {
     !external_fs_.existsSync(`./.shopify-tmp/`) && external_fs_.mkdirSync(`./.shopify-tmp/`, { recursive: true });
     await themekit_default().command("download", {
         password: SHOPIFY_AUTH.password,
@@ -10392,7 +10391,7 @@ const duplicateLive = async (SHOPIFY_AUTH, id) => {
 const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
     // Theme may already exist - update the pre-existing if this is the case
     let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
-    const prexisting = shopifyTheme ? true : false;
+    const prexisting = !!shopifyTheme;
     // Theme does not exist in Shopify, create it
     if (!shopifyTheme) {
         await createTheme(shopifyThemeName, SHOPIFY_AUTH);
@@ -10400,7 +10399,7 @@ const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
         if (!shopifyTheme) {
             throw new Error(`Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`);
         }
-        await duplicateLive(SHOPIFY_AUTH, shopifyTheme.id);
+        await duplicateLiveTheme(SHOPIFY_AUTH, shopifyTheme.id);
     }
     return {
         prexisting,
@@ -10421,13 +10420,9 @@ const removeTheme = async (themeId, SHOPIFY_AUTH) => {
 
 const UNIQUE_HIDDEN_COMMENT_STRING = (SHOPIFY_AUTH) => `Shopify Theme Actions for :${SHOPIFY_AUTH.storeUrl}`;
 const getThemeName = () => {
-    let branch;
-    if (process.env.GITHUB_EVENT_NAME === "pull_request") {
-        branch = process.env.GITHUB_HEAD_REF;
-    }
-    else {
-        branch = process.env.GITHUB_REF_NAME;
-    }
+    let branch = process.env.GITHUB_EVENT_NAME === "pull_request"
+        ? process.env.GITHUB_HEAD_REF
+        : process.env.GITHUB_REF_NAME;
     const branchParts = branch.split("/");
     branch = branchParts.pop();
     return branch;

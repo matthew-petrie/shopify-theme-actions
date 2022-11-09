@@ -164,8 +164,7 @@ export const retrieveShopifyThemeIdFromIssueComment = (commentBody: string): num
     return;
   }
 
-  const shopifyThemeId = parseInt(regexMatch[1]);
-  return shopifyThemeId;
+  return parseInt(regexMatch[1]);
 };
 
 export const handleError = (err: Error): void => {

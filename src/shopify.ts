@@ -113,7 +113,7 @@ export const createOrFindThemeWithName = async (
 }> => {
   // Theme may already exist - update the pre-existing if this is the case
   let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
-  const prexisting = shopifyTheme ? true : false;
+  const prexisting = !!shopifyTheme;
 
   // Theme does not exist in Shopify, create it
   if (!shopifyTheme) {
@@ -124,7 +124,7 @@ export const createOrFindThemeWithName = async (
         `Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`
       );
     }
-    await duplicateLive(SHOPIFY_AUTH, shopifyTheme.id);
+    await duplicateLiveTheme(SHOPIFY_AUTH, shopifyTheme.id);
   }
 
   return {

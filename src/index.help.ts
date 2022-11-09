@@ -1,18 +1,18 @@
 import * as github from "@actions/github";
 import * as core from "@actions/core";
 import {
-  createReplaceComment,
-  outputVariables,
-  findIssueComment,
-  retrieveShopifyThemeIdFromIssueComment,
-  githubAuth,
-  shopifyThemeKitFlags,
   action,
+  createReplaceComment,
+  findIssueComment,
+  githubAuth,
+  outputVariables,
+  retrieveShopifyThemeIdFromIssueComment,
+  shopifyThemeKitFlags,
 } from "./github";
 import {
   createOrFindThemeWithName,
-  generateThemePreviewUrl,
   deployTheme,
+  generateThemePreviewUrl,
   removeTheme,
   shopifyAuth,
 } from "./shopify";
@@ -21,7 +21,7 @@ export const UNIQUE_HIDDEN_COMMENT_STRING = (SHOPIFY_AUTH: shopifyAuth): string 
   `Shopify Theme Actions for :${SHOPIFY_AUTH.storeUrl}`;
 
 export const getThemeName = (): string => {
-  const branch =
+  let branch =
     process.env.GITHUB_EVENT_NAME === "pull_request"
       ? process.env.GITHUB_HEAD_REF!
       : process.env.GITHUB_REF_NAME!;
