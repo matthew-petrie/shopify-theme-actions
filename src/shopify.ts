@@ -75,7 +75,7 @@ export const deployTheme = async (
   });
 };
 
-export const duplicateLive = async (SHOPIFY_AUTH: shopifyAuth, id: number): Promise<void> => {
+export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, id: number): Promise<void> => {
   !fs.existsSync(`./.shopify-tmp/`) && fs.mkdirSync(`./.shopify-tmp/`, { recursive: true });
   await themeKit.command(
     "download",
