@@ -17852,6 +17852,7 @@ const duplicateLiveTheme = async (SHOPIFY_AUTH, themeName, SHOPIFY_THEME_KIT_FLA
         dir: "./.shopify-tmp/",
         verbose: true,
     }, { logLevel: "all" });
+    core.info(`Uploading live theme code from tmp dir to new theme`);
     await themekit_default().command("new", {
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
@@ -17860,14 +17861,6 @@ const duplicateLiveTheme = async (SHOPIFY_AUTH, themeName, SHOPIFY_THEME_KIT_FLA
         dir: "./.shopify-tmp/",
         noIgnore: true,
     });
-    core.info(`Uploading live theme code from tmp dir to new theme`);
-    await themekit_default().command("deploy", {
-        ...(SHOPIFY_THEME_KIT_FLAGS || {}),
-        password: SHOPIFY_AUTH.password,
-        store: SHOPIFY_AUTH.storeUrl,
-        noIgnore: true,
-        verbose: true,
-    }, { logLevel: "all" });
     core.debug(`Deleting tmp directory ./.shopify-tmp/`);
     external_fs_.rmdirSync("./.shopify-tmp/", { recursive: true });
 };
@@ -17879,12 +17872,12 @@ const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH, SHOPIFY
     core.info(`Theme "${shopifyThemeName}" ${prexisting ? "already exists" : "does not exist"}`);
     // Theme does not exist in Shopify, create it
     if (!shopifyTheme) {
+        await duplicateLiveTheme(SHOPIFY_AUTH, shopifyThemeName, SHOPIFY_THEME_KIT_FLAGS);
         core.info(`Creating theme "${shopifyThemeName}"...`);
         if (!shopifyTheme) {
             throw new Error(`Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`);
         }
         core.info(`Theme "${shopifyThemeName}" created successfully`);
-        await duplicateLiveTheme(SHOPIFY_AUTH, shopifyThemeName, SHOPIFY_THEME_KIT_FLAGS);
     }
     return {
         prexisting,

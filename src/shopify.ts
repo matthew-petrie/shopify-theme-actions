@@ -103,6 +103,8 @@ export const duplicateLiveTheme = async (
     },
     { logLevel: "all" }
   );
+  core.info(`Uploading live theme code from tmp dir to new theme`);
+
   await themeKit.command("new", {
     password: SHOPIFY_AUTH.password,
     store: SHOPIFY_AUTH.storeUrl,
@@ -112,18 +114,6 @@ export const duplicateLiveTheme = async (
     noIgnore: true,
   });
 
-  core.info(`Uploading live theme code from tmp dir to new theme`);
-  await themeKit.command(
-    "deploy",
-    {
-      ...(SHOPIFY_THEME_KIT_FLAGS || {}),
-      password: SHOPIFY_AUTH.password,
-      store: SHOPIFY_AUTH.storeUrl,
-      noIgnore: true,
-      verbose: true,
-    },
-    { logLevel: "all" }
-  );
   core.debug(`Deleting tmp directory ./.shopify-tmp/`);
   fs.rmdirSync("./.shopify-tmp/", { recursive: true });
 };
@@ -146,16 +136,17 @@ export const createOrFindThemeWithName = async (
 
   // Theme does not exist in Shopify, create it
   if (!shopifyTheme) {
+
+    await duplicateLiveTheme(SHOPIFY_AUTH, shopifyThemeName, SHOPIFY_THEME_KIT_FLAGS);
     core.info(`Creating theme "${shopifyThemeName}"...`);
 
     if (!shopifyTheme) {
       throw new Error(
-        `Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`
+          `Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`
       );
     }
     core.info(`Theme "${shopifyThemeName}" created successfully`);
 
-    await duplicateLiveTheme(SHOPIFY_AUTH, shopifyThemeName, SHOPIFY_THEME_KIT_FLAGS);
   }
 
   return {
