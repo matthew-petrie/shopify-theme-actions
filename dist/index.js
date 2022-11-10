@@ -17805,14 +17805,6 @@ var artifact_client = __nccwpck_require__(2605);
 
 
 
-const createTheme = async (themeName, SHOPIFY_AUTH) => {
-    await themekit_default().command("new", {
-        password: SHOPIFY_AUTH.password,
-        store: SHOPIFY_AUTH.storeUrl,
-        name: themeName,
-        verbose: true,
-    });
-};
 /** Returns all Shopify themes for a store in a JSON format (does not use the "\@shopify/themekit" module as this does not return JSON) */
 const getAllThemes = async (SHOPIFY_AUTH) => {
     const { data: { themes }, } = await axios_default().get(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes.json`, {
@@ -17845,7 +17837,7 @@ const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS
         verbose: true,
     });
 };
-const duplicateLiveTheme = async (SHOPIFY_AUTH, id) => {
+const duplicateLiveTheme = async (SHOPIFY_AUTH, themeName, SHOPIFY_THEME_KIT_FLAGS) => {
     core.info(`Duplicating live theme code to new theme`);
     core.debug(`Creating tmp directory ./.shopify-tmp/`);
     !external_fs_.existsSync(`./.shopify-tmp/`) && external_fs_.mkdirSync(`./.shopify-tmp/`, { recursive: true });
@@ -17859,36 +17851,40 @@ const duplicateLiveTheme = async (SHOPIFY_AUTH, id) => {
         noIgnore: true,
         dir: "./.shopify-tmp/",
         verbose: true,
-        env: "tmp"
     }, { logLevel: "all" });
-    core.info(`Uploading live theme code from tmp dir to new theme`);
-    await themekit_default().command("deploy", {
+    await themekit_default().command("new", {
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
-        themeId: id,
-        noIgnore: true,
+        name: themeName,
+        verbose: true,
         dir: "./.shopify-tmp/",
+        noIgnore: true,
+    });
+    core.info(`Uploading live theme code from tmp dir to new theme`);
+    await themekit_default().command("deploy", {
+        ...(SHOPIFY_THEME_KIT_FLAGS || {}),
+        password: SHOPIFY_AUTH.password,
+        store: SHOPIFY_AUTH.storeUrl,
+        noIgnore: true,
         verbose: true,
     }, { logLevel: "all" });
     core.debug(`Deleting tmp directory ./.shopify-tmp/`);
     external_fs_.rmdirSync("./.shopify-tmp/", { recursive: true });
 };
-const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
+const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
     core.info(`Checking if theme "${shopifyThemeName}" already exists...`);
     // Theme may already exist - update the pre-existing if this is the case
-    let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
+    const shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
     const prexisting = !!shopifyTheme;
     core.info(`Theme "${shopifyThemeName}" ${prexisting ? "already exists" : "does not exist"}`);
     // Theme does not exist in Shopify, create it
     if (!shopifyTheme) {
         core.info(`Creating theme "${shopifyThemeName}"...`);
-        await createTheme(shopifyThemeName, SHOPIFY_AUTH);
-        shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
         if (!shopifyTheme) {
             throw new Error(`Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`);
         }
         core.info(`Theme "${shopifyThemeName}" created successfully`);
-        await duplicateLiveTheme(SHOPIFY_AUTH, shopifyTheme.id);
+        await duplicateLiveTheme(SHOPIFY_AUTH, shopifyThemeName, SHOPIFY_THEME_KIT_FLAGS);
     }
     return {
         prexisting,
@@ -17935,7 +17931,7 @@ const removeDeploymentPreviewTheme = async (GITHUB_AUTH, SHOPIFY_AUTH) => {
 };
 const deploymentPreview = async (ACTION, SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
     const shopifyThemeName = getThemeName();
-    const { shopifyTheme } = await createOrFindThemeWithName(shopifyThemeName, SHOPIFY_AUTH);
+    const { shopifyTheme } = await createOrFindThemeWithName(shopifyThemeName, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS);
     await deployment(SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyTheme.id);
 };
 const deployment = async (SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyThemeId) => {
