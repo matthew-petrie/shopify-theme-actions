@@ -2,7 +2,7 @@ import themeKit from "@shopify/themekit";
 import axios from "axios";
 import { shopifyThemeKitFlags } from "./github";
 import * as fs from "fs";
-import core from "@actions/core";
+import * as core from "@actions/core";
 
 /** Max 150 characters */
 type themeName = string;
@@ -85,6 +85,7 @@ export const deployTheme = async (
     password: SHOPIFY_AUTH.password,
     store: SHOPIFY_AUTH.storeUrl,
     themeId: shopifyThemeId,
+    verbose: true,
   });
 };
 
@@ -101,6 +102,7 @@ export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, id: number):
       live: true,
       noIgnore: true,
       dir: "./.shopify-tmp/",
+      verbose: true,
     },
     { logLevel: "all" }
   );
@@ -113,6 +115,7 @@ export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, id: number):
       themeId: id,
       noIgnore: true,
       dir: "./.shopify-tmp/",
+      verbose: true,
     },
     { logLevel: "all" }
   );

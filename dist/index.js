@@ -10217,7 +10217,6 @@ __nccwpck_require__.r(__webpack_exports__);
 var github = __nccwpck_require__(5438);
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(2186);
-var core_default = /*#__PURE__*/__nccwpck_require__.n(core);
 ;// CONCATENATED MODULE: ./src/github.ts
 
 
@@ -10362,16 +10361,16 @@ const getAllThemes = async (SHOPIFY_AUTH) => {
 const getThemeByName = async (themeName, SHOPIFY_AUTH) => {
     // No way to retrieve a theme by name, so retrieve all themes and find the matching theme
     const themes = await getAllThemes(SHOPIFY_AUTH);
-    core_default().debug(`Found ${themes.length} themes`);
+    core.debug(`Found ${themes.length} themes`);
     for (const theme of themes) {
-        core_default().debug(`Found theme: ${theme.name} with ID: ${theme.id}`);
+        core.debug(`Found theme: ${theme.name} with ID: ${theme.id}`);
     }
     const themeWeWereLookingFor = themes.find((theme) => theme.name === themeName);
     if (!themeWeWereLookingFor) {
-        core_default().warning(`Cannot find theme with name: ${themeName}`);
+        core.warning(`Cannot find theme with name: ${themeName}`);
     }
     else {
-        core_default().info(`Found theme: ${themeWeWereLookingFor.name} with ID: ${themeWeWereLookingFor.id}`);
+        core.info(`Found theme: ${themeWeWereLookingFor.name} with ID: ${themeWeWereLookingFor.id}`);
     }
     return themeWeWereLookingFor;
 };
@@ -10381,46 +10380,49 @@ const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         themeId: shopifyThemeId,
+        verbose: true,
     });
 };
 const duplicateLiveTheme = async (SHOPIFY_AUTH, id) => {
-    core_default().info(`Duplicating live theme code to new theme`);
-    core_default().debug(`Creating tmp directory ./.shopify-tmp/`);
+    core.info(`Duplicating live theme code to new theme`);
+    core.debug(`Creating tmp directory ./.shopify-tmp/`);
     !external_fs_.existsSync(`./.shopify-tmp/`) && external_fs_.mkdirSync(`./.shopify-tmp/`, { recursive: true });
-    core_default().info(`Downloading live theme code to tmp directory`);
+    core.info(`Downloading live theme code to tmp directory`);
     await themekit_default().command("download", {
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         live: true,
         noIgnore: true,
         dir: "./.shopify-tmp/",
+        verbose: true,
     }, { logLevel: "all" });
-    core_default().info(`Uploading live theme code from tmp dir to new theme`);
+    core.info(`Uploading live theme code from tmp dir to new theme`);
     await themekit_default().command("deploy", {
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         themeId: id,
         noIgnore: true,
         dir: "./.shopify-tmp/",
+        verbose: true,
     }, { logLevel: "all" });
-    core_default().debug(`Deleting tmp directory ./.shopify-tmp/`);
+    core.debug(`Deleting tmp directory ./.shopify-tmp/`);
     external_fs_.rmdirSync("./.shopify-tmp/", { recursive: true });
 };
 const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
-    core_default().info(`Checking if theme "${shopifyThemeName}" already exists...`);
+    core.info(`Checking if theme "${shopifyThemeName}" already exists...`);
     // Theme may already exist - update the pre-existing if this is the case
     let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
     const prexisting = !!shopifyTheme;
-    core_default().info(`Theme "${shopifyThemeName}" ${prexisting ? "already exists" : "does not exist"}`);
+    core.info(`Theme "${shopifyThemeName}" ${prexisting ? "already exists" : "does not exist"}`);
     // Theme does not exist in Shopify, create it
     if (!shopifyTheme) {
-        core_default().info(`Creating theme "${shopifyThemeName}"...`);
+        core.info(`Creating theme "${shopifyThemeName}"...`);
         await createTheme(shopifyThemeName, SHOPIFY_AUTH);
         shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
         if (!shopifyTheme) {
             throw new Error(`Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`);
         }
-        core_default().info(`Theme "${shopifyThemeName}" created successfully`);
+        core.info(`Theme "${shopifyThemeName}" created successfully`);
         await duplicateLiveTheme(SHOPIFY_AUTH, shopifyTheme.id);
     }
     return {

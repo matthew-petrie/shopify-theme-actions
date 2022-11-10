@@ -16,6 +16,7 @@ declare module "@shopify/themekit" {
     env?: string;
     noIgnore?: boolean;
     dir?: string;
+    verbose?: boolean;
   }
 
   /** Node Theme Kit module specific options */
