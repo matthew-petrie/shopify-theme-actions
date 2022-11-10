@@ -17859,6 +17859,7 @@ const duplicateLiveTheme = async (SHOPIFY_AUTH, id) => {
         noIgnore: true,
         dir: "./.shopify-tmp/",
         verbose: true,
+        env: "tmp"
     }, { logLevel: "all" });
     core.info(`Uploading live theme code from tmp dir to new theme`);
     await themekit_default().command("deploy", {
