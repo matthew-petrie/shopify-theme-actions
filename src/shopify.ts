@@ -128,7 +128,8 @@ export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, themeName: t
 
 export const createOrFindThemeWithName = async (
   shopifyThemeName: themeName,
-  SHOPIFY_AUTH: shopifyAuth
+  SHOPIFY_AUTH: shopifyAuth,
+    SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags
 ): Promise<{
   /** Theme already existed? */
   prexisting: boolean;
@@ -137,7 +138,7 @@ export const createOrFindThemeWithName = async (
 }> => {
   core.info(`Checking if theme "${shopifyThemeName}" already exists...`);
   // Theme may already exist - update the pre-existing if this is the case
-  let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
+  const shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
   const prexisting = !!shopifyTheme;
   core.info(`Theme "${shopifyThemeName}" ${prexisting ? "already exists" : "does not exist"}`);
 
@@ -153,7 +154,7 @@ export const createOrFindThemeWithName = async (
     }
     core.info(`Theme "${shopifyThemeName}" created successfully`);
 
-    await duplicateLiveTheme(SHOPIFY_AUTH);
+    await duplicateLiveTheme(SHOPIFY_AUTH, shopifyThemeName, SHOPIFY_THEME_KIT_FLAGS);
   }
 
   return {
