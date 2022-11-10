@@ -3,6 +3,7 @@ import axios from "axios";
 import { shopifyThemeKitFlags } from "./github";
 import * as fs from "fs";
 import * as core from "@actions/core";
+import * as artifact from "@actions/artifact";
 
 /** Max 150 characters */
 type themeName = string;
@@ -37,6 +38,7 @@ export const createTheme = async (
     password: SHOPIFY_AUTH.password,
     store: SHOPIFY_AUTH.storeUrl,
     name: themeName,
+    verbose: true,
   });
 };
 
@@ -93,6 +95,10 @@ export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, id: number):
   core.debug(`Creating tmp directory ./.shopify-tmp/`);
   !fs.existsSync(`./.shopify-tmp/`) && fs.mkdirSync(`./.shopify-tmp/`, { recursive: true });
   core.info(`Downloading live theme code to tmp directory`);
+
+  const artifactClient = artifact.create();
+  await artifactClient.uploadArtifact("config", ["config.yml"], ".");
+
   await themeKit.command(
     "download",
     {
