@@ -30,8 +30,6 @@ interface axiosShopifyThemesRes {
   themes: shopifyTheme[];
 }
 
-
-
 /** Returns all Shopify themes for a store in a JSON format (does not use the "\@shopify/themekit" module as this does not return JSON) */
 export const getAllThemes = async (SHOPIFY_AUTH: shopifyAuth): Promise<shopifyTheme[]> => {
   const {
@@ -80,7 +78,11 @@ export const deployTheme = async (
   });
 };
 
-export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, themeName: themeName, SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags): Promise<void> => {
+export const duplicateLiveTheme = async (
+  SHOPIFY_AUTH: shopifyAuth,
+  themeName: themeName,
+  SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags
+): Promise<void> => {
   core.info(`Duplicating live theme code to new theme`);
   core.debug(`Creating tmp directory ./.shopify-tmp/`);
   !fs.existsSync(`./.shopify-tmp/`) && fs.mkdirSync(`./.shopify-tmp/`, { recursive: true });
@@ -107,7 +109,7 @@ export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, themeName: t
     name: themeName,
     verbose: true,
     dir: "./.shopify-tmp/",
-    noIgnore: true
+    noIgnore: true,
   });
 
   core.info(`Uploading live theme code from tmp dir to new theme`);
@@ -144,7 +146,6 @@ export const createOrFindThemeWithName = async (
   // Theme does not exist in Shopify, create it
   if (!shopifyTheme) {
     core.info(`Creating theme "${shopifyThemeName}"...`);
-
 
     if (!shopifyTheme) {
       throw new Error(
