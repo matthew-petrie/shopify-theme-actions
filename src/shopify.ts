@@ -136,17 +136,15 @@ export const createOrFindThemeWithName = async (
 
   // Theme does not exist in Shopify, create it
   if (!shopifyTheme) {
-
     await duplicateLiveTheme(SHOPIFY_AUTH, shopifyThemeName, SHOPIFY_THEME_KIT_FLAGS);
     core.info(`Creating theme "${shopifyThemeName}"...`);
 
     if (!shopifyTheme) {
       throw new Error(
-          `Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`
+        `Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`
       );
     }
     core.info(`Theme "${shopifyThemeName}" created successfully`);
-
   }
 
   return {
