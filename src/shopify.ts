@@ -66,12 +66,11 @@ export const getThemeByName = async (
   }
 
   const themeWeWereLookingFor = themes.find((theme) => theme.name === themeName);
-    if (!themeWeWereLookingFor) {
-      core.warning(`Cannot find theme with name: ${themeName}`);
-    }
-    else {
-        core.info(`Found theme: ${themeWeWereLookingFor.name} with ID: ${themeWeWereLookingFor.id}`);
-    }
+  if (!themeWeWereLookingFor) {
+    core.warning(`Cannot find theme with name: ${themeName}`);
+  } else {
+    core.info(`Found theme: ${themeWeWereLookingFor.name} with ID: ${themeWeWereLookingFor.id}`);
+  }
   return themeWeWereLookingFor;
 };
 
@@ -106,7 +105,7 @@ export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, id: number):
     },
     { logLevel: "all" }
   );
-    core.info(`Uploading live theme code from tmp dir to new theme`);
+  core.info(`Uploading live theme code from tmp dir to new theme`);
   await themeKit.command(
     "deploy",
     {
@@ -119,7 +118,7 @@ export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, id: number):
     },
     { logLevel: "all" }
   );
-    core.debug(`Deleting tmp directory ./.shopify-tmp/`);
+  core.debug(`Deleting tmp directory ./.shopify-tmp/`);
   fs.rmdirSync("./.shopify-tmp/", { recursive: true });
 };
 
