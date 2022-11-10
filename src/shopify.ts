@@ -108,7 +108,7 @@ export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, id: number):
       noIgnore: true,
       dir: "./.shopify-tmp/",
       verbose: true,
-      env: "tmp"
+      env: "tmp",
     },
     { logLevel: "all" }
   );
