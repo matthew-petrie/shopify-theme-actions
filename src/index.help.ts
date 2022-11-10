@@ -64,7 +64,11 @@ export const deploymentPreview = async (
   SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags
 ): Promise<void> => {
   const shopifyThemeName = getThemeName();
-  const { shopifyTheme } = await createOrFindThemeWithName(shopifyThemeName, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS);
+  const { shopifyTheme } = await createOrFindThemeWithName(
+    shopifyThemeName,
+    SHOPIFY_AUTH,
+    SHOPIFY_THEME_KIT_FLAGS
+  );
   await deployment(SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyTheme.id);
 };
 

@@ -131,7 +131,7 @@ export const duplicateLiveTheme = async (
 export const createOrFindThemeWithName = async (
   shopifyThemeName: themeName,
   SHOPIFY_AUTH: shopifyAuth,
-    SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags
+  SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags
 ): Promise<{
   /** Theme already existed? */
   prexisting: boolean;
