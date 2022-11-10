@@ -30,17 +30,7 @@ interface axiosShopifyThemesRes {
   themes: shopifyTheme[];
 }
 
-export const createTheme = async (
-  themeName: themeName,
-  SHOPIFY_AUTH: shopifyAuth
-): Promise<void> => {
-  await themeKit.command("new", {
-    password: SHOPIFY_AUTH.password,
-    store: SHOPIFY_AUTH.storeUrl,
-    name: themeName,
-    verbose: true,
-  });
-};
+
 
 /** Returns all Shopify themes for a store in a JSON format (does not use the "\@shopify/themekit" module as this does not return JSON) */
 export const getAllThemes = async (SHOPIFY_AUTH: shopifyAuth): Promise<shopifyTheme[]> => {
@@ -90,7 +80,7 @@ export const deployTheme = async (
   });
 };
 
-export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, id: number): Promise<void> => {
+export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, themeName: themeName, SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags): Promise<void> => {
   core.info(`Duplicating live theme code to new theme`);
   core.debug(`Creating tmp directory ./.shopify-tmp/`);
   !fs.existsSync(`./.shopify-tmp/`) && fs.mkdirSync(`./.shopify-tmp/`, { recursive: true });
@@ -108,19 +98,26 @@ export const duplicateLiveTheme = async (SHOPIFY_AUTH: shopifyAuth, id: number):
       noIgnore: true,
       dir: "./.shopify-tmp/",
       verbose: true,
-      env: "tmp"
     },
     { logLevel: "all" }
   );
+  await themeKit.command("new", {
+    password: SHOPIFY_AUTH.password,
+    store: SHOPIFY_AUTH.storeUrl,
+    name: themeName,
+    verbose: true,
+    dir: "./.shopify-tmp/",
+    noIgnore: true
+  });
+
   core.info(`Uploading live theme code from tmp dir to new theme`);
   await themeKit.command(
     "deploy",
     {
+      ...(SHOPIFY_THEME_KIT_FLAGS || {}),
       password: SHOPIFY_AUTH.password,
       store: SHOPIFY_AUTH.storeUrl,
-      themeId: id,
       noIgnore: true,
-      dir: "./.shopify-tmp/",
       verbose: true,
     },
     { logLevel: "all" }
@@ -147,9 +144,7 @@ export const createOrFindThemeWithName = async (
   // Theme does not exist in Shopify, create it
   if (!shopifyTheme) {
     core.info(`Creating theme "${shopifyThemeName}"...`);
-    await createTheme(shopifyThemeName, SHOPIFY_AUTH);
 
-    shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
 
     if (!shopifyTheme) {
       throw new Error(
@@ -158,7 +153,7 @@ export const createOrFindThemeWithName = async (
     }
     core.info(`Theme "${shopifyThemeName}" created successfully`);
 
-    await duplicateLiveTheme(SHOPIFY_AUTH, shopifyTheme.id);
+    await duplicateLiveTheme(SHOPIFY_AUTH);
   }
 
   return {
