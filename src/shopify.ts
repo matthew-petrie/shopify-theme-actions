@@ -88,7 +88,6 @@ export const duplicateLiveTheme = async (
   !fs.existsSync(`./.shopify-tmp/`) && fs.mkdirSync(`./.shopify-tmp/`, { recursive: true });
   core.info(`Downloading live theme code to tmp directory`);
 
-
   await themeKit.command(
     "download",
     {
