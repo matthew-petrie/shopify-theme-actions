@@ -1,17 +1,20 @@
 import themeKit from "@shopify/themekit";
 import axios from "axios";
 import { shopifyThemeKitFlags } from "./github";
+import * as fs from "fs";
+import * as core from "@actions/core";
+import * as artifact from "@actions/artifact";
 
 /** Max 150 characters */
 type themeName = string;
 
 export interface shopifyAuth {
   storeUrl: string;
-  apiKey: string;
   password: string;
 }
 
 type shopifyThemeRole = "main" | "unpublished" | "demo";
+
 export interface shopifyTheme {
   id: number;
   theme_store_id: number | null;
@@ -22,27 +25,20 @@ export interface shopifyTheme {
   updated_at: string;
   created_at: string;
 }
+
 interface axiosShopifyThemesRes {
   themes: shopifyTheme[];
 }
-
-export const createTheme = async (
-  themeName: themeName,
-  SHOPIFY_AUTH: shopifyAuth
-): Promise<void> => {
-  await themeKit.command("new", {
-    password: SHOPIFY_AUTH.password,
-    store: SHOPIFY_AUTH.storeUrl,
-    name: themeName,
-  });
-};
 
 /** Returns all Shopify themes for a store in a JSON format (does not use the "\@shopify/themekit" module as this does not return JSON) */
 export const getAllThemes = async (SHOPIFY_AUTH: shopifyAuth): Promise<shopifyTheme[]> => {
   const {
     data: { themes },
   } = await axios.get<axiosShopifyThemesRes>(
-    `https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes.json`
+    `https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes.json`,
+    {
+      headers: { "X-Shopify-Access-Token": SHOPIFY_AUTH.password },
+    }
   );
 
   return themes;
@@ -54,7 +50,18 @@ export const getThemeByName = async (
 ): Promise<shopifyTheme | undefined> => {
   // No way to retrieve a theme by name, so retrieve all themes and find the matching theme
   const themes = await getAllThemes(SHOPIFY_AUTH);
-  return themes.find((theme) => theme.name === themeName);
+  core.debug(`Found ${themes.length} themes`);
+  for (const theme of themes) {
+    core.debug(`Found theme: ${theme.name} with ID: ${theme.id}`);
+  }
+
+  const themeWeWereLookingFor = themes.find((theme) => theme.name === themeName);
+  if (!themeWeWereLookingFor) {
+    core.warning(`Cannot find theme with name: ${themeName}`);
+  } else {
+    core.info(`Found theme: ${themeWeWereLookingFor.name} with ID: ${themeWeWereLookingFor.id}`);
+  }
+  return themeWeWereLookingFor;
 };
 
 export const deployTheme = async (
@@ -67,31 +74,74 @@ export const deployTheme = async (
     password: SHOPIFY_AUTH.password,
     store: SHOPIFY_AUTH.storeUrl,
     themeId: shopifyThemeId,
+    verbose: true,
   });
+};
+
+export const duplicateLiveTheme = async (
+  SHOPIFY_AUTH: shopifyAuth,
+  themeName: themeName,
+  SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags
+): Promise<void> => {
+  core.info(`Duplicating live theme code to new theme`);
+  core.debug(`Creating tmp directory ./.shopify-tmp/`);
+  !fs.existsSync(`./.shopify-tmp/`) && fs.mkdirSync(`./.shopify-tmp/`, { recursive: true });
+  core.info(`Downloading live theme code to tmp directory`);
+
+  await themeKit.command(
+    "download",
+    {
+      password: SHOPIFY_AUTH.password,
+      store: SHOPIFY_AUTH.storeUrl,
+      live: true,
+      noIgnore: true,
+      dir: "./.shopify-tmp/",
+      verbose: true,
+    },
+    { logLevel: "all" }
+  );
+  core.info(`Uploading live theme code from tmp dir to new theme`);
+
+  await themeKit.command("new", {
+    password: SHOPIFY_AUTH.password,
+    store: SHOPIFY_AUTH.storeUrl,
+    name: themeName,
+    verbose: true,
+    dir: "./.shopify-tmp/",
+    noIgnore: true,
+  });
+
+  core.debug(`Deleting tmp directory ./.shopify-tmp/`);
+  fs.rmdirSync("./.shopify-tmp/", { recursive: true });
 };
 
 export const createOrFindThemeWithName = async (
   shopifyThemeName: themeName,
-  SHOPIFY_AUTH: shopifyAuth
+  SHOPIFY_AUTH: shopifyAuth,
+  SHOPIFY_THEME_KIT_FLAGS: shopifyThemeKitFlags
 ): Promise<{
   /** Theme already existed? */
   prexisting: boolean;
   /** Full details about the matching / created theme */
   shopifyTheme: shopifyTheme;
 }> => {
+  core.info(`Checking if theme "${shopifyThemeName}" already exists...`);
   // Theme may already exist - update the pre-existing if this is the case
-  let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
-  const prexisting = shopifyTheme ? true : false;
+  const shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
+  const prexisting = !!shopifyTheme;
+  core.info(`Theme "${shopifyThemeName}" ${prexisting ? "already exists" : "does not exist"}`);
 
   // Theme does not exist in Shopify, create it
   if (!shopifyTheme) {
-    await createTheme(shopifyThemeName, SHOPIFY_AUTH);
-    shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
+    await duplicateLiveTheme(SHOPIFY_AUTH, shopifyThemeName, SHOPIFY_THEME_KIT_FLAGS);
+    core.info(`Creating theme "${shopifyThemeName}"...`);
+
     if (!shopifyTheme) {
       throw new Error(
         `Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`
       );
     }
+    core.info(`Theme "${shopifyThemeName}" created successfully`);
   }
 
   return {
@@ -106,7 +156,7 @@ export const generateThemePreviewUrl = (
 ): string => `https://${SHOPIFY_AUTH.storeUrl}/?preview_theme_id=${shopifyThemeId}`;
 
 export const removeTheme = async (themeId: number, SHOPIFY_AUTH: shopifyAuth): Promise<void> => {
-  await axios.delete(
-    `https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${themeId}.json`
-  );
+  await axios.delete(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes/${themeId}.json`, {
+    headers: { "X-Shopify-Access-Token": SHOPIFY_AUTH.password },
+  });
 };

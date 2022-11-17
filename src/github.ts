@@ -22,8 +22,6 @@ export interface githubAuth {
 }
 type githubComment = RestEndpointMethodTypes["issues"]["listComments"]["response"]["data"][0];
 
-export const getPullRequestId = (): number => github.context.issue.number;
-
 /** Retrieve and validate Github Action inputs */
 export const getActionInputs = (): {
   SHOPIFY_AUTH: shopifyAuth;
@@ -42,7 +40,6 @@ export const getActionInputs = (): {
 
   const SHOPIFY_AUTH: shopifyAuth = <const>{
     storeUrl: core.getInput("SHOPIFY_STORE_URL", { required: true }),
-    apiKey: core.getInput("SHOPIFY_API_KEY", { required: true }),
     password: core.getInput("SHOPIFY_PASSWORD", { required: true }),
   };
 
@@ -167,8 +164,7 @@ export const retrieveShopifyThemeIdFromIssueComment = (commentBody: string): num
     return;
   }
 
-  const shopifyThemeId = parseInt(regexMatch[1]);
-  return shopifyThemeId;
+  return parseInt(regexMatch[1]);
 };
 
 export const handleError = (err: Error): void => {

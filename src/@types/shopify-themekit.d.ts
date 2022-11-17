@@ -1,6 +1,6 @@
 declare module "@shopify/themekit" {
   /** Theme Kit command to run. */
-  export declare type command = "deploy" | "new" | "remove";
+  export declare type command = "deploy" | "new" | "remove" | "download";
 
   /**
    * Flags to pass into the command.
@@ -8,10 +8,15 @@ declare module "@shopify/themekit" {
    * All flags specified in the Theme Kit documentation are available, but in camelCase rather than in --flagform.
    */
   export interface commandFlags {
+    live?: boolean;
     password: string;
     store: string;
     name?: string;
     themeId?: number;
+    env?: string;
+    noIgnore?: boolean;
+    dir?: string;
+    verbose?: boolean;
   }
 
   /** Node Theme Kit module specific options */

@@ -3710,7 +3710,7 @@ const path = __nccwpck_require__(5622);
 
 module.exports = {
   baseURL: 'https://shopify-themekit.s3.amazonaws.com',
-  version: '1.2.0',
+  version: '1.3.0',
   destination: __nccwpck_require__.ab + "bin",
   binName: process.platform === 'win32' ? 'theme.exe' : 'theme'
 };
@@ -10006,7 +10006,7 @@ module.exports = eval("require")("encoding");
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"axios","version":"0.21.1","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test && bundlesize","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://github.com/axios/axios","devDependencies":{"bundlesize":"^0.17.0","coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.0.2","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^20.1.0","grunt-karma":"^2.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^1.0.18","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^1.3.0","karma-chrome-launcher":"^2.2.0","karma-coverage":"^1.1.1","karma-firefox-launcher":"^1.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-opera-launcher":"^1.0.0","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^1.2.0","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.7","karma-webpack":"^1.7.0","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^5.2.0","sinon":"^4.5.0","typescript":"^2.8.1","url-search-params":"^0.10.0","webpack":"^1.13.1","webpack-dev-server":"^1.14.1"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.10.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.1.tgz","_integrity":"sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==","_from":"axios@0.21.1"}');
+module.exports = JSON.parse('{"name":"axios","version":"0.21.1","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test && bundlesize","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://github.com/axios/axios","devDependencies":{"bundlesize":"^0.17.0","coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.0.2","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^20.1.0","grunt-karma":"^2.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^1.0.18","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^1.3.0","karma-chrome-launcher":"^2.2.0","karma-coverage":"^1.1.1","karma-firefox-launcher":"^1.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-opera-launcher":"^1.0.0","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^1.2.0","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.7","karma-webpack":"^1.7.0","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^5.2.0","sinon":"^4.5.0","typescript":"^2.8.1","url-search-params":"^0.10.0","webpack":"^1.13.1","webpack-dev-server":"^1.14.1"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.10.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]}');
 
 /***/ }),
 
@@ -10225,7 +10225,6 @@ const VALID_ACTIONS = new Set([
     "DEPLOY",
     "REMOVE_DEPLOYMENT_PREVIEW_THEME",
 ]);
-const getPullRequestId = () => github.context.issue.number;
 /** Retrieve and validate Github Action inputs */
 const getActionInputs = () => {
     const ACTION = core.getInput("ACTION", { required: true });
@@ -10237,7 +10236,6 @@ const getActionInputs = () => {
     };
     const SHOPIFY_AUTH = {
         storeUrl: core.getInput("SHOPIFY_STORE_URL", { required: true }),
-        apiKey: core.getInput("SHOPIFY_API_KEY", { required: true }),
         password: core.getInput("SHOPIFY_PASSWORD", { required: true }),
     };
     const shopifyThemeIdString = core.getInput("SHOPIFY_THEME_ID", { required: false });
@@ -10327,8 +10325,7 @@ const retrieveShopifyThemeIdFromIssueComment = (commentBody) => {
         core.error(`Cannot find Shopify Theme ID in the last deployment preview comment.`);
         return;
     }
-    const shopifyThemeId = parseInt(regexMatch[1]);
-    return shopifyThemeId;
+    return parseInt(regexMatch[1]);
 };
 const handleError = (err) => {
     core.setFailed(err || "Unknown Error");
@@ -10340,25 +10337,35 @@ var themekit_default = /*#__PURE__*/__nccwpck_require__.n(themekit);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __nccwpck_require__(6545);
 var axios_default = /*#__PURE__*/__nccwpck_require__.n(axios);
+// EXTERNAL MODULE: external "fs"
+var external_fs_ = __nccwpck_require__(5747);
 ;// CONCATENATED MODULE: ./src/shopify.ts
 
 
-const createTheme = async (themeName, SHOPIFY_AUTH) => {
-    await themekit_default().command("new", {
-        password: SHOPIFY_AUTH.password,
-        store: SHOPIFY_AUTH.storeUrl,
-        name: themeName,
-    });
-};
+
+
 /** Returns all Shopify themes for a store in a JSON format (does not use the "\@shopify/themekit" module as this does not return JSON) */
 const getAllThemes = async (SHOPIFY_AUTH) => {
-    const { data: { themes }, } = await axios_default().get(`https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes.json`);
+    const { data: { themes }, } = await axios_default().get(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes.json`, {
+        headers: { "X-Shopify-Access-Token": SHOPIFY_AUTH.password },
+    });
     return themes;
 };
 const getThemeByName = async (themeName, SHOPIFY_AUTH) => {
     // No way to retrieve a theme by name, so retrieve all themes and find the matching theme
     const themes = await getAllThemes(SHOPIFY_AUTH);
-    return themes.find((theme) => theme.name === themeName);
+    core.debug(`Found ${themes.length} themes`);
+    for (const theme of themes) {
+        core.debug(`Found theme: ${theme.name} with ID: ${theme.id}`);
+    }
+    const themeWeWereLookingFor = themes.find((theme) => theme.name === themeName);
+    if (!themeWeWereLookingFor) {
+        core.warning(`Cannot find theme with name: ${themeName}`);
+    }
+    else {
+        core.info(`Found theme: ${themeWeWereLookingFor.name} with ID: ${themeWeWereLookingFor.id}`);
+    }
+    return themeWeWereLookingFor;
 };
 const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
     await themekit_default().command("deploy", {
@@ -10366,19 +10373,48 @@ const deployTheme = async (shopifyThemeId, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS
         password: SHOPIFY_AUTH.password,
         store: SHOPIFY_AUTH.storeUrl,
         themeId: shopifyThemeId,
+        verbose: true,
     });
 };
-const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
+const duplicateLiveTheme = async (SHOPIFY_AUTH, themeName, SHOPIFY_THEME_KIT_FLAGS) => {
+    core.info(`Duplicating live theme code to new theme`);
+    core.debug(`Creating tmp directory ./.shopify-tmp/`);
+    !external_fs_.existsSync(`./.shopify-tmp/`) && external_fs_.mkdirSync(`./.shopify-tmp/`, { recursive: true });
+    core.info(`Downloading live theme code to tmp directory`);
+    await themekit_default().command("download", {
+        password: SHOPIFY_AUTH.password,
+        store: SHOPIFY_AUTH.storeUrl,
+        live: true,
+        noIgnore: true,
+        dir: "./.shopify-tmp/",
+        verbose: true,
+    }, { logLevel: "all" });
+    core.info(`Uploading live theme code from tmp dir to new theme`);
+    await themekit_default().command("new", {
+        password: SHOPIFY_AUTH.password,
+        store: SHOPIFY_AUTH.storeUrl,
+        name: themeName,
+        verbose: true,
+        dir: "./.shopify-tmp/",
+        noIgnore: true,
+    });
+    core.debug(`Deleting tmp directory ./.shopify-tmp/`);
+    external_fs_.rmdirSync("./.shopify-tmp/", { recursive: true });
+};
+const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
+    core.info(`Checking if theme "${shopifyThemeName}" already exists...`);
     // Theme may already exist - update the pre-existing if this is the case
-    let shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
-    const prexisting = shopifyTheme ? true : false;
+    const shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
+    const prexisting = !!shopifyTheme;
+    core.info(`Theme "${shopifyThemeName}" ${prexisting ? "already exists" : "does not exist"}`);
     // Theme does not exist in Shopify, create it
     if (!shopifyTheme) {
-        await createTheme(shopifyThemeName, SHOPIFY_AUTH);
-        shopifyTheme = await getThemeByName(shopifyThemeName, SHOPIFY_AUTH);
+        await duplicateLiveTheme(SHOPIFY_AUTH, shopifyThemeName, SHOPIFY_THEME_KIT_FLAGS);
+        core.info(`Creating theme "${shopifyThemeName}"...`);
         if (!shopifyTheme) {
             throw new Error(`Shopify theme with name '${shopifyThemeName}' should have been created and the theme found in Shopify however the theme cannot be found in Shopify.`);
         }
+        core.info(`Theme "${shopifyThemeName}" created successfully`);
     }
     return {
         prexisting,
@@ -10387,7 +10423,9 @@ const createOrFindThemeWithName = async (shopifyThemeName, SHOPIFY_AUTH) => {
 };
 const generateThemePreviewUrl = (shopifyThemeId, SHOPIFY_AUTH) => `https://${SHOPIFY_AUTH.storeUrl}/?preview_theme_id=${shopifyThemeId}`;
 const removeTheme = async (themeId, SHOPIFY_AUTH) => {
-    await axios_default().delete(`https://${SHOPIFY_AUTH.apiKey}:${SHOPIFY_AUTH.password}@${SHOPIFY_AUTH.storeUrl}/admin/api/2021-04/themes/${themeId}.json`);
+    await axios_default().delete(`https://${SHOPIFY_AUTH.storeUrl}/admin/api/2022-07/themes/${themeId}.json`, {
+        headers: { "X-Shopify-Access-Token": SHOPIFY_AUTH.password },
+    });
 };
 
 ;// CONCATENATED MODULE: ./src/index.help.ts
@@ -10395,7 +10433,15 @@ const removeTheme = async (themeId, SHOPIFY_AUTH) => {
 
 
 
-const UNIQUE_HIDDEN_COMMENT_STRING = "Comment created by GitHub Action `Shopify Theme Actions`";
+const UNIQUE_HIDDEN_COMMENT_STRING = (SHOPIFY_AUTH) => `Shopify Theme Actions for :${SHOPIFY_AUTH.storeUrl}`;
+const getThemeName = () => {
+    let branch = process.env.GITHUB_EVENT_NAME === "pull_request"
+        ? process.env.GITHUB_HEAD_REF
+        : process.env.GITHUB_REF_NAME;
+    const branchParts = branch.split("/");
+    branch = branchParts.pop();
+    return branch;
+};
 const removeDeploymentPreviewTheme = async (GITHUB_AUTH, SHOPIFY_AUTH) => {
     if (!GITHUB_AUTH.token)
         throw new Error(`Cannot remove deployment preview theme as 'GITHUB_TOKEN' is not set.`);
@@ -10404,7 +10450,7 @@ const removeDeploymentPreviewTheme = async (GITHUB_AUTH, SHOPIFY_AUTH) => {
         throw new Error(`Cannot remove deployment preview theme as job is not running from within a pull request.`);
     }
     const octokit = github.getOctokit(GITHUB_AUTH.token);
-    const comment = await findIssueComment(UNIQUE_HIDDEN_COMMENT_STRING, githubContext, octokit);
+    const comment = await findIssueComment(UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH), githubContext, octokit);
     if (comment && comment.body) {
         const shopifyThemeId = retrieveShopifyThemeIdFromIssueComment(comment.body);
         if (shopifyThemeId)
@@ -10414,9 +10460,8 @@ const removeDeploymentPreviewTheme = async (GITHUB_AUTH, SHOPIFY_AUTH) => {
         core.error(`Cannot find the last deployment preview comment so no theme can be removed.`);
 };
 const deploymentPreview = async (ACTION, SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS) => {
-    const pullRequestNumber = getPullRequestId();
-    const shopifyThemeName = `PR ${pullRequestNumber} - deployment preview`;
-    const { shopifyTheme } = await createOrFindThemeWithName(shopifyThemeName, SHOPIFY_AUTH);
+    const shopifyThemeName = getThemeName();
+    const { shopifyTheme } = await createOrFindThemeWithName(shopifyThemeName, SHOPIFY_AUTH, SHOPIFY_THEME_KIT_FLAGS);
     await deployment(SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyTheme.id);
 };
 const deployment = async (SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, shopifyThemeId) => {
@@ -10429,8 +10474,8 @@ const deployment = async (SHOPIFY_AUTH, GITHUB_AUTH, SHOPIFY_THEME_KIT_FLAGS, sh
         SHOPIFY_THEME_ID: shopifyThemeId.toString(),
         SHOPIFY_THEME_PREVIEW_URL: themePreviewUrl,
     });
-    const message = `:tada: Shopify theme has been deployed to theme id '${shopifyThemeId}' at '${SHOPIFY_AUTH.storeUrl}'. The theme can be previewed at: ${themePreviewUrl}`;
-    await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING, shopifyThemeId, GITHUB_AUTH);
+    const message = `:tada: '${SHOPIFY_AUTH.storeUrl}' preview at: \n <${themePreviewUrl}>`;
+    await createReplaceComment(message, UNIQUE_HIDDEN_COMMENT_STRING(SHOPIFY_AUTH), shopifyThemeId, GITHUB_AUTH);
 };
 
 ;// CONCATENATED MODULE: ./src/index.ts

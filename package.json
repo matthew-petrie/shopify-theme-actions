@@ -51,9 +51,10 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
+    "@actions/artifact": "^1.1.0",
     "@actions/core": "^1.3.0",
     "@actions/github": "^5.0.0",
-    "@shopify/themekit": "^1.1.8",
+    "@shopify/themekit": "^1.1.9",
     "axios": "^0.21.1",
     "dotenv": "^10.0.0"
   },
